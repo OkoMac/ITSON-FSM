@@ -370,6 +370,248 @@ export interface Notification {
   createdAt: string;
 }
 
+// ========================================
+// IDC SEF-GRADE ONBOARDING SYSTEM
+// ========================================
+
+// Candidate - System of record for onboarding
+export interface Candidate {
+  id: string;
+  fullName: string;
+  saIdNumber: string;
+  dateOfBirth: string;
+  email?: string;
+  phoneNumber?: string;
+  address?: string;
+
+  // Status tracking
+  status: 'NOT_STARTED' | 'IN_PROGRESS' | 'DOCUMENTS_UPLOADED' | 'PROCESSING' | 'AWAITING_CONFIRMATION' | 'VERIFIED' | 'SYNC_READY' | 'FAILED';
+
+  // POPIA compliance (HARD GATE)
+  popiaConsentGiven: boolean;
+  popiaConsentDate?: string;
+  popiaConsentSignature?: string;
+
+  // Metadata
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Onboarding session - Tracks 6-response contract
+export interface OnboardingSession {
+  id: string;
+  candidateId: string;
+
+  // State machine
+  state: 'NOT_STARTED' | 'IN_PROGRESS' | 'DOCUMENTS_UPLOADED' | 'PROCESSING' | 'AWAITING_CONFIRMATION' | 'VERIFIED' | 'SYNC_READY' | 'FAILED';
+
+  // Response tracking (MAX 6)
+  responseCount: number; // Hard limit: max 6
+  locked: boolean; // When true, no further responses allowed
+
+  // Session metadata
+  startedAt?: string;
+  completedAt?: string;
+  lockedAt?: string;
+  lockReason?: string;
+
+  // Metadata
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Document types (NON-NEGOTIABLE)
+export type OnboardingDocumentType =
+  | 'certified-sa-id'
+  | 'police-affidavit'
+  | 'proof-of-bank-account'
+  | 'proof-of-address'
+  | 'application-form'
+  | 'cv'
+  | 'popia-consent';
+
+// Document with extraction capability
+export interface OnboardingDocument {
+  id: string;
+  candidateId: string;
+  documentType: OnboardingDocumentType;
+
+  // File info
+  fileName: string;
+  filePath: string;
+  fileSize: number;
+  mimeType: string;
+
+  // Processing status
+  status: 'PENDING' | 'PROCESSING' | 'VALID' | 'FAILED' | 'REQUIRES_REUPLOAD';
+
+  // Extraction results
+  confidenceScore?: number;
+  extractedAt?: string;
+  processingError?: string;
+
+  // Audit trail
+  uploadedAt: string;
+  uploadedBy?: string;
+  uploadedVia: 'PWA' | 'WHATSAPP';
+
+  // Metadata
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Extracted field with confidence scoring
+export interface ExtractedField {
+  id: string;
+  documentId: string;
+  candidateId: string;
+
+  // Field data
+  fieldName: string;
+  value: string;
+  confidence: number; // 0-1
+
+  // Validation
+  validationStatus: 'PENDING' | 'VALID' | 'INVALID' | 'NEEDS_REVIEW';
+  validationReason?: string;
+
+  // Cross-document validation flags
+  conflictsWith?: string[]; // IDs of other fields with conflicting values
+  confirmedBy?: 'CANDIDATE' | 'ADMIN' | 'AUTO';
+  confirmedAt?: string;
+
+  // Metadata
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Checklist item types
+export type ChecklistItemType =
+  | 'IDENTITY_CONFIRMED'
+  | 'POPIA_CONSENT'
+  | 'DOC_CERTIFIED_ID'
+  | 'DOC_POLICE_AFFIDAVIT'
+  | 'DOC_BANK_PROOF'
+  | 'DOC_ADDRESS_PROOF'
+  | 'DOC_APPLICATION_FORM'
+  | 'DOC_CV'
+  | 'DATA_PERSONAL_CONFIRMED'
+  | 'DATA_BANK_CONFIRMED'
+  | 'DATA_ADDRESS_CONFIRMED'
+  | 'DATA_APPLICATION_CONFIRMED'
+  | 'FINAL_DECLARATION';
+
+// Checklist item for tracking completion
+export interface ChecklistItem {
+  id: string;
+  candidateId: string;
+  itemType: ChecklistItemType;
+
+  // Completion tracking
+  completed: boolean;
+  completedAt?: string;
+  completedBy?: string;
+
+  // Validation
+  validationStatus: 'PENDING' | 'VALID' | 'INVALID';
+  validationNotes?: string;
+
+  // Metadata
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Payroll sync record (Kwantu is read-only payroll authority)
+export interface PayrollSync {
+  id: string;
+  candidateId: string;
+
+  // Sync status
+  syncStatus: 'PENDING' | 'SYNCING' | 'SYNCED' | 'FAILED';
+
+  // Authorization (REQUIRED)
+  authorizedBy: string; // User ID who authorized sync
+  authorizedAt: string;
+  authorizationReason: string;
+
+  // Sync details
+  syncedAt?: string;
+  syncError?: string;
+  kwantuRecordId?: string;
+
+  // Metadata
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Audit log (IMMUTABLE)
+export interface OnboardingAuditLog {
+  id: string;
+
+  // Entity being audited
+  entityType: 'CANDIDATE' | 'SESSION' | 'DOCUMENT' | 'FIELD' | 'CHECKLIST' | 'PAYROLL';
+  entityId: string;
+
+  // Action taken
+  action: 'CREATED' | 'UPDATED' | 'DELETED' | 'STATE_TRANSITION' | 'OVERRIDE' | 'AUTHORIZATION' | 'REJECTION';
+
+  // Actor
+  actor: string; // User ID or 'SYSTEM'
+  actorRole?: UserRole;
+
+  // State changes
+  previousState?: any;
+  newState?: any;
+
+  // Reason (REQUIRED for overrides and rejections)
+  reasonCode?: string;
+  reasonDescription?: string;
+
+  // Context
+  ipAddressHash?: string;
+  deviceInfo?: string;
+  sessionId?: string;
+
+  // Timestamp (IMMUTABLE)
+  timestamp: string;
+}
+
+// Document extraction result contract
+export interface DocumentExtractionResult {
+  extractedFields: Array<{
+    fieldName: string;
+    value: string;
+    confidence: number;
+  }>;
+  confidenceScores: Record<string, number>;
+  flags: string[]; // Issues or warnings
+  pageCount: number;
+  rawText?: string;
+  processingTimeMs: number;
+}
+
+// Onboarding state machine events
+export type OnboardingEvent =
+  | 'OnboardingStarted'
+  | 'DocumentsUploaded'
+  | 'ExtractionCompleted'
+  | 'ValidationFailed'
+  | 'ConfirmationCompleted'
+  | 'OnboardingVerified'
+  | 'PayrollSyncAuthorized'
+  | 'SessionLocked'
+  | 'OverrideApplied';
+
+// Event payload
+export interface OnboardingEventPayload {
+  event: OnboardingEvent;
+  candidateId: string;
+  sessionId: string;
+  timestamp: string;
+  data?: Record<string, any>;
+  actor?: string;
+}
+
 // App state
 export interface AppState {
   user: User | null;

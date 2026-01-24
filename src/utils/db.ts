@@ -8,6 +8,10 @@ import type {
   KwantuSyncRecord,
   AuditLog,
   Notification,
+  OnboardingSession,
+  ExtractedField,
+  ChecklistItem,
+  PayrollSync,
 } from '@/types';
 
 export class YetomoDatabase extends Dexie {
@@ -19,10 +23,15 @@ export class YetomoDatabase extends Dexie {
   kwantuSyncRecords!: Table<KwantuSyncRecord, string>;
   auditLogs!: Table<AuditLog, string>;
   notifications!: Table<Notification, string>;
+  onboardingSessions!: Table<OnboardingSession, string>;
+  extractedFields!: Table<ExtractedField, string>;
+  checklistItems!: Table<ChecklistItem, string>;
+  payrollSyncs!: Table<PayrollSync, string>;
 
   constructor() {
     super('YetomoDatabase');
 
+    // Version 1: Original schema
     this.version(1).stores({
       participants: 'id, userId, idNumber, onboardingStatus, status, siteId, createdAt',
       attendanceRecords: 'id, participantId, siteId, date, syncStatus, createdAt',
@@ -32,6 +41,22 @@ export class YetomoDatabase extends Dexie {
       kwantuSyncRecords: 'id, recordType, recordId, status, createdAt',
       auditLogs: 'id, userId, resource, resourceId, timestamp',
       notifications: 'id, userId, type, read, [userId+read], createdAt',
+    });
+
+    // Version 2: Add comprehensive onboarding system
+    this.version(2).stores({
+      participants: 'id, userId, idNumber, onboardingStatus, status, siteId, createdAt',
+      attendanceRecords: 'id, participantId, siteId, date, syncStatus, createdAt',
+      sites: 'id, name, status, createdAt',
+      tasks: 'id, siteId, assignedToId, assignedById, status, priority, dueDate, createdAt',
+      documents: 'id, participantId, candidateId, type, verificationStatus, status, createdAt',
+      kwantuSyncRecords: 'id, recordType, recordId, status, createdAt',
+      auditLogs: 'id, userId, entityType, entityId, action, timestamp',
+      notifications: 'id, userId, type, read, [userId+read], createdAt',
+      onboardingSessions: 'id, candidateId, state, locked, createdAt',
+      extractedFields: 'id, documentId, candidateId, fieldName, createdAt',
+      checklistItems: 'id, candidateId, itemType, completed, createdAt',
+      payrollSyncs: 'id, candidateId, syncStatus, createdAt',
     });
   }
 }
