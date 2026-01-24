@@ -174,8 +174,11 @@ export interface Task {
   title: string;
   description: string;
   siteId: string;
+  siteName?: string; // Display name for the site
   assignedToId: string;
+  assignedToName?: string; // Display name for assigned worker
   assignedById: string;
+  assignedByName?: string; // Display name for supervisor who assigned
 
   // Scheduling
   dueDate: string;
@@ -200,6 +203,7 @@ export interface Task {
 
   // Completion
   completedAt?: string;
+  completedByName?: string; // Display name for who completed the task
   actualDuration?: number;
   proofPhotos: string[];
   completionNote?: string;
@@ -207,7 +211,7 @@ export interface Task {
   // Review
   reviewedById?: string;
   reviewedAt?: string;
-  reviewFeedback?: string;
+  supervisorFeedback?: string; // Alias for reviewFeedback
   qualityRating?: number; // 1-5 stars
 
   // Metadata
