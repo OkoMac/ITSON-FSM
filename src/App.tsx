@@ -13,6 +13,7 @@ const TasksPage = lazy(() => import('@/pages/TasksPage'));
 const SitesPage = lazy(() => import('@/pages/SitesPage'));
 const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
 const AdminPage = lazy(() => import('@/pages/AdminPage'));
+const ReportsPage = lazy(() => import('@/pages/ReportsPage'));
 
 // Layout components
 import { MainLayout } from '@/components/layout/MainLayout';
@@ -105,6 +106,14 @@ const App: React.FC = () => {
                 element={
                   <ProtectedRoute roles={['property-point', 'project-manager']}>
                     <AdminPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="reports"
+                element={
+                  <ProtectedRoute roles={['property-point', 'project-manager']}>
+                    <ReportsPage />
                   </ProtectedRoute>
                 }
               />
