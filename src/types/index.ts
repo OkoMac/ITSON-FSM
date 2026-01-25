@@ -20,6 +20,7 @@ export interface Participant {
   idNumber: string;
   firstName: string;
   lastName: string;
+  fullName: string; // Computed: firstName + lastName
   email: string;
   phoneNumber: string;
   dateOfBirth: string;
@@ -45,6 +46,7 @@ export interface Participant {
 
   // Employment
   siteId?: string;
+  siteName?: string; // Display name for the site
   supervisorId?: string;
   startDate?: string;
   endDate?: string;
@@ -136,14 +138,21 @@ export interface AttendanceRecord {
   date: string;
 
   // Check-in
-  checkInTime: string;
-  checkInMethod: 'face' | 'fingerprint';
-  checkInBiometricConfidence: number;
-  checkInGPS: {
+  checkInTime?: string;
+  checkInMethod?: 'face' | 'fingerprint';
+  checkInBiometricConfidence?: number;
+  biometricConfidence?: number; // Alias for checkInBiometricConfidence
+  checkInGPS?: {
     lat: number;
     lng: number;
   };
-  checkInPhotoUrl: string;
+  checkInLocation?: {
+    latitude: number;
+    longitude: number;
+    accuracy: number;
+  };
+  checkInPhotoUrl?: string;
+  checkInPhoto?: string; // Base64 photo data
 
   // Check-out
   checkOutTime?: string;
@@ -153,7 +162,16 @@ export interface AttendanceRecord {
     lat: number;
     lng: number;
   };
+  checkOutLocation?: {
+    latitude: number;
+    longitude: number;
+    accuracy: number;
+  };
   checkOutPhotoUrl?: string;
+  checkOutPhoto?: string; // Base64 photo data
+
+  // Status
+  status?: 'present' | 'absent' | 'late' | 'excused';
 
   // Duration
   duration?: number; // in minutes
