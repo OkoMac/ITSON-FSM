@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-glass-black text-text-primary font-sf-pro;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+@layer components {
+  /* Glass morphism variants */
+  .glass-card-elevated {
+    @apply glass-card shadow-glass-lg;
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-200;
+  }
+
+  .glass-card-hover:hover {
+    @apply scale-105 shadow-glow;
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply glass-button px-24 py-16 rounded-glass text-base font-semibold;
+    @apply bg-accent-blue hover:bg-accent-blue-light;
+    @apply text-text-primary border-accent-blue;
+    @apply shadow-glow hover:shadow-glow;
+  }
+
+  .btn-secondary {
+    @apply glass-button px-24 py-16 rounded-glass text-base font-semibold;
+    @apply text-accent-blue border-accent-blue hover:border-accent-blue-light;
+  }
+
+  .btn-ghost {
+    @apply px-16 py-12 rounded-glass text-base font-medium;
+    @apply text-accent-blue hover:bg-white/5;
+    @apply transition-all duration-200;
+  }
+
+  /* Input variants */
+  .input-field {
+    @apply glass-input px-16 py-12 text-base text-text-primary;
+    @apply placeholder:text-text-tertiary;
+    @apply w-full;
+  }
+
+  .input-error {
+    @apply border-status-error focus:border-status-error;
+  }
+
+  .input-success {
+    @apply border-status-success;
+  }
+
+  /* Status badges */
+  .badge {
+    @apply inline-flex items-center px-12 py-4 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-status-success/20 text-status-success border border-status-success/30;
+  }
+
+  .badge-warning {
+    @apply badge bg-status-warning/20 text-status-warning border border-status-warning/30;
+  }
+
+  .badge-error {
+    @apply badge bg-status-error/20 text-status-error border border-status-error/30;
+  }
+
+  .badge-info {
+    @apply badge bg-accent-blue/20 text-accent-blue border border-accent-blue/30;
+  }
+
+  /* Skeleton loaders */
+  .skeleton-text {
+    @apply skeleton h-4 rounded w-full;
+  }
+
+  .skeleton-title {
+    @apply skeleton h-8 rounded w-3/4;
+  }
+
+  .skeleton-avatar {
+    @apply skeleton rounded-full;
+  }
+
+  /* Page layouts */
+  .page-container {
+    @apply min-h-screen bg-gradient-to-b from-glass-black to-glass-black-light;
+    @apply p-16 md:p-24 lg:p-32;
+  }
+
+  .content-wrapper {
+    @apply max-w-7xl mx-auto;
+  }
+
+  /* Animations */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+
+  /* Focus visible for accessibility */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue focus-visible:ring-offset-2 focus-visible:ring-offset-glass-black;
+  }
+
+  /* Touch targets for mobile */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent-blue to-accent-blue-light bg-clip-text text-transparent;
+  }
+
+  .bg-gradient-radial {
+    background: radial-gradient(circle at center, rgba(0, 113, 227, 0.1) 0%, transparent 70%);
+  }
+
+  .backdrop-blur-glass {
+    backdrop-filter: blur(40px) saturate(180%);
+  }
+}
+
+/* Media query utilities */
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    @apply fixed bottom-0 left-0 right-0 z-50;
+    @apply glass-card rounded-t-glass-lg border-t;
+    @apply pb-safe;
+  }
+}
+
+/* Safe area insets for iOS */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+}
