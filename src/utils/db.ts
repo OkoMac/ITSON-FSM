@@ -12,6 +12,7 @@ import type {
   ExtractedField,
   ChecklistItem,
   PayrollSync,
+  ImpactStory,
 } from '@/types';
 
 export class YetomoDatabase extends Dexie {
@@ -27,6 +28,7 @@ export class YetomoDatabase extends Dexie {
   extractedFields!: Table<ExtractedField, string>;
   checklistItems!: Table<ChecklistItem, string>;
   payrollSyncs!: Table<PayrollSync, string>;
+  impactStories!: Table<ImpactStory, string>;
 
   constructor() {
     super('YetomoDatabase');
@@ -57,6 +59,23 @@ export class YetomoDatabase extends Dexie {
       extractedFields: 'id, documentId, candidateId, fieldName, createdAt',
       checklistItems: 'id, candidateId, itemType, completed, createdAt',
       payrollSyncs: 'id, candidateId, syncStatus, createdAt',
+    });
+
+    // Version 3: Add impact stories
+    this.version(3).stores({
+      participants: 'id, userId, idNumber, onboardingStatus, status, siteId, createdAt',
+      attendanceRecords: 'id, participantId, siteId, date, syncStatus, createdAt',
+      sites: 'id, name, status, createdAt',
+      tasks: 'id, siteId, assignedToId, assignedById, status, priority, dueDate, createdAt',
+      documents: 'id, participantId, candidateId, type, verificationStatus, status, createdAt',
+      kwantuSyncRecords: 'id, recordType, recordId, status, createdAt',
+      auditLogs: 'id, userId, entityType, entityId, action, timestamp',
+      notifications: 'id, userId, type, read, [userId+read], createdAt',
+      onboardingSessions: 'id, candidateId, state, locked, createdAt',
+      extractedFields: 'id, documentId, candidateId, fieldName, createdAt',
+      checklistItems: 'id, candidateId, itemType, completed, createdAt',
+      payrollSyncs: 'id, candidateId, syncStatus, createdAt',
+      impactStories: 'id, participantId, status, createdBy, createdAt, publishedAt',
     });
   }
 }
@@ -259,6 +278,68 @@ export const dbUtils = {
     );
   },
 
+  // Impact Stories
+  async addImpactStory(story: ImpactStory): Promise<string> {
+    return await db.impactStories.add(story);
+  },
+
+  async getImpactStoriesByParticipant(participantId: string): Promise<ImpactStory[]> {
+    return await db.impactStories
+      .where('participantId')
+      .equals(participantId)
+      .reverse()
+      .sortBy('createdAt');
+  },
+
+  async getImpactStoriesByStatus(status: ImpactStory['status']): Promise<ImpactStory[]> {
+    return await db.impactStories
+      .where('status')
+      .equals(status)
+      .reverse()
+      .sortBy('createdAt');
+  },
+
+  async getPublishedImpactStories(): Promise<ImpactStory[]> {
+    return await db.impactStories
+      .where('status')
+      .equals('published')
+      .reverse()
+      .sortBy('publishedAt');
+  },
+
+  async updateImpactStoryStatus(
+    id: string,
+    status: ImpactStory['status'],
+    reviewedBy?: string
+  ): Promise<void> {
+    const updateData: Partial<ImpactStory> = {
+      status,
+      updatedAt: new Date().toISOString(),
+    };
+
+    if (status === 'approved' || status === 'published') {
+      updateData.reviewedBy = reviewedBy;
+      updateData.reviewedAt = new Date().toISOString();
+    }
+
+    if (status === 'published') {
+      updateData.publishedAt = new Date().toISOString();
+    }
+
+    await db.impactStories.update(id, updateData);
+  },
+
+  async updateImpactStory(id: string, data: Partial<ImpactStory>): Promise<void> {
+    await db.impactStories.update(id, {
+      ...data,
+      updatedAt: new Date().toISOString(),
+    });
+  },
+
+  async deleteImpactStory(id: string): Promise<void> {
+    await db.impactStories.delete(id);
+  },
+
   // Clear all data (for logout/reset)
   async clearAllData(): Promise<void> {
     await Promise.all([
@@ -270,6 +351,7 @@ export const dbUtils = {
       db.kwantuSyncRecords.clear(),
       db.auditLogs.clear(),
       db.notifications.clear(),
+      db.impactStories.clear(),
     ]);
   },
 };

@@ -6,7 +6,9 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GlassCard, Button, Badge } from '@/components/ui';
+import { SyncModal } from '@/components/admin';
 import { db } from '@/utils/db';
 import type { Participant, AttendanceRecord } from '@/types';
 
@@ -20,6 +22,7 @@ interface DashboardStats {
   pendingTasks: number;
   completedTasksToday: number;
   syncPending: number;
+  pendingStoriesReview: number;
 }
 
 const AdminPage: React.FC = () => {
@@ -33,11 +36,14 @@ const AdminPage: React.FC = () => {
     pendingTasks: 0,
     completedTasksToday: 0,
     syncPending: 0,
+    pendingStoriesReview: 0,
   });
 
   const [recentParticipants, setRecentParticipants] = useState<Participant[]>([]);
   const [recentAttendance, setRecentAttendance] = useState<AttendanceRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadDashboardData();
@@ -48,11 +54,12 @@ const AdminPage: React.FC = () => {
 
     try {
       // Load all data in parallel
-      const [participants, attendance, sitesData, tasks] = await Promise.all([
+      const [participants, attendance, sitesData, tasks, stories] = await Promise.all([
         db.participants.toArray(),
         db.attendanceRecords.toArray(),
         db.sites.toArray(),
         db.tasks.toArray(),
+        db.impactStories.toArray(),
       ]);
 
       // Calculate stats
@@ -86,6 +93,8 @@ const AdminPage: React.FC = () => {
       const syncPending = attendance.filter((a) => a.syncStatus === 'pending')
         .length;
 
+      const pendingStoriesReview = stories.filter((s) => s.status === 'review').length;
+
       setStats({
         totalParticipants: participants.length,
         activeParticipants,
@@ -96,6 +105,7 @@ const AdminPage: React.FC = () => {
         pendingTasks,
         completedTasksToday,
         syncPending,
+        pendingStoriesReview,
       });
 
       // Set recent data
@@ -572,7 +582,10 @@ const AdminPage: React.FC = () => {
             </span>
           </button>
 
-          <button className="p-24 glass-button rounded-glass text-center hover:scale-105 transition-transform">
+          <button
+            onClick={() => setIsSyncModalOpen(true)}
+            className="p-24 glass-button rounded-glass text-center hover:scale-105 transition-transform"
+          >
             <svg
               className="w-8 h-8 mx-auto mb-8 text-accent-blue"
               fill="none"
@@ -609,8 +622,44 @@ const AdminPage: React.FC = () => {
               Audit Logs
             </span>
           </button>
+
+          <button
+            onClick={() => navigate('/stories')}
+            className="p-24 glass-button rounded-glass text-center hover:scale-105 transition-transform relative"
+          >
+            <svg
+              className="w-8 h-8 mx-auto mb-8 text-accent-blue"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              />
+            </svg>
+            <span className="text-sm font-medium text-text-primary">
+              Review Stories
+            </span>
+            {stats.pendingStoriesReview > 0 && (
+              <Badge
+                variant="warning"
+                className="absolute top-16 right-16"
+              >
+                {stats.pendingStoriesReview}
+              </Badge>
+            )}
+          </button>
         </div>
       </GlassCard>
+
+      {/* Kwantu Sync Modal */}
+      <SyncModal
+        isOpen={isSyncModalOpen}
+        onClose={() => setIsSyncModalOpen(false)}
+      />
     </div>
   );
 };

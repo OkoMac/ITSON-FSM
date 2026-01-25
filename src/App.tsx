@@ -14,6 +14,7 @@ const SitesPage = lazy(() => import('@/pages/SitesPage'));
 const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
 const AdminPage = lazy(() => import('@/pages/AdminPage'));
 const ReportsPage = lazy(() => import('@/pages/ReportsPage'));
+const StoriesPage = lazy(() => import('@/pages/StoriesPage'));
 
 // Layout components
 import { MainLayout } from '@/components/layout/MainLayout';
@@ -98,6 +99,7 @@ const App: React.FC = () => {
               <Route path="check-in" element={<CheckInPage />} />
               <Route path="tasks" element={<TasksPage />} />
               <Route path="sites" element={<SitesPage />} />
+              <Route path="stories" element={<StoriesPage />} />
               <Route path="profile" element={<ProfilePage />} />
 
               {/* Admin routes */}
