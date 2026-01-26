@@ -30,7 +30,7 @@ export const AIAssistant: React.FC = () => {
       const welcomeMessage: AIMessage = {
         id: crypto.randomUUID(),
         role: 'assistant',
-        content: `Hello ${user?.name.split(' ')[0]}! 👋 I'm your YETOMO assistant. How can I help you today?`,
+        content: `Hello ${user?.name.split(' ')[0]}! 👋 I'm your ITSON FSM assistant. How can I help you today?`,
         timestamp: new Date().toISOString(),
         suggestions: getSuggestedQuestions({
           user: user!,

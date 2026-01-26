@@ -162,8 +162,8 @@ export const Sidebar: React.FC = () => {
       <div className="flex flex-col h-full">
         {/* Logo */}
         <div className="p-24 border-b border-white/10">
-          <h1 className="text-2xl font-bold text-gradient">YETOMO</h1>
-          <p className="text-xs text-text-secondary mt-1">Governance Platform</p>
+          <h1 className="text-2xl font-bold text-gradient">ITSON FSM</h1>
+          <p className="text-xs text-text-secondary mt-1">Field Service Management</p>
         </div>
 
         {/* Navigation */}

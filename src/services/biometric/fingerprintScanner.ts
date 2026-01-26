@@ -78,7 +78,7 @@ export async function enrollFingerprint(
     const publicKeyOptions: PublicKeyCredentialCreationOptions = {
       challenge,
       rp: {
-        name: 'YETOMO Platform',
+        name: 'ITSON FSM Platform',
         id: window.location.hostname,
       },
       user: {

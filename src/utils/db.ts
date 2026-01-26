@@ -15,7 +15,7 @@ import type {
   ImpactStory,
 } from '@/types';
 
-export class YetomoDatabase extends Dexie {
+export class ItsonFSMDatabase extends Dexie {
   participants!: Table<Participant, string>;
   attendanceRecords!: Table<AttendanceRecord, string>;
   sites!: Table<Site, string>;
@@ -31,7 +31,7 @@ export class YetomoDatabase extends Dexie {
   impactStories!: Table<ImpactStory, string>;
 
   constructor() {
-    super('YetomoDatabase');
+    super('ItsonFSMDatabase');
 
     // Version 1: Original schema
     this.version(1).stores({
@@ -80,7 +80,7 @@ export class YetomoDatabase extends Dexie {
   }
 }
 
-export const db = new YetomoDatabase();
+export const db = new ItsonFSMDatabase();
 
 // Database utilities
 export const dbUtils = {

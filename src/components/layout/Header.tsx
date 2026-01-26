@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
     <header className="sticky top-0 z-30 glass-card border-b border-white/10 lg:hidden">
       <div className="flex items-center justify-between p-16">
         <div>
-          <h1 className="text-xl font-bold text-gradient">YETOMO</h1>
+          <h1 className="text-xl font-bold text-gradient">ITSON FSM</h1>
           {user && (
             <p className="text-sm text-text-secondary">
               {getGreeting()}, {user.name.split(' ')[0]}

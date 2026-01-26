@@ -121,7 +121,7 @@ What would you like to know more about?`;
   // Getting started
   else if (lowerQuery.includes('start') || lowerQuery.includes('begin') || lowerQuery.includes('new')) {
     if (isWorker) {
-      content = `Welcome to YETOMO! Here's how to get started:
+      content = `Welcome to ITSON FSM! Here's how to get started:
 
 1. Complete your onboarding profile
 2. Enroll biometric verification
@@ -132,7 +132,7 @@ What would you like to know more about?`;
 Need help with any of these steps?`;
       suggestions = ['Complete onboarding', 'Biometric enrollment', 'My first check-in'];
     } else {
-      content = `Welcome to the YETOMO Admin Dashboard! Key features:
+      content = `Welcome to the ITSON FSM Admin Dashboard! Key features:
 
 1. Participant Management - Review and approve applications
 2. Attendance Tracking - Monitor check-ins and site presence

@@ -279,7 +279,7 @@ function generatePDFHTML(
   `}
 
   <div class="footer">
-    <p>YETOMO Digital Delivery & Governance Platform | Generated on ${now}</p>
+    <p>ITSON FSM Digital Delivery & Governance Platform | Generated on ${now}</p>
     <p style="margin-top: 5px; font-size: 7pt;">This is a computer-generated report. For official use only.</p>
   </div>
 </body>

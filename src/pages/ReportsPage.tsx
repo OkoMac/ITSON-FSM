@@ -188,7 +188,7 @@ const ReportsPage: React.FC = () => {
                 reportType === 'participants' || reportType === 'compliance'
                   ? 'All time'
                   : `${startDate} to ${endDate}`,
-              organizationName: 'YETOMO Platform',
+              organizationName: 'ITSON FSM Platform',
             }
           );
           break;
