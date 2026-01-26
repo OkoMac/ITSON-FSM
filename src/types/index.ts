@@ -374,7 +374,22 @@ export interface Notification {
   icon?: string;
 
   // Type
-  type: 'task-assigned' | 'task-approved' | 'check-in-reminder' | 'document-pending' | 'compliance-issue' | 'general';
+  type:
+    | 'task-assigned'
+    | 'task-completed'
+    | 'task-approved'
+    | 'attendance-reminder'
+    | 'check-in-reminder'
+    | 'document-pending'
+    | 'document-approved'
+    | 'document-rejected'
+    | 'story-approved'
+    | 'story-published'
+    | 'sync-completed'
+    | 'sync-failed'
+    | 'system-announcement'
+    | 'compliance-issue'
+    | 'general';
 
   // Action
   actionUrl?: string;
@@ -385,6 +400,7 @@ export interface Notification {
   readAt?: string;
 
   // Metadata
+  metadata?: Record<string, any>;
   createdAt: string;
 }
 
