@@ -24,7 +24,7 @@ export const PWAInstallPrompt: React.FC = () => {
 
           <div className="flex-1">
             <h3 className="text-base font-semibold text-text-primary mb-4">
-              Install YETOMO App
+              Install ITSON FSM App
             </h3>
             <p className="text-sm text-text-secondary mb-16">
               Install this app on your device for quick access and offline support.

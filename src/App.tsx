@@ -13,11 +13,16 @@ const TasksPage = lazy(() => import('@/pages/TasksPage'));
 const SitesPage = lazy(() => import('@/pages/SitesPage'));
 const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
 const AdminPage = lazy(() => import('@/pages/AdminPage'));
+const ReportsPage = lazy(() => import('@/pages/ReportsPage'));
+const StoriesPage = lazy(() => import('@/pages/StoriesPage'));
+const AnalyticsPage = lazy(() => import('@/pages/AnalyticsPage'));
+const NotificationsPage = lazy(() => import('@/pages/NotificationsPage'));
 
 // Layout components
 import { MainLayout } from '@/components/layout/MainLayout';
 import { OfflineBanner } from '@/components/shared/OfflineBanner';
 import { PWAInstallPrompt } from '@/components/shared/PWAInstallPrompt';
+import { AIAssistant } from '@/components/ai';
 
 // Loading fallback
 const PageLoader: React.FC = () => (
@@ -61,6 +66,7 @@ const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const App: React.FC = () => {
   const { isOnline } = useAppStore();
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <BrowserRouter>
@@ -70,6 +76,9 @@ const App: React.FC = () => {
 
         {/* PWA install prompt */}
         <PWAInstallPrompt />
+
+        {/* AI Assistant */}
+        {isAuthenticated && <AIAssistant />}
 
         <Suspense fallback={<PageLoader />}>
           <Routes>
@@ -97,6 +106,8 @@ const App: React.FC = () => {
               <Route path="check-in" element={<CheckInPage />} />
               <Route path="tasks" element={<TasksPage />} />
               <Route path="sites" element={<SitesPage />} />
+              <Route path="stories" element={<StoriesPage />} />
+              <Route path="notifications" element={<NotificationsPage />} />
               <Route path="profile" element={<ProfilePage />} />
 
               {/* Admin routes */}
@@ -105,6 +116,22 @@ const App: React.FC = () => {
                 element={
                   <ProtectedRoute roles={['property-point', 'project-manager']}>
                     <AdminPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="reports"
+                element={
+                  <ProtectedRoute roles={['property-point', 'project-manager']}>
+                    <ReportsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="analytics"
+                element={
+                  <ProtectedRoute roles={['supervisor', 'property-point', 'project-manager']}>
+                    <AnalyticsPage />
                   </ProtectedRoute>
                 }
               />

@@ -69,6 +69,20 @@ const navItems: NavItem[] = [
     roles: ['supervisor', 'project-manager', 'property-point'],
   },
   {
+    path: '/stories',
+    label: 'Impact Stories',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+        />
+      </svg>
+    ),
+  },
+  {
     path: '/onboarding',
     label: 'Onboarding',
     icon: (
@@ -103,6 +117,36 @@ const navItems: NavItem[] = [
     ),
     roles: ['project-manager', 'property-point'],
   },
+  {
+    path: '/analytics',
+    label: 'Analytics',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+        />
+      </svg>
+    ),
+    roles: ['supervisor', 'project-manager', 'property-point'],
+  },
+  {
+    path: '/reports',
+    label: 'Reports',
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+        />
+      </svg>
+    ),
+    roles: ['project-manager', 'property-point'],
+  },
 ];
 
 export const Sidebar: React.FC = () => {
@@ -118,8 +162,8 @@ export const Sidebar: React.FC = () => {
       <div className="flex flex-col h-full">
         {/* Logo */}
         <div className="p-24 border-b border-white/10">
-          <h1 className="text-2xl font-bold text-gradient">YETOMO</h1>
-          <p className="text-xs text-text-secondary mt-1">Governance Platform</p>
+          <h1 className="text-2xl font-bold text-gradient">ITSON FSM</h1>
+          <p className="text-xs text-text-secondary mt-1">Field Service Management</p>
         </div>
 
         {/* Navigation */}

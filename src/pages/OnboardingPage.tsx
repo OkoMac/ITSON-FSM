@@ -1,5 +1,5 @@
 /**
- * YETOMO / LEEGRANT FSM — IDC SEF–GRADE ONBOARDING SYSTEM
+ * ITSON FSM / LEEGRANT FSM — IDC SEF–GRADE ONBOARDING SYSTEM
  *
  * Strict 6-response onboarding with full compliance
  *
@@ -533,7 +533,7 @@ const OnboardingPage: React.FC = () => {
   const renderStartScreen = () => (
     <GlassCard className="text-center py-64">
       <div className="mb-32">
-        <h1 className="text-4xl font-bold text-gradient mb-16">YETOMO Onboarding</h1>
+        <h1 className="text-4xl font-bold text-gradient mb-16">ITSON FSM Onboarding</h1>
         <p className="text-text-secondary mb-8">IDC Social Employment Fund Programme</p>
         <p className="text-text-tertiary text-sm">Compliance-first onboarding system</p>
       </div>

@@ -39,4 +39,4 @@ coverage/
 # PWA
 sw.js
 workbox-*.js
-yetomo-platform-deploy.tar.gz
+*-deploy.tar.gz
