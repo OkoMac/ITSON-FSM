@@ -37,9 +37,9 @@ const LoginPage: React.FC = () => {
         <GlassCard>
           {/* Logo */}
           <div className="text-center mb-32">
-            <h1 className="text-4xl font-bold text-gradient mb-8">YETOMO</h1>
+            <h1 className="text-4xl font-bold text-gradient mb-8">ITSON FSM</h1>
             <p className="text-text-secondary text-sm">
-              Digital Delivery & Governance Platform
+              Field Service Management Platform
             </p>
           </div>
 
@@ -94,7 +94,7 @@ const LoginPage: React.FC = () => {
             {/* Demo credentials */}
             <div className="mt-16 p-16 rounded-glass bg-white/5">
               <p className="text-xs text-text-secondary mb-8">Demo Credentials:</p>
-              <p className="text-xs text-text-tertiary">Email: demo@yetomo.com</p>
+              <p className="text-xs text-text-tertiary">Email: demo@itsonfsm.com</p>
               <p className="text-xs text-text-tertiary">Password: any password</p>
             </div>
           </form>

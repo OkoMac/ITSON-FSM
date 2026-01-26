@@ -9,9 +9,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'YETOMO Governance Platform',
-        short_name: 'YETOMO',
-        description: 'Digital Delivery & Governance for SEF Programme',
+        name: 'ITSON FSM Platform',
+        short_name: 'ITSON FSM',
+        description: 'Field Service Management Platform',
         theme_color: '#0a0a0a',
         background_color: '#000000',
         display: 'standalone',

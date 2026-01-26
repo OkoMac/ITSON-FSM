@@ -1,10 +1,10 @@
-# YETOMO Digital Delivery & Governance Platform
+# ITSON FSM - Field Service Management Platform
 
-A modern Progressive Web Application (PWA) for managing the IDC Social Employment Fund (SEF) Programme. Built with cutting-edge technologies and featuring a stunning black liquid glass design inspired by Apple Music, Tesla, and Netflix.
+A modern Progressive Web Application (PWA) for managing field service operations. Built with cutting-edge technologies and featuring a stunning black liquid glass design inspired by Apple Music, Tesla, and Netflix.
 
 ## 🎯 Overview
 
-YETOMO is a comprehensive field service management system that provides:
+ITSON FSM is a comprehensive field service management system that provides:
 
 - **Biometric Attendance** - Face recognition and fingerprint check-in/out
 - **Compliance Tracking** - Document verification and POPIA compliance
@@ -214,7 +214,7 @@ The app uses IndexedDB for offline-first data storage:
 
 ### Test Credentials
 ```
-Email: demo@yetomo.com
+Email: demo@itsonfsm.com
 Password: any password
 ```
 
@@ -241,8 +241,8 @@ This generates optimized files in `dist/` directory.
 ### Environment Variables
 Create `.env` file:
 ```
-VITE_API_BASE_URL=https://api.yetomo.com
-VITE_KWANTU_API_URL=https://kwantu.yetomo.com
+VITE_API_BASE_URL=https://api.itsonfsm.com
+VITE_KWANTU_API_URL=https://kwantu.itsonfsm.com
 VITE_MAPBOX_TOKEN=your_mapbox_token
 VITE_BIOMETRIC_API_KEY=your_biometric_key
 ```
@@ -308,7 +308,7 @@ This is a private project for the SEF Programme. For questions or issues:
 For technical support or feature requests, please contact:
 - Technical Lead: [Your Name]
 - Project Manager: [PM Name]
-- Email: support@yetomo.com
+- Email: support@itsonfsm.com
 
 ---
 
