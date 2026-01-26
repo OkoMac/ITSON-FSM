@@ -37,7 +37,6 @@ export async function generateAIResponse(
   // Role-based responses
   const isWorker = context.user.role === 'worker';
   const isAdmin = ['property-point', 'project-manager'].includes(context.user.role);
-  const isSupervisor = context.user.role === 'supervisor';
 
   // Check-in/Attendance queries
   if (lowerQuery.includes('check in') || lowerQuery.includes('attendance')) {

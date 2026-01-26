@@ -22,6 +22,7 @@ const NotificationsPage = lazy(() => import('@/pages/NotificationsPage'));
 import { MainLayout } from '@/components/layout/MainLayout';
 import { OfflineBanner } from '@/components/shared/OfflineBanner';
 import { PWAInstallPrompt } from '@/components/shared/PWAInstallPrompt';
+import { AIAssistant } from '@/components/ai';
 
 // Loading fallback
 const PageLoader: React.FC = () => (
@@ -65,6 +66,7 @@ const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const App: React.FC = () => {
   const { isOnline } = useAppStore();
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <BrowserRouter>
@@ -74,6 +76,9 @@ const App: React.FC = () => {
 
         {/* PWA install prompt */}
         <PWAInstallPrompt />
+
+        {/* AI Assistant */}
+        {isAuthenticated && <AIAssistant />}
 
         <Suspense fallback={<PageLoader />}>
           <Routes>
