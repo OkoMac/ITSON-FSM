@@ -84,6 +84,12 @@ export interface ParticipantDocument {
   // OCR and AI validation
   ocrData?: Record<string, any>;
   qualityScore?: number;
+  ocrResult?: any; // Full OCR result from documentProcessor
+  ocrProcessedAt?: string;
+  needsReview?: boolean;
+  reviewReasons?: string[];
+  status?: 'UPLOADED' | 'PROCESSING' | 'PROCESSED' | 'PENDING_REVIEW' | 'APPROVED' | 'REJECTED';
+  reviewRequestedAt?: string;
 
   // Metadata
   createdAt: string;
