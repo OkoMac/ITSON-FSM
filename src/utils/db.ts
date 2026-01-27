@@ -1,5 +1,6 @@
 import Dexie, { Table } from 'dexie';
 import type {
+  User,
   Participant,
   AttendanceRecord,
   Site,
@@ -16,6 +17,7 @@ import type {
 } from '@/types';
 
 export class ItsonFSMDatabase extends Dexie {
+  users!: Table<User, string>;
   participants!: Table<Participant, string>;
   attendanceRecords!: Table<AttendanceRecord, string>;
   sites!: Table<Site, string>;
@@ -63,6 +65,24 @@ export class ItsonFSMDatabase extends Dexie {
 
     // Version 3: Add impact stories
     this.version(3).stores({
+      participants: 'id, userId, idNumber, onboardingStatus, status, siteId, createdAt',
+      attendanceRecords: 'id, participantId, siteId, date, syncStatus, createdAt',
+      sites: 'id, name, status, createdAt',
+      tasks: 'id, siteId, assignedToId, assignedById, status, priority, dueDate, createdAt',
+      documents: 'id, participantId, candidateId, type, verificationStatus, status, createdAt',
+      kwantuSyncRecords: 'id, recordType, recordId, status, createdAt',
+      auditLogs: 'id, userId, entityType, entityId, action, timestamp',
+      notifications: 'id, userId, type, read, [userId+read], createdAt',
+      onboardingSessions: 'id, candidateId, state, locked, createdAt',
+      extractedFields: 'id, documentId, candidateId, fieldName, createdAt',
+      checklistItems: 'id, candidateId, itemType, completed, createdAt',
+      payrollSyncs: 'id, candidateId, syncStatus, createdAt',
+      impactStories: 'id, participantId, status, createdBy, createdAt, publishedAt',
+    });
+
+    // Version 4: Add users table and extended features
+    this.version(4).stores({
+      users: 'id, email, role, createdAt',
       participants: 'id, userId, idNumber, onboardingStatus, status, siteId, createdAt',
       attendanceRecords: 'id, participantId, siteId, date, syncStatus, createdAt',
       sites: 'id, name, status, createdAt',

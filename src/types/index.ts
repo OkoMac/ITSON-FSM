@@ -50,7 +50,15 @@ export interface Participant {
   supervisorId?: string;
   startDate?: string;
   endDate?: string;
-  status: 'active' | 'inactive' | 'suspended' | 'exited';
+  exitDate?: string;
+  status: 'active' | 'inactive' | 'suspended' | 'exited' | 'ONBOARDING';
+  canCheckIn?: boolean;
+  statusChangedAt?: string;
+  statusChangedBy?: string;
+  suspensionReason?: string;
+  suspendedAt?: string;
+  graduationDate?: string;
+  replacedById?: string;
 
   // Metadata
   createdAt: string;
@@ -175,6 +183,11 @@ export interface AttendanceRecord {
 
   // Duration
   duration?: number; // in minutes
+
+  // Advanced tracking
+  late?: boolean;
+  earlyDeparture?: boolean;
+  hoursWorked?: number;
 
   // Sync status
   syncStatus: 'pending' | 'synced' | 'failed';
