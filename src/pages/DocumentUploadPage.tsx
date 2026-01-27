@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Upload, FileText, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import { processDocument } from '@/services/ocr/documentProcessor';
@@ -215,3 +215,4 @@ export function DocumentUploadPage() {
     </div>
   );
 }
+export default DocumentUploadPage;

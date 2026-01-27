@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Cloud, CloudOff, RefreshCw, CheckCircle, XCircle, Clock } from 'lucide-react';
 import { offlineManager, type OfflineOperation } from '@/services/offline/offlineManager';
@@ -224,3 +224,4 @@ export function OfflineSyncPage() {
     </div>
   );
 }
+export default OfflineSyncPage;

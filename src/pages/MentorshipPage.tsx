@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Plus, Users, Target, Calendar } from 'lucide-react';
 import {
@@ -252,3 +252,4 @@ export function MentorshipPage() {
     </div>
   );
 }
+export default MentorshipPage;

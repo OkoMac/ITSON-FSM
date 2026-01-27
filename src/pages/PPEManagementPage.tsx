@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Plus, Shield, Package, AlertTriangle } from 'lucide-react';
 import { createPPEItem, issuePPE, returnPPE, getPPEItem, type PPEItem } from '@/services/operations/workSchedules';
@@ -312,3 +312,4 @@ export function PPEManagementPage() {
     </div>
   );
 }
+export default PPEManagementPage;

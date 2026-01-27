@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Plus, BookOpen, Heart, TrendingUp } from 'lucide-react';
 import { createJournalEntry, getParticipantJournalEntries, type JournalEntry } from '@/services/development/participantDevelopment';
@@ -180,3 +180,4 @@ export function JournalingPage() {
     </div>
   );
 }
+export default JournalingPage;

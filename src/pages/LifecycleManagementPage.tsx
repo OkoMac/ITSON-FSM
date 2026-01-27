@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { UserCheck, UserX, UserMinus, Award } from 'lucide-react';
 import { transitionLifecycleStatus, getLifecycleHistory, type LifecycleTransition } from '@/services/lifecycle/participantLifecycle';
@@ -299,3 +299,4 @@ export function LifecycleManagementPage() {
     </div>
   );
 }
+export default LifecycleManagementPage;

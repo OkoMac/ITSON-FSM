@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Plus, Calendar, Clock } from 'lucide-react';
 import { createWorkSchedule, getParticipantSchedules, type WorkSchedule } from '@/services/operations/workSchedules';
@@ -229,3 +229,4 @@ export function WorkSchedulesPage() {
     </div>
   );
 }
+export default WorkSchedulesPage;

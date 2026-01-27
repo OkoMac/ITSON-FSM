@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Download, FileText } from 'lucide-react';
 import { generateReferenceLetter, type ReferenceLetter } from '@/services/reporting/advancedReports';
@@ -120,3 +120,4 @@ export function ReferenceLetterPage() {
     </div>
   );
 }
+export default ReferenceLetterPage;

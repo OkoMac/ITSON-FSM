@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Plus, BookOpen, Award, CheckCircle } from 'lucide-react';
 import {
@@ -251,3 +251,4 @@ export function TrainingPathwaysPage() {
     </div>
   );
 }
+export default TrainingPathwaysPage;

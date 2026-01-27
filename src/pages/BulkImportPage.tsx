@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Upload, CheckCircle, XCircle, AlertCircle, Download } from 'lucide-react';
 import { bulkCreateParticipants, verifyIDNumber, type BulkUploadRecord } from '@/services/admin/bulkOperations';
@@ -239,3 +239,4 @@ export function BulkImportPage() {
     </div>
   );
 }
+export default BulkImportPage;

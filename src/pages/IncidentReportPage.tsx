@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card } from '@/components/ui/Card';
+import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 import { createIncidentReport, type IncidentReport } from '@/services/operations/workSchedules';
@@ -292,3 +292,4 @@ export function IncidentReportPage() {
     </div>
   );
 }
+export default IncidentReportPage;
