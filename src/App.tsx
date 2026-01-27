@@ -33,6 +33,7 @@ const MentorshipPage = lazy(() => import('@/pages/MentorshipPage'));
 const JournalingPage = lazy(() => import('@/pages/JournalingPage'));
 const LifecycleManagementPage = lazy(() => import('@/pages/LifecycleManagementPage'));
 const OfflineSyncPage = lazy(() => import('@/pages/OfflineSyncPage'));
+const WhatsAppOnboardingPage = lazy(() => import('@/pages/WhatsAppOnboardingPage'));
 
 // Layout components
 import { MainLayout } from '@/components/layout/MainLayout';
@@ -136,6 +137,11 @@ const App: React.FC = () => {
               <Route path="ppe" element={<PPEManagementPage />} />
               <Route path="incidents" element={<IncidentReportPage />} />
               <Route path="offline-sync" element={<OfflineSyncPage />} />
+              <Route path="whatsapp-onboarding" element={
+                <ProtectedRoute roles={['supervisor', 'property-point', 'project-manager']}>
+                  <WhatsAppOnboardingPage />
+                </ProtectedRoute>
+              } />
 
               {/* Admin routes */}
               <Route
