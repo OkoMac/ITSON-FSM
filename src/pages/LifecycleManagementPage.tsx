@@ -4,10 +4,10 @@ import { Button } from '@/components/ui/Button';
 import { UserCheck, UserX, UserMinus, Award } from 'lucide-react';
 import { transitionLifecycleStatus, getLifecycleHistory, type LifecycleTransition } from '@/services/lifecycle/participantLifecycle';
 import { db } from '@/utils/db';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export function LifecycleManagementPage() {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const [participants, setParticipants] = useState<any[]>([]);
   const [selectedParticipant, setSelectedParticipant] = useState<string>('');
   const [history, setHistory] = useState<LifecycleTransition[]>([]);
@@ -253,7 +253,7 @@ export function LifecycleManagementPage() {
 
                 <div className="flex space-x-12">
                   <Button type="submit" className="flex-1">Save Status Change</Button>
-                  <Button type="button" variant="outline" onClick={() => setShowTransitionForm(false)}>
+                  <Button type="button" variant="secondary" onClick={() => setShowTransitionForm(false)}>
                     Cancel
                   </Button>
                 </div>

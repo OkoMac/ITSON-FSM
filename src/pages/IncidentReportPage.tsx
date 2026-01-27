@@ -4,10 +4,10 @@ import { Button } from '@/components/ui/Button';
 import { AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 import { createIncidentReport, type IncidentReport } from '@/services/operations/workSchedules';
 import { db } from '@/utils/db';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export function IncidentReportPage() {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const [incidents, setIncidents] = useState<IncidentReport[]>([]);
   const [participants, setParticipants] = useState<any[]>([]);
   const [sites, setSites] = useState<any[]>([]);

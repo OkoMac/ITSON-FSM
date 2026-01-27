@@ -3,10 +3,10 @@ import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Upload, CheckCircle, XCircle, AlertCircle, Download } from 'lucide-react';
 import { bulkCreateParticipants, verifyIDNumber, type BulkUploadRecord } from '@/services/admin/bulkOperations';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export function BulkImportPage() {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const [uploading, setUploading] = useState(false);
   const [results, setResults] = useState<BulkUploadRecord[]>([]);
   const [file, setFile] = useState<File | null>(null);
@@ -99,7 +99,7 @@ export function BulkImportPage() {
           <h1 className="text-24 font-bold">Bulk Participant Import</h1>
           <p className="text-gray-600 mt-4">Import multiple participants from CSV file</p>
         </div>
-        <Button onClick={downloadTemplate} variant="outline">
+        <Button onClick={downloadTemplate} variant="secondary">
           <Download className="w-16 h-16 mr-8" />
           Download Template
         </Button>
@@ -227,7 +227,7 @@ export function BulkImportPage() {
                   setFile(null);
                   setResults([]);
                 }}
-                variant="outline"
+                variant="secondary"
                 className="w-full"
               >
                 Import Another File

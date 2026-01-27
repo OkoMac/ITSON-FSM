@@ -140,7 +140,7 @@ export function MentorshipPage() {
               </div>
               <Button
                 type="button"
-                variant="outline"
+                variant="secondary"
                 size="sm"
                 onClick={handleAddFocusArea}
                 className="mt-8"
@@ -151,7 +151,7 @@ export function MentorshipPage() {
 
             <div className="flex space-x-12">
               <Button type="submit" className="flex-1">Create Mentorship</Button>
-              <Button type="button" variant="outline" onClick={() => setShowCreateForm(false)}>
+              <Button type="button" variant="secondary" onClick={() => setShowCreateForm(false)}>
                 Cancel
               </Button>
             </div>

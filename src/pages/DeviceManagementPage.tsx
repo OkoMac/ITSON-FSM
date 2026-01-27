@@ -4,10 +4,10 @@ import { Button } from '@/components/ui/Button';
 import { Smartphone, AlertTriangle, CheckCircle, MapPin } from 'lucide-react';
 import { registerDevice, updateDeviceStatus, reportDeviceLost, getDevice, type Device } from '@/services/monitoring/biometricMonitoring';
 import { db } from '@/utils/db';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export function DeviceManagementPage() {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const [devices, setDevices] = useState<Device[]>([]);
   const [sites, setSites] = useState<any[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -196,7 +196,7 @@ export function DeviceManagementPage() {
 
             <div className="flex space-x-12">
               <Button type="submit" className="flex-1">Register Device</Button>
-              <Button type="button" variant="outline" onClick={() => setShowAddForm(false)}>
+              <Button type="button" variant="secondary" onClick={() => setShowAddForm(false)}>
                 Cancel
               </Button>
             </div>

@@ -119,7 +119,7 @@ export function OfflineSyncPage() {
               {syncing ? 'Syncing...' : 'Sync Now'}
             </Button>
             <Button
-              variant="outline"
+              variant="secondary"
               onClick={handleCleanup}
               disabled={syncedOps.length === 0}
             >

@@ -3,11 +3,11 @@ import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Plus, BookOpen, Heart, TrendingUp } from 'lucide-react';
 import { createJournalEntry, getParticipantJournalEntries, type JournalEntry } from '@/services/development/participantDevelopment';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuthStore } from '@/store/useAuthStore';
 import { db } from '@/utils/db';
 
 export function JournalingPage() {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -139,7 +139,7 @@ export function JournalingPage() {
 
             <div className="flex space-x-12">
               <Button type="submit" className="flex-1">Save Entry</Button>
-              <Button type="button" variant="outline" onClick={() => setShowForm(false)}>
+              <Button type="button" variant="secondary" onClick={() => setShowForm(false)}>
                 Cancel
               </Button>
             </div>

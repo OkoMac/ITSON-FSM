@@ -94,7 +94,7 @@ export function MonthlyReportsPage() {
                   {summary.participantName} - {summary.month}
                 </p>
               </div>
-              <Button size="sm" variant="outline">
+              <Button size="sm" variant="secondary">
                 <Download className="w-16 h-16 mr-8" />
                 Download PDF
               </Button>

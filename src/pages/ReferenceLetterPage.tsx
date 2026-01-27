@@ -4,10 +4,10 @@ import { Button } from '@/components/ui/Button';
 import { Download, FileText } from 'lucide-react';
 import { generateReferenceLetter, type ReferenceLetter } from '@/services/reporting/advancedReports';
 import { db } from '@/utils/db';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export function ReferenceLetterPage() {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const [participants, setParticipants] = useState<any[]>([]);
   const [selectedParticipant, setSelectedParticipant] = useState('');
   const [signedByTitle, setSignedByTitle] = useState('Project Manager');
@@ -91,7 +91,7 @@ export function ReferenceLetterPage() {
       {letter && (
         <Card className="p-32">
           <div className="flex justify-end mb-24">
-            <Button size="sm" variant="outline">
+            <Button size="sm" variant="secondary">
               <Download className="w-16 h-16 mr-8" />
               Download PDF
             </Button>

@@ -164,7 +164,7 @@ export function WorkSchedulesPage() {
 
             <div className="flex space-x-12">
               <Button type="submit" className="flex-1">Create Schedule</Button>
-              <Button type="button" variant="outline" onClick={() => setShowForm(false)}>
+              <Button type="button" variant="secondary" onClick={() => setShowForm(false)}>
                 Cancel
               </Button>
             </div>

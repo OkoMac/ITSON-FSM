@@ -14,7 +14,7 @@ import { db } from '@/utils/db';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function TrainingPathwaysPage() {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const [pathways, setPathways] = useState<TrainingPathway[]>([]);
   const [enrollments, setEnrollments] = useState<PathwayEnrollment[]>([]);
   const [participants, setParticipants] = useState<any[]>([]);
@@ -162,7 +162,7 @@ export function TrainingPathwaysPage() {
               </div>
               <Button
                 type="button"
-                variant="outline"
+                variant="secondary"
                 size="sm"
                 onClick={handleAddModule}
                 className="mt-8"
@@ -173,7 +173,7 @@ export function TrainingPathwaysPage() {
 
             <div className="flex space-x-12">
               <Button type="submit" className="flex-1">Create Pathway</Button>
-              <Button type="button" variant="outline" onClick={() => setShowCreateForm(false)}>
+              <Button type="button" variant="secondary" onClick={() => setShowCreateForm(false)}>
                 Cancel
               </Button>
             </div>

@@ -4,10 +4,10 @@ import { Button } from '@/components/ui/Button';
 import { Plus, Shield, Package, AlertTriangle } from 'lucide-react';
 import { createPPEItem, issuePPE, returnPPE, getPPEItem, type PPEItem } from '@/services/operations/workSchedules';
 import { db } from '@/utils/db';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export function PPEManagementPage() {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const [ppeItems, setPPEItems] = useState<PPEItem[]>([]);
   const [participants, setParticipants] = useState<any[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -202,7 +202,7 @@ export function PPEManagementPage() {
 
             <div className="flex space-x-12">
               <Button type="submit" className="flex-1">Add Item</Button>
-              <Button type="button" variant="outline" onClick={() => setShowAddForm(false)}>
+              <Button type="button" variant="secondary" onClick={() => setShowAddForm(false)}>
                 Cancel
               </Button>
             </div>
@@ -250,7 +250,7 @@ export function PPEManagementPage() {
                       {item.status === 'available' && (
                         <Button
                           size="sm"
-                          variant="outline"
+                          variant="secondary"
                           onClick={() => setShowIssueForm(item.id)}
                         >
                           Issue
@@ -259,7 +259,7 @@ export function PPEManagementPage() {
                       {item.status === 'issued' && (
                         <Button
                           size="sm"
-                          variant="outline"
+                          variant="secondary"
                           onClick={() => handleReturn(item.id)}
                         >
                           Return
@@ -299,7 +299,7 @@ export function PPEManagementPage() {
                 </select>
               </div>
               <Button
-                variant="outline"
+                variant="secondary"
                 onClick={() => setShowIssueForm(null)}
                 className="w-full"
               >
