@@ -4,20 +4,34 @@ import { Button } from '@/components/ui/Button';
 import { Plus, Users, Target, Calendar } from 'lucide-react';
 import {
   createMentorship,
-  addMentorshipGoal,
-  logMentorshipMeeting,
-  getMentorship,
-  type Mentorship,
-  type MentorshipGoal,
-  type MentorshipMeeting,
 } from '@/services/development/participantDevelopment';
+
+interface Mentorship {
+  id: string;
+  menteeId: string;
+  mentorId: string;
+  startDate: string;
+  endDate?: string;
+  status: 'active' | 'completed' | 'cancelled';
+  focusAreas: string[];
+  goals: Array<{
+    title: string;
+    description: string;
+    targetDate: string;
+    completed: boolean;
+  }>;
+  meetings: Array<{
+    date: string;
+    notes: string;
+  }>;
+  createdAt: string;
+}
 import { db } from '@/utils/db';
 
 export function MentorshipPage() {
   const [mentorships, setMentorships] = useState<Mentorship[]>([]);
   const [participants, setParticipants] = useState<any[]>([]);
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [selectedMentorship, setSelectedMentorship] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     menteeId: '',
     mentorId: '',

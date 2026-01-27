@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
-import { Upload, FileText, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
+import { Upload, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import { processDocument } from '@/services/ocr/documentProcessor';
 import { useAuthStore } from '@/store/useAuthStore';
 
 export function DocumentUploadPage() {
-  const navigate = useNavigate();
   const { user } = useAuthStore();
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [documentType, setDocumentType] = useState<string>('id_document');
   const [processing, setProcessing] = useState(false);
@@ -18,7 +15,6 @@ export function DocumentUploadPage() {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setSelectedFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result as string);

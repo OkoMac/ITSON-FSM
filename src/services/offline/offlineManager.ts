@@ -122,7 +122,7 @@ class OfflineManager {
   /**
    * Get all pending operations
    */
-  private async getPendingOperations(): Promise<OfflineOperation[]> {
+  async getPendingOperations(): Promise<OfflineOperation[]> {
     try {
       const table = (db as any).offline_operations;
 

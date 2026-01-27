@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Smartphone, AlertTriangle, CheckCircle, MapPin } from 'lucide-react';
-import { registerDevice, updateDeviceStatus, reportDeviceLost, getDevice, type Device } from '@/services/monitoring/biometricMonitoring';
+import { registerDevice, updateDeviceStatus, reportDeviceLost, type Device } from "@/services/monitoring/biometricMonitoring";
 import { db } from '@/utils/db';
 import { useAuthStore } from '@/store/useAuthStore';
 
@@ -12,6 +12,7 @@ export function DeviceManagementPage() {
   const [sites, setSites] = useState<any[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [formData, setFormData] = useState({
+    type: 'tablet' as 'tablet' | 'smartphone' | 'biometric-scanner',
     serialNumber: '',
     model: '',
     manufacturer: '',
@@ -45,9 +46,11 @@ export function DeviceManagementPage() {
     await registerDevice({
       ...formData,
       assignedTo: '',
+      status: 'active',
     });
     setShowAddForm(false);
     setFormData({
+      type: 'tablet' as 'tablet' | 'smartphone' | 'biometric-scanner',
       serialNumber: '',
       model: '',
       manufacturer: '',
@@ -142,6 +145,20 @@ export function DeviceManagementPage() {
           <h3 className="font-medium mb-16">Register New Device</h3>
           <form onSubmit={handleSubmit} className="space-y-16">
             <div className="grid grid-cols-2 gap-16">
+              <div>
+                <label className="block text-sm font-medium mb-8">Device Type</label>
+                <select
+                  value={formData.type}
+                  onChange={(e) => setFormData({ ...formData, type: e.target.value as 'tablet' | 'smartphone' | 'biometric-scanner' })}
+                  className="w-full px-12 py-8 border rounded-md"
+                  required
+                >
+                  <option value="tablet">Tablet</option>
+                  <option value="smartphone">Smartphone</option>
+                  <option value="biometric-scanner">Biometric Scanner</option>
+                </select>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium mb-8">Serial Number</label>
                 <input
@@ -241,7 +258,7 @@ export function DeviceManagementPage() {
                       </span>
                     </td>
                     <td className="px-12 py-12 text-xs text-gray-600">
-                      {new Date(device.registeredAt).toLocaleDateString()}
+                      {device.registeredAt ? new Date(device.registeredAt).toLocaleDateString() : new Date(device.enrolledAt).toLocaleDateString()}
                     </td>
                     <td className="px-12 py-12">
                       <select

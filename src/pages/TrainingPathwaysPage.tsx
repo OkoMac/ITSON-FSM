@@ -4,20 +4,24 @@ import { Button } from '@/components/ui/Button';
 import { Plus, BookOpen, Award, CheckCircle } from 'lucide-react';
 import {
   createTrainingPathway,
-  enrollInPathway,
-  completeModule,
-  getPathwayEnrollment,
   type TrainingPathway,
-  type PathwayEnrollment,
 } from '@/services/development/participantDevelopment';
-import { db } from '@/utils/db';
-import { useAuth } from '@/contexts/AuthContext';
+
+interface PathwayEnrollment {
+  id: string;
+  pathwayId: string;
+  participantId: string;
+  status: 'active' | 'completed' | 'dropped';
+  progress: number;
+  completedModules: string[];
+  certificateIssued: boolean;
+  startedAt: string;
+  completedAt?: string;
+}
 
 export function TrainingPathwaysPage() {
-  const { user } = useAuthStore();
   const [pathways, setPathways] = useState<TrainingPathway[]>([]);
   const [enrollments, setEnrollments] = useState<PathwayEnrollment[]>([]);
-  const [participants, setParticipants] = useState<any[]>([]);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -31,8 +35,6 @@ export function TrainingPathwaysPage() {
   }, []);
 
   const loadData = async () => {
-    const participantsData = await db.participants.toArray();
-    setParticipants(participantsData);
     loadPathways();
     loadEnrollments();
   };
@@ -74,11 +76,25 @@ export function TrainingPathwaysPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const modules = formData.modules.filter(m => m.trim());
+    const modulesList = formData.modules.filter(m => m.trim()).map((title, index) => ({
+      id: crypto.randomUUID(),
+      title,
+      description: "",
+      content: "",
+      duration: 60,
+      resources: [],
+      order: index,
+    }));
     await createTrainingPathway({
-      ...formData,
-      modules,
+      title: formData.title,
+      description: formData.description,
+      category: "other",
+      level: "beginner",
+      modules: modulesList,
+      durationWeeks: formData.durationWeeks,
+      estimatedDuration: modulesList.length * 60,
       certification: true,
+      active: true,
     });
     setShowCreateForm(false);
     setFormData({
@@ -88,11 +104,6 @@ export function TrainingPathwaysPage() {
       durationWeeks: 4,
     });
     loadPathways();
-  };
-
-  const handleEnroll = async (pathwayId: string, participantId: string) => {
-    await enrollInPathway(participantId, pathwayId);
-    loadEnrollments();
   };
 
   return (
@@ -229,7 +240,7 @@ export function TrainingPathwaysPage() {
                   {pathway.modules.slice(0, 3).map((module, idx) => (
                     <div key={idx} className="flex items-center space-x-8 text-sm">
                       <CheckCircle className="w-12 h-12 text-gray-400" />
-                      <span>{module}</span>
+                      <span>{module.title}</span>
                     </div>
                   ))}
                   {pathway.modules.length > 3 && (

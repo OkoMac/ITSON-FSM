@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
-import { Plus, BookOpen, Heart, TrendingUp } from 'lucide-react';
+import { Plus, BookOpen } from 'lucide-react';
 import { createJournalEntry, getParticipantJournalEntries, type JournalEntry } from '@/services/development/participantDevelopment';
 import { useAuthStore } from '@/store/useAuthStore';
 import { db } from '@/utils/db';
@@ -41,9 +41,11 @@ export function JournalingPage() {
 
     await createJournalEntry({
       participantId: participant.id,
+      date: new Date().toISOString(),
       content: formData.content,
       mood: formData.mood,
       category: formData.category,
+      private: true,
     });
 
     setShowForm(false);
@@ -55,7 +57,7 @@ export function JournalingPage() {
     loadEntries();
   };
 
-  const getMoodIcon = (mood: string) => {
+  const getMoodIcon = (mood?: string) => {
     switch (mood) {
       case 'great': return '😄';
       case 'good': return '🙂';
@@ -66,7 +68,7 @@ export function JournalingPage() {
     }
   };
 
-  const getCategoryColor = (category: string) => {
+  const getCategoryColor = (category?: string) => {
     switch (category) {
       case 'achievement': return 'bg-green-100 text-green-800';
       case 'challenge': return 'bg-orange-100 text-orange-800';

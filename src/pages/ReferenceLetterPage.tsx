@@ -30,7 +30,7 @@ export function ReferenceLetterPage() {
     try {
       const letterData = await generateReferenceLetter(
         selectedParticipant,
-        user.fullName || user.email,
+        user.name || user.email,
         signedByTitle
       );
       setLetter(letterData);

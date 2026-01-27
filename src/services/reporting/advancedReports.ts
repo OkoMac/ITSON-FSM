@@ -41,7 +41,9 @@ export interface ReferenceLetter {
   signedBy: string;
   signedByTitle: string;
   generatedAt: string;
+  issuedDate: string;
   letterHtml: string;
+  content: string;
 }
 
 /**
@@ -110,6 +112,8 @@ export async function generateReferenceLetter(
       ? 'fair'
       : 'poor';
 
+  const letterHtml = generateLetterHTML(participant, attendanceRate, signedBy, signedByTitle);
+
   const letter: ReferenceLetter = {
     id: crypto.randomUUID(),
     participantId,
@@ -127,7 +131,9 @@ export async function generateReferenceLetter(
     signedBy,
     signedByTitle,
     generatedAt: new Date().toISOString(),
-    letterHtml: generateLetterHTML(participant, attendanceRate, signedBy, signedByTitle),
+    issuedDate: new Date().toISOString().split('T')[0],
+    letterHtml,
+    content: letterHtml,
   };
 
   localStorage.setItem(`reference_letter_${letter.id}`, JSON.stringify(letter));

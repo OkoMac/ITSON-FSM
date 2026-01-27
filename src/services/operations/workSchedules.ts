@@ -46,8 +46,10 @@ export interface IncidentReport {
   description: string;
   location: string;
   siteId?: string;
+  participantId?: string;
   participantsInvolved: string[];
   witnesses: string[];
+  immediateAction?: string;
   injuries?: {
     participant: string;
     injuryType: string;
@@ -126,7 +128,63 @@ export async function reportIncident(report: Omit<IncidentReport, 'id' | 'create
   return id;
 }
 
-async function getPPEItem(id: string): Promise<PPEItem | null> {
+export async function getPPEItem(id: string): Promise<PPEItem | null> {
   const data = localStorage.getItem(`ppe_${id}`);
   return data ? JSON.parse(data) : null;
+}
+
+export async function createPPEItem(item: Omit<PPEItem, 'id' | 'createdAt' | 'status'>): Promise<string> {
+  const id = crypto.randomUUID();
+  const newItem: PPEItem = {
+    ...item,
+    id,
+    status: 'available',
+    createdAt: new Date().toISOString(),
+  };
+  localStorage.setItem(`ppe_${id}`, JSON.stringify(newItem));
+  return id;
+}
+
+export async function returnPPE(ppeItemId: string): Promise<void> {
+  const item = await getPPEItem(ppeItemId);
+  if (!item) throw new Error('PPE item not found');
+  
+  item.issuedTo = undefined;
+  item.returnDate = new Date().toISOString();
+  item.status = 'available';
+  
+  localStorage.setItem(`ppe_${ppeItemId}`, JSON.stringify(item));
+}
+
+export async function getParticipantSchedules(participantId: string): Promise<WorkSchedule[]> {
+  const schedules: WorkSchedule[] = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key?.startsWith('schedule_')) {
+      const schedule = JSON.parse(localStorage.getItem(key)!);
+      if (schedule.participantId === participantId) {
+        schedules.push(schedule);
+      }
+    }
+  }
+  return schedules;
+}
+
+export async function createIncidentReport(report: Omit<IncidentReport, 'id' | 'createdAt' | 'status' | 'reportedAt' | 'participantsInvolved' | 'witnesses' | 'photos' | 'title' | 'location'>): Promise<string> {
+  const id = crypto.randomUUID();
+  const incident: IncidentReport = {
+    ...report,
+    id,
+    title: report.description.slice(0, 50),
+    location: report.siteId || 'Unknown',
+    participantsInvolved: report.participantId ? [report.participantId] : [],
+    witnesses: [],
+    photos: [],
+    status: 'reported',
+    reportedAt: new Date().toISOString(),
+    createdAt: new Date().toISOString(),
+  };
+  
+  localStorage.setItem(`incident_${id}`, JSON.stringify(incident));
+  return id;
 }

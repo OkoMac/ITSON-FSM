@@ -34,16 +34,19 @@ export interface Device {
   id: string;
   type: 'tablet' | 'smartphone' | 'biometric-scanner';
   model: string;
+  manufacturer?: string;
   serialNumber: string;
   assignedTo?: string; // userId
   assignedSite?: string;
-  status: 'active' | 'maintenance' | 'lost' | 'retired';
+  siteId?: string;
+  status: 'active' | 'maintenance' | 'lost' | 'retired' | 'inactive' | 'decommissioned';
   lastSeen?: string;
   batteryLevel?: number;
   appVersion?: string;
   osVersion?: string;
   location?: { lat: number; lng: number };
   enrolledAt: string;
+  registeredAt?: string;
   lastSync?: string;
 }
 

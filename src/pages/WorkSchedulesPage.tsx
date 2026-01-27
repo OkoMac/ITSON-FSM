@@ -4,10 +4,12 @@ import { Button } from '@/components/ui/Button';
 import { Plus, Calendar, Clock } from 'lucide-react';
 import { createWorkSchedule, getParticipantSchedules, type WorkSchedule } from '@/services/operations/workSchedules';
 import { db } from '@/utils/db';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 export function WorkSchedulesPage() {
+  const { user } = useAuthStore();
   const [participants, setParticipants] = useState<any[]>([]);
   const [sites, setSites] = useState<any[]>([]);
   const [schedules, setSchedules] = useState<WorkSchedule[]>([]);
@@ -46,7 +48,7 @@ export function WorkSchedulesPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedParticipant) return;
+    if (!selectedParticipant || !user) return;
 
     await createWorkSchedule({
       participantId: selectedParticipant,
@@ -54,6 +56,10 @@ export function WorkSchedulesPage() {
       dayOfWeek: formData.dayOfWeek,
       startTime: formData.startTime,
       endTime: formData.endTime,
+      breakDuration: 60, // 1 hour lunch break
+      active: true,
+      effectiveFrom: new Date().toISOString(),
+      createdBy: user.id,
     });
 
     setShowForm(false);

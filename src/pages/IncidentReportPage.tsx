@@ -89,7 +89,7 @@ export function IncidentReportPage() {
   };
 
   const criticalIncidents = incidents.filter(i => i.severity === 'critical').length;
-  const pendingIncidents = incidents.filter(i => i.status === 'open').length;
+  const pendingIncidents = incidents.filter(i => i.status === 'reported').length;
   const resolvedIncidents = incidents.filter(i => i.status === 'resolved').length;
 
   return (

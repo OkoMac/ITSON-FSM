@@ -10,7 +10,8 @@ export interface JournalEntry {
   date: string;
   title?: string;
   content: string;
-  mood?: 'great' | 'good' | 'okay' | 'difficult' | 'challenging';
+  mood?: 'great' | 'good' | 'neutral' | 'difficult' | 'challenging';
+  category?: 'reflection' | 'achievement' | 'challenge' | 'learning' | 'goal';
   learnings?: string[];
   challenges?: string[];
   goals?: string[];
@@ -57,6 +58,7 @@ export interface TrainingPathway {
   category: 'technical' | 'soft-skills' | 'safety' | 'leadership' | 'other';
   level: 'beginner' | 'intermediate' | 'advanced';
   modules: TrainingModule[];
+  durationWeeks: number;
   estimatedDuration: number; // hours
   prerequisites?: string[];
   certification: boolean;
@@ -327,4 +329,18 @@ async function getTrainingPathway(id: string): Promise<TrainingPathway | null> {
 async function getEnrollment(id: string): Promise<TrainingEnrollment | null> {
   const data = localStorage.getItem(`enrollment_${id}`);
   return data ? JSON.parse(data) : null;
+}
+
+export async function getParticipantJournalEntries(participantId: string): Promise<JournalEntry[]> {
+  const entries: JournalEntry[] = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key?.startsWith('journal_entry_')) {
+      const entry = JSON.parse(localStorage.getItem(key)!);
+      if (entry.participantId === participantId) {
+        entries.push(entry);
+      }
+    }
+  }
+  return entries.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 }

@@ -24,7 +24,7 @@ const BiometricMonitoringPage: React.FC = () => {
   const [attempts, setAttempts] = useState<BiometricAttempt[]>([]);
   const [devices, setDevices] = useState<Device[]>([]);
   const [participants, setParticipants] = useState<any[]>([]);
-  const [sites, setSites] = useState<any[]>([]);
+  const [_sites, setSites] = useState<any[]>([]);
   const [showAlert, setShowAlert] = useState(false);
 
   // Aggregated data for charts

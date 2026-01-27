@@ -267,15 +267,15 @@ export function LifecycleManagementPage() {
             <div className="space-y-12">
               {history.map((transition) => (
                 <div key={transition.id} className="flex items-start space-x-12 pb-12 border-b last:border-0">
-                  <div className="mt-4">{getStatusIcon(transition.toStatus)}</div>
+                  <div className="mt-4">{getStatusIcon(transition.toStatus || transition.newStatus)}</div>
                   <div className="flex-1">
                     <div className="flex items-center space-x-8">
-                      <span className={'px-8 py-4 rounded-full text-xs font-medium ' + getStatusColor(transition.fromStatus)}>
-                        {transition.fromStatus}
+                      <span className={'px-8 py-4 rounded-full text-xs font-medium ' + getStatusColor(transition.fromStatus || transition.previousStatus)}>
+                        {transition.fromStatus || transition.previousStatus}
                       </span>
                       <span className="text-xs text-gray-500">→</span>
-                      <span className={'px-8 py-4 rounded-full text-xs font-medium ' + getStatusColor(transition.toStatus)}>
-                        {transition.toStatus}
+                      <span className={'px-8 py-4 rounded-full text-xs font-medium ' + getStatusColor(transition.toStatus || transition.newStatus)}>
+                        {transition.toStatus || transition.newStatus}
                       </span>
                     </div>
                     <p className="text-sm mt-8">{transition.reason}</p>
@@ -283,7 +283,7 @@ export function LifecycleManagementPage() {
                       <p className="text-xs text-gray-600 mt-4">{transition.notes}</p>
                     )}
                     <p className="text-xs text-gray-500 mt-8">
-                      {new Date(transition.transitionedAt).toLocaleString()}
+                      {new Date(transition.transitionedAt || transition.changedAt).toLocaleString()}
                     </p>
                   </div>
                 </div>

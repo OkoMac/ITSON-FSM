@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { Plus, Shield, Package, AlertTriangle } from 'lucide-react';
-import { createPPEItem, issuePPE, returnPPE, getPPEItem, type PPEItem } from '@/services/operations/workSchedules';
+import { createPPEItem, issuePPE, returnPPE, type PPEItem } from '@/services/operations/workSchedules';
 import { db } from '@/utils/db';
 import { useAuthStore } from '@/store/useAuthStore';
 
@@ -10,6 +10,7 @@ export function PPEManagementPage() {
   const { user } = useAuthStore();
   const [ppeItems, setPPEItems] = useState<PPEItem[]>([]);
   const [participants, setParticipants] = useState<any[]>([]);
+  const [sites, setSites] = useState<any[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [showIssueForm, setShowIssueForm] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ export function PPEManagementPage() {
     brand: '',
     serialNumber: '',
     condition: 'new' as 'new' | 'good' | 'fair' | 'poor' | 'damaged',
+    siteId: '',
   });
 
   useEffect(() => {
@@ -26,6 +28,8 @@ export function PPEManagementPage() {
   const loadData = async () => {
     const participantsData = await db.participants.toArray();
     setParticipants(participantsData);
+    const sitesData = await db.sites.toArray();
+    setSites(sitesData);
     loadPPE();
   };
 
@@ -50,6 +54,7 @@ export function PPEManagementPage() {
       brand: '',
       serialNumber: '',
       condition: 'new',
+      siteId: '',
     });
     loadPPE();
   };
@@ -197,6 +202,23 @@ export function PPEManagementPage() {
                   className="w-full px-12 py-8 border rounded-md"
                   placeholder="Optional"
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-8">Site</label>
+                <select
+                  value={formData.siteId}
+                  onChange={(e) => setFormData({ ...formData, siteId: e.target.value })}
+                  className="w-full px-12 py-8 border rounded-md"
+                  required
+                >
+                  <option value="">Select site</option>
+                  {sites.map((site) => (
+                    <option key={site.id} value={site.id}>
+                      {site.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
