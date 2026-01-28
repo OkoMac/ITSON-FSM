@@ -75,49 +75,56 @@ export function WorkSchedulesPage() {
   const selectedParticipantData = participants.find(p => p.id === selectedParticipant);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-24">
-      <div className="flex items-center justify-between">
+    <div className="content-wrapper">
+      {/* Page Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-16 mb-32">
         <div>
-          <h1 className="text-24 font-bold">Work Schedules</h1>
-          <p className="text-gray-600 mt-4">Manage participant work schedules</p>
+          <h1 className="heading-1">Work Schedules</h1>
+          <p className="body-text mt-8">Manage participant work schedules and shifts</p>
         </div>
-        <Button onClick={() => setShowForm(!showForm)}>
-          <Plus className="w-16 h-16 mr-8" />
+        <Button onClick={() => setShowForm(!showForm)} className="touch-target">
+          <Plus className="w-20 h-20 mr-10" />
           Add Schedule
         </Button>
       </div>
 
       {/* Participant Selection */}
-      <Card className="p-20">
-        <label className="block text-sm font-medium mb-8">Select Participant</label>
-        <select
-          value={selectedParticipant}
-          onChange={(e) => {
-            setSelectedParticipant(e.target.value);
-            loadSchedules(e.target.value);
-          }}
-          className="w-full px-12 py-8 border rounded-md"
-        >
-          <option value="">Select a participant</option>
-          {participants.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.fullName} - {p.idNumber}
-            </option>
-          ))}
-        </select>
+      <Card className="card-content">
+        <div className="form-group">
+          <label className="form-label">Select Participant</label>
+          <select
+            value={selectedParticipant}
+            onChange={(e) => {
+              setSelectedParticipant(e.target.value);
+              loadSchedules(e.target.value);
+            }}
+            className="input-field"
+          >
+            <option value="">Select a participant</option>
+            {participants.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.fullName} - {p.idNumber}
+              </option>
+            ))}
+          </select>
+        </div>
       </Card>
 
       {/* Add Schedule Form */}
       {showForm && (
-        <Card className="p-24">
-          <h3 className="font-medium mb-16">Create Work Schedule</h3>
-          <form onSubmit={handleSubmit} className="space-y-16">
-            <div>
-              <label className="block text-sm font-medium mb-8">Site</label>
+        <Card className="card-content">
+          <div className="card-header">
+            <h3 className="card-title">Create Work Schedule</h3>
+            <p className="card-description">Set up a regular work schedule for the selected participant</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="section-spacing">
+            <div className="form-group">
+              <label className="form-label">Site</label>
               <select
                 value={formData.siteId}
                 onChange={(e) => setFormData({ ...formData, siteId: e.target.value })}
-                className="w-full px-12 py-8 border rounded-md"
+                className="input-field"
                 required
               >
                 <option value="">Select a site</option>
@@ -127,14 +134,15 @@ export function WorkSchedulesPage() {
                   </option>
                 ))}
               </select>
+              <p className="form-helper">Choose the work site for this schedule</p>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-8">Day of Week</label>
+            <div className="form-group">
+              <label className="form-label">Day of Week</label>
               <select
                 value={formData.dayOfWeek}
                 onChange={(e) => setFormData({ ...formData, dayOfWeek: parseInt(e.target.value) })}
-                className="w-full px-12 py-8 border rounded-md"
+                className="input-field"
                 required
               >
                 {DAYS_OF_WEEK.map((day, index) => (
@@ -145,32 +153,32 @@ export function WorkSchedulesPage() {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 gap-16">
-              <div>
-                <label className="block text-sm font-medium mb-8">Start Time</label>
+            <div className="grid-2">
+              <div className="form-group">
+                <label className="form-label">Start Time</label>
                 <input
                   type="time"
                   value={formData.startTime}
                   onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-8">End Time</label>
+              <div className="form-group">
+                <label className="form-label">End Time</label>
                 <input
                   type="time"
                   value={formData.endTime}
                   onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 />
               </div>
             </div>
 
-            <div className="flex space-x-12">
-              <Button type="submit" className="flex-1">Create Schedule</Button>
-              <Button type="button" variant="secondary" onClick={() => setShowForm(false)}>
+            <div className="flex flex-col sm:flex-row gap-12 pt-20">
+              <Button type="submit" className="flex-1 touch-target">Create Schedule</Button>
+              <Button type="button" variant="secondary" onClick={() => setShowForm(false)} className="flex-1 touch-target">
                 Cancel
               </Button>
             </div>
@@ -180,21 +188,22 @@ export function WorkSchedulesPage() {
 
       {/* Schedule Grid */}
       {selectedParticipantData && (
-        <Card className="p-24">
-          <h3 className="font-medium mb-16">
-            {selectedParticipantData.fullName}'s Weekly Schedule
-          </h3>
+        <Card className="card-content">
+          <div className="card-header">
+            <h3 className="card-title">{selectedParticipantData.fullName}'s Weekly Schedule</h3>
+            <p className="card-description">View and manage weekly work schedule</p>
+          </div>
 
-          <div className="space-y-12">
+          <div className="space-y-20">
             {DAYS_OF_WEEK.map((day, dayIndex) => {
               const daySchedules = schedules.filter(s => s.dayOfWeek === dayIndex);
 
               return (
-                <div key={dayIndex} className="border rounded-lg p-16">
-                  <div className="flex items-center justify-between mb-12">
+                <div key={dayIndex} className="bg-white/5 border border-white/10 rounded-xl p-20 hover:bg-white/8 transition-colors">
+                  <div className="flex items-center justify-between mb-16">
                     <div className="flex items-center space-x-12">
-                      <Calendar className="w-16 h-16 text-gray-500" />
-                      <span className="font-medium">{day}</span>
+                      <Calendar className="w-20 h-20 text-blue-400" />
+                      <span className="heading-3 mb-0">{day}</span>
                     </div>
                     <span className="text-sm text-gray-500">
                       {daySchedules.length} schedule(s)

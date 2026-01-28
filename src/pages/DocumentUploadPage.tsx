@@ -44,20 +44,20 @@ export function DocumentUploadPage() {
     <div className="max-w-4xl mx-auto space-y-24">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-24 font-bold">Document Upload & OCR</h1>
+          <h1 className="heading-1">Document Upload & OCR</h1>
           <p className="text-gray-600 mt-4">Upload and process participant documents with AI validation</p>
         </div>
       </div>
 
-      <Card className="p-24">
+      <Card className="card-content">
         <div className="space-y-20">
           {/* Document Type Selection */}
           <div>
-            <label className="block text-sm font-medium mb-8">Document Type</label>
+            <label className="form-label">Document Type</label>
             <select
               value={documentType}
               onChange={(e) => setDocumentType(e.target.value)}
-              className="w-full px-12 py-8 border rounded-md"
+              className="input-field"
             >
               <option value="id_document">ID Document</option>
               <option value="bank_proof">Proof of Banking</option>

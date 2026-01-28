@@ -107,10 +107,10 @@ export function TrainingPathwaysPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-24">
+    <div className="content-wrapper">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-24 font-bold">Training Pathways</h1>
+          <h1 className="heading-1">Training Pathways</h1>
           <p className="text-gray-600 mt-4">Manage training programs and participant enrollment</p>
         </div>
         <Button onClick={() => setShowCreateForm(!showCreateForm)}>
@@ -120,45 +120,45 @@ export function TrainingPathwaysPage() {
       </div>
 
       {showCreateForm && (
-        <Card className="p-24">
-          <h3 className="font-medium mb-16">Create Training Pathway</h3>
+        <Card className="card-content">
+          <h3 className="card-title">Create Training Pathway</h3>
           <form onSubmit={handleSubmit} className="space-y-16">
             <div>
-              <label className="block text-sm font-medium mb-8">Title</label>
+              <label className="form-label">Title</label>
               <input
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full px-12 py-8 border rounded-md"
+                className="input-field"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-8">Description</label>
+              <label className="form-label">Description</label>
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-12 py-8 border rounded-md"
+                className="input-field"
                 rows={3}
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-8">Duration (Weeks)</label>
+              <label className="form-label">Duration (Weeks)</label>
               <input
                 type="number"
                 value={formData.durationWeeks}
                 onChange={(e) => setFormData({ ...formData, durationWeeks: parseInt(e.target.value) })}
-                className="w-full px-12 py-8 border rounded-md"
+                className="input-field"
                 min="1"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-8">Modules</label>
+              <label className="form-label">Modules</label>
               <div className="space-y-8">
                 {formData.modules.map((module, index) => (
                   <input
@@ -166,7 +166,7 @@ export function TrainingPathwaysPage() {
                     type="text"
                     value={module}
                     onChange={(e) => handleModuleChange(index, e.target.value)}
-                    className="w-full px-12 py-8 border rounded-md"
+                    className="input-field"
                     placeholder={'Module ' + (index + 1) + ' title'}
                   />
                 ))}
@@ -199,7 +199,7 @@ export function TrainingPathwaysPage() {
           const completedEnrollments = pathwayEnrollments.filter(e => e.status === 'completed').length;
 
           return (
-            <Card key={pathway.id} className="p-24">
+            <Card key={pathway.id} className="card-content">
               <div className="flex items-start justify-between mb-16">
                 <div className="flex items-start space-x-12">
                   <div className="bg-blue-100 p-12 rounded-lg">

@@ -82,7 +82,7 @@ export function JournalingPage() {
     <div className="max-w-4xl mx-auto space-y-24">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-24 font-bold">My Journal</h1>
+          <h1 className="heading-1">My Journal</h1>
           <p className="text-gray-600 mt-4">Reflect on your experiences and track your growth</p>
         </div>
         <Button onClick={() => setShowForm(!showForm)}>
@@ -92,16 +92,16 @@ export function JournalingPage() {
       </div>
 
       {showForm && (
-        <Card className="p-24">
-          <h3 className="font-medium mb-16">Create Journal Entry</h3>
+        <Card className="card-content">
+          <h3 className="card-title">Create Journal Entry</h3>
           <form onSubmit={handleSubmit} className="space-y-16">
-            <div className="grid grid-cols-2 gap-16">
+            <div className="grid-2">
               <div>
-                <label className="block text-sm font-medium mb-8">Mood</label>
+                <label className="form-label">Mood</label>
                 <select
                   value={formData.mood}
                   onChange={(e) => setFormData({ ...formData, mood: e.target.value as any })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                 >
                   <option value="great">😄 Great</option>
                   <option value="good">🙂 Good</option>
@@ -112,11 +112,11 @@ export function JournalingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-8">Category</label>
+                <label className="form-label">Category</label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                 >
                   <option value="reflection">Reflection</option>
                   <option value="achievement">Achievement</option>
@@ -128,11 +128,11 @@ export function JournalingPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-8">Your Thoughts</label>
+              <label className="form-label">Your Thoughts</label>
               <textarea
                 value={formData.content}
                 onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                className="w-full px-12 py-8 border rounded-md"
+                className="input-field"
                 rows={6}
                 placeholder="Write about your day, achievements, challenges, or goals..."
                 required
@@ -151,7 +151,7 @@ export function JournalingPage() {
 
       <div className="space-y-16">
         {entries.map((entry) => (
-          <Card key={entry.id} className="p-24">
+          <Card key={entry.id} className="card-content">
             <div className="flex items-start justify-between mb-12">
               <div className="flex items-center space-x-12">
                 <span className="text-24">{getMoodIcon(entry.mood)}</span>

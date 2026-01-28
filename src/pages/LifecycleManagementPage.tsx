@@ -97,9 +97,9 @@ export function LifecycleManagementPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-24">
+    <div className="content-wrapper">
       <div>
-        <h1 className="text-24 font-bold">Participant Lifecycle Management</h1>
+        <h1 className="heading-1">Participant Lifecycle Management</h1>
         <p className="text-gray-600 mt-4">Track and manage participant status transitions</p>
       </div>
 
@@ -113,11 +113,11 @@ export function LifecycleManagementPage() {
           </div>
         </Card>
 
-        <Card className="p-16">
+        <Card className="card-content">
           <div className="text-center">
             <UserCheck className="w-24 h-24 text-gray-600 mx-auto mb-8" />
             <p className="text-sm text-gray-600 mb-4">Inactive</p>
-            <p className="text-24 font-bold">{statusCounts.inactive}</p>
+            <p className="heading-1">{statusCounts.inactive}</p>
           </div>
         </Card>
 
@@ -147,12 +147,12 @@ export function LifecycleManagementPage() {
       </div>
 
       {/* Participant Selection */}
-      <Card className="p-24">
-        <label className="block text-sm font-medium mb-8">Select Participant</label>
+      <Card className="card-content">
+        <label className="form-label">Select Participant</label>
         <select
           value={selectedParticipant}
           onChange={(e) => setSelectedParticipant(e.target.value)}
-          className="w-full px-12 py-8 border rounded-md"
+          className="input-field"
         >
           <option value="">Select a participant</option>
           {participants.map((p) => (
@@ -166,7 +166,7 @@ export function LifecycleManagementPage() {
       {selectedParticipantData && (
         <>
           {/* Current Status */}
-          <Card className="p-24">
+          <Card className="card-content">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-16">
                 {getStatusIcon(selectedParticipantData.status)}
@@ -192,15 +192,15 @@ export function LifecycleManagementPage() {
 
           {/* Transition Form */}
           {showTransitionForm && (
-            <Card className="p-24">
-              <h3 className="font-medium mb-16">Change Participant Status</h3>
+            <Card className="card-content">
+              <h3 className="card-title">Change Participant Status</h3>
               <form onSubmit={handleSubmit} className="space-y-16">
                 <div>
-                  <label className="block text-sm font-medium mb-8">New Status</label>
+                  <label className="form-label">New Status</label>
                   <select
                     value={formData.newStatus}
                     onChange={(e) => setFormData({ ...formData, newStatus: e.target.value as any })}
-                    className="w-full px-12 py-8 border rounded-md"
+                    className="input-field"
                     required
                   >
                     <option value="active">Active</option>
@@ -212,23 +212,23 @@ export function LifecycleManagementPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-8">Reason</label>
+                  <label className="form-label">Reason</label>
                   <input
                     type="text"
                     value={formData.reason}
                     onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
-                    className="w-full px-12 py-8 border rounded-md"
+                    className="input-field"
                     required
                   />
                 </div>
 
                 {formData.newStatus === 'exited' && (
                   <div>
-                    <label className="block text-sm font-medium mb-8">Exit Reason</label>
+                    <label className="form-label">Exit Reason</label>
                     <select
                       value={formData.exitReason}
                       onChange={(e) => setFormData({ ...formData, exitReason: e.target.value as any })}
-                      className="w-full px-12 py-8 border rounded-md"
+                      className="input-field"
                       required
                     >
                       <option value="">Select exit reason</option>
@@ -242,11 +242,11 @@ export function LifecycleManagementPage() {
                 )}
 
                 <div>
-                  <label className="block text-sm font-medium mb-8">Additional Notes</label>
+                  <label className="form-label">Additional Notes</label>
                   <textarea
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="w-full px-12 py-8 border rounded-md"
+                    className="input-field"
                     rows={3}
                   />
                 </div>
@@ -262,8 +262,8 @@ export function LifecycleManagementPage() {
           )}
 
           {/* Lifecycle History */}
-          <Card className="p-24">
-            <h3 className="font-medium mb-16">Lifecycle History</h3>
+          <Card className="card-content">
+            <h3 className="card-title">Lifecycle History</h3>
             <div className="space-y-12">
               {history.map((transition) => (
                 <div key={transition.id} className="flex items-start space-x-12 pb-12 border-b last:border-0">

@@ -41,18 +41,18 @@ export function MonthlyReportsPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-24">
       <div>
-        <h1 className="text-24 font-bold">Monthly Attendance Reports</h1>
+        <h1 className="heading-1">Monthly Attendance Reports</h1>
         <p className="text-gray-600 mt-4">Generate detailed monthly attendance summaries</p>
       </div>
 
-      <Card className="p-24">
+      <Card className="card-content">
         <div className="space-y-16">
           <div>
-            <label className="block text-sm font-medium mb-8">Participant</label>
+            <label className="form-label">Participant</label>
             <select
               value={selectedParticipant}
               onChange={(e) => setSelectedParticipant(e.target.value)}
-              className="w-full px-12 py-8 border rounded-md"
+              className="input-field"
             >
               <option value="">Select a participant</option>
               {participants.map((p) => (
@@ -64,12 +64,12 @@ export function MonthlyReportsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-8">Month</label>
+            <label className="form-label">Month</label>
             <input
               type="month"
               value={selectedMonth}
               onChange={(e) => setSelectedMonth(e.target.value)}
-              className="w-full px-12 py-8 border rounded-md"
+              className="input-field"
             />
           </div>
 
@@ -85,7 +85,7 @@ export function MonthlyReportsPage() {
       </Card>
 
       {summary && (
-        <Card className="p-24">
+        <Card className="card-content">
           <div className="space-y-20">
             <div className="flex items-center justify-between border-b pb-16">
               <div>
@@ -100,18 +100,18 @@ export function MonthlyReportsPage() {
               </Button>
             </div>
 
-            <div className="grid grid-cols-3 gap-16">
+            <div className="grid-3">
               <div className="bg-gray-50 rounded-lg p-16">
                 <p className="text-sm text-gray-600 mb-4">Attendance Rate</p>
                 <p className="text-24 font-bold text-green-600">{summary.attendanceRate.toFixed(1)}%</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-16">
                 <p className="text-sm text-gray-600 mb-4">Days Present</p>
-                <p className="text-24 font-bold">{summary.daysPresent} / {summary.totalDays}</p>
+                <p className="heading-1">{summary.daysPresent} / {summary.totalDays}</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-16">
                 <p className="text-sm text-gray-600 mb-4">Total Hours</p>
-                <p className="text-24 font-bold">{summary.totalHoursWorked.toFixed(1)}h</p>
+                <p className="heading-1">{summary.totalHoursWorked.toFixed(1)}h</p>
               </div>
             </div>
 

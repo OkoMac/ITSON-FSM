@@ -63,19 +63,55 @@
     @apply transition-all duration-200;
   }
 
-  /* Input variants */
+  /* Input variants - Enhanced visibility */
   .input-field {
-    @apply glass-input px-16 py-12 text-base text-text-primary;
-    @apply placeholder:text-text-tertiary;
-    @apply w-full;
+    @apply glass-input px-16 py-14 text-base text-white;
+    @apply placeholder:text-gray-400;
+    @apply bg-white/10 border-2 border-white/20;
+    @apply focus:border-accent-blue focus:bg-white/15;
+    @apply transition-all duration-200;
+    @apply w-full rounded-lg;
+    min-height: 48px; /* Better touch target */
   }
 
   .input-error {
-    @apply border-status-error focus:border-status-error;
+    @apply border-status-error focus:border-status-error bg-red-500/10;
   }
 
   .input-success {
-    @apply border-status-success;
+    @apply border-status-success bg-green-500/10;
+  }
+
+  /* Form groups with proper spacing */
+  .form-group {
+    @apply space-y-8 mb-20;
+  }
+
+  .form-label {
+    @apply block text-sm font-semibold mb-10 text-white;
+    letter-spacing: 0.3px;
+  }
+
+  .form-helper {
+    @apply text-xs text-gray-400 mt-6;
+  }
+
+  .form-error {
+    @apply text-xs text-status-error mt-6 font-medium;
+  }
+
+  /* Select dropdown styling */
+  select.input-field {
+    @apply appearance-none bg-no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-position: right 12px center;
+    padding-right: 40px;
+  }
+
+  /* Textarea styling */
+  textarea.input-field {
+    @apply resize-y;
+    min-height: 120px;
   }
 
   /* Status badges */
@@ -112,14 +148,84 @@
     @apply skeleton rounded-full;
   }
 
-  /* Page layouts */
+  /* Page layouts - Better spacing */
   .page-container {
     @apply min-h-screen bg-gradient-to-b from-glass-black to-glass-black-light;
-    @apply p-16 md:p-24 lg:p-32;
+    @apply p-20 md:p-28 lg:p-36;
   }
 
   .content-wrapper {
-    @apply max-w-7xl mx-auto;
+    @apply max-w-7xl mx-auto space-y-28;
+  }
+
+  /* Card enhancements - More padding and better readability */
+  .card-content {
+    @apply p-28 md:p-32;
+  }
+
+  .card-header {
+    @apply mb-24 pb-20 border-b border-white/10;
+  }
+
+  .card-title {
+    @apply text-xl md:text-2xl font-bold text-white mb-8;
+    letter-spacing: 0.2px;
+  }
+
+  .card-description {
+    @apply text-sm text-gray-400 leading-relaxed;
+  }
+
+  /* Section spacing */
+  .section-spacing {
+    @apply space-y-24;
+  }
+
+  /* Grid layouts with proper gaps */
+  .grid-responsive {
+    @apply grid gap-20 md:gap-24;
+  }
+
+  .grid-2 {
+    @apply grid-responsive grid-cols-1 md:grid-cols-2;
+  }
+
+  .grid-3 {
+    @apply grid-responsive grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .grid-4 {
+    @apply grid-responsive grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
+  }
+
+  /* Typography scale with better readability */
+  .heading-1 {
+    @apply text-3xl md:text-4xl font-bold text-white mb-12;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .heading-2 {
+    @apply text-2xl md:text-3xl font-bold text-white mb-10;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+  }
+
+  .heading-3 {
+    @apply text-xl md:text-2xl font-semibold text-white mb-8;
+    line-height: 1.4;
+  }
+
+  .body-text {
+    @apply text-base text-gray-300 leading-relaxed;
+  }
+
+  .small-text {
+    @apply text-sm text-gray-400;
+  }
+
+  .micro-text {
+    @apply text-xs text-gray-500;
   }
 
   /* Animations */

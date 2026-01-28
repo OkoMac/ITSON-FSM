@@ -93,19 +93,19 @@ export function IncidentReportPage() {
   const resolvedIncidents = incidents.filter(i => i.status === 'resolved').length;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-24">
+    <div className="content-wrapper">
       <div>
-        <h1 className="text-24 font-bold">Incident Reports</h1>
+        <h1 className="heading-1">Incident Reports</h1>
         <p className="text-gray-600 mt-4">Report and track workplace incidents</p>
       </div>
 
       {/* Statistics */}
-      <div className="grid grid-cols-4 gap-16">
-        <Card className="p-16">
+      <div className="grid-4">
+        <Card className="card-content">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Total Incidents</p>
-              <p className="text-24 font-bold">{incidents.length}</p>
+              <p className="heading-1">{incidents.length}</p>
             </div>
             <AlertTriangle className="w-32 h-32 text-gray-400" />
           </div>
@@ -143,16 +143,16 @@ export function IncidentReportPage() {
       </div>
 
       {/* Report Form */}
-      <Card className="p-24">
-        <h3 className="font-medium mb-16">Report New Incident</h3>
+      <Card className="card-content">
+        <h3 className="card-title">Report New Incident</h3>
         <form onSubmit={handleSubmit} className="space-y-16">
-          <div className="grid grid-cols-2 gap-16">
+          <div className="grid-2">
             <div>
-              <label className="block text-sm font-medium mb-8">Site</label>
+              <label className="form-label">Site</label>
               <select
                 value={formData.siteId}
                 onChange={(e) => setFormData({ ...formData, siteId: e.target.value })}
-                className="w-full px-12 py-8 border rounded-md"
+                className="input-field"
                 required
               >
                 <option value="">Select site</option>
@@ -165,11 +165,11 @@ export function IncidentReportPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-8">Participant Involved</label>
+              <label className="form-label">Participant Involved</label>
               <select
                 value={formData.participantId}
                 onChange={(e) => setFormData({ ...formData, participantId: e.target.value })}
-                className="w-full px-12 py-8 border rounded-md"
+                className="input-field"
               >
                 <option value="">None / Not applicable</option>
                 {participants.map((p) => (
@@ -181,11 +181,11 @@ export function IncidentReportPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-8">Incident Type</label>
+              <label className="form-label">Incident Type</label>
               <select
                 value={formData.type}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
-                className="w-full px-12 py-8 border rounded-md"
+                className="input-field"
                 required
               >
                 <option value="accident">Accident</option>
@@ -196,11 +196,11 @@ export function IncidentReportPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-8">Severity</label>
+              <label className="form-label">Severity</label>
               <select
                 value={formData.severity}
                 onChange={(e) => setFormData({ ...formData, severity: e.target.value as any })}
-                className="w-full px-12 py-8 border rounded-md"
+                className="input-field"
                 required
               >
                 <option value="low">Low</option>
@@ -212,11 +212,11 @@ export function IncidentReportPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-8">Description</label>
+            <label className="form-label">Description</label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full px-12 py-8 border rounded-md"
+              className="input-field"
               rows={4}
               placeholder="Describe what happened..."
               required
@@ -224,11 +224,11 @@ export function IncidentReportPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-8">Immediate Action Taken</label>
+            <label className="form-label">Immediate Action Taken</label>
             <textarea
               value={formData.immediateAction}
               onChange={(e) => setFormData({ ...formData, immediateAction: e.target.value })}
-              className="w-full px-12 py-8 border rounded-md"
+              className="input-field"
               rows={3}
               placeholder="What actions were taken immediately?"
               required
@@ -240,8 +240,8 @@ export function IncidentReportPage() {
       </Card>
 
       {/* Incidents List */}
-      <Card className="p-24">
-        <h3 className="font-medium mb-16">Recent Incidents</h3>
+      <Card className="card-content">
+        <h3 className="card-title">Recent Incidents</h3>
         <div className="space-y-12">
           {incidents.map((incident) => {
             const site = sites.find(s => s.id === incident.siteId);

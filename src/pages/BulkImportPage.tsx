@@ -93,10 +93,10 @@ export function BulkImportPage() {
   const failedCount = results.filter(r => r.status === 'FAILED').length;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-24">
+    <div className="content-wrapper">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-24 font-bold">Bulk Participant Import</h1>
+          <h1 className="heading-1">Bulk Participant Import</h1>
           <p className="text-gray-600 mt-4">Import multiple participants from CSV file</p>
         </div>
         <Button onClick={downloadTemplate} variant="secondary">
@@ -105,7 +105,7 @@ export function BulkImportPage() {
         </Button>
       </div>
 
-      <Card className="p-24">
+      <Card className="card-content">
         <div className="space-y-20">
           {/* Upload Section */}
           <div className="border-2 border-dashed border-gray-300 rounded-lg p-32 text-center">
@@ -145,7 +145,7 @@ export function BulkImportPage() {
           {/* Results Summary */}
           {results.length > 0 && (
             <div className="space-y-16 border-t pt-20">
-              <div className="grid grid-cols-3 gap-16">
+              <div className="grid-3">
                 <Card className="p-16 bg-blue-50 border-blue-200">
                   <div className="flex items-center justify-between">
                     <div>
@@ -178,8 +178,8 @@ export function BulkImportPage() {
               </div>
 
               {/* Detailed Results */}
-              <Card className="p-16">
-                <h3 className="font-medium mb-16">Import Results</h3>
+              <Card className="card-content">
+                <h3 className="card-title">Import Results</h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead className="bg-gray-50">
