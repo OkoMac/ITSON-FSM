@@ -31,108 +31,167 @@
 }
 
 @layer components {
-  /* Glass morphism variants */
+  /* Glass morphism variants - Cyberpunk professional */
   .glass-card-elevated {
     @apply glass-card shadow-glass-lg;
+    border-color: rgba(0, 217, 255, 0.25);
   }
 
   .glass-card-hover {
-    @apply glass-card transition-all duration-200;
+    @apply glass-card transition-all duration-300;
   }
 
   .glass-card-hover:hover {
-    @apply scale-105 shadow-glow;
+    transform: translateY(-4px);
+    border-color: rgba(0, 217, 255, 0.4);
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.3), 0 12px 48px rgba(0, 0, 0, 0.6);
   }
 
-  /* Button variants */
+  /* Neon accent borders */
+  .border-neon-cyan {
+    @apply border-2 border-accent-cyan/50;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3), inset 0 0 10px rgba(0, 217, 255, 0.1);
+  }
+
+  .border-neon-purple {
+    @apply border-2 border-accent-purple/50;
+    box-shadow: 0 0 20px rgba(176, 38, 255, 0.3), inset 0 0 10px rgba(176, 38, 255, 0.1);
+  }
+
+  .border-neon-orange {
+    @apply border-2 border-accent-orange/50;
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.3), inset 0 0 10px rgba(255, 107, 0, 0.1);
+  }
+
+  /* Button variants - Cyberpunk professional with proper sizing */
   .btn-primary {
-    @apply glass-button px-24 py-16 rounded-glass text-base font-semibold;
-    @apply bg-accent-blue hover:bg-accent-blue-light;
-    @apply text-text-primary border-accent-blue;
-    @apply shadow-glow hover:shadow-glow;
+    @apply glass-button px-28 py-14 rounded-xl text-base font-semibold;
+    @apply bg-gradient-to-r from-accent-cyan to-accent-cyan-dark;
+    @apply text-glass-black border-accent-cyan;
+    @apply transition-all duration-300;
+    min-height: 48px;
+    box-shadow: 0 0 25px rgba(0, 217, 255, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-primary:hover {
+    @apply from-accent-cyan-light to-accent-cyan;
+    box-shadow: 0 0 35px rgba(0, 217, 255, 0.6), 0 6px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
   }
 
   .btn-secondary {
-    @apply glass-button px-24 py-16 rounded-glass text-base font-semibold;
-    @apply text-accent-blue border-accent-blue hover:border-accent-blue-light;
+    @apply glass-button px-28 py-14 rounded-xl text-base font-semibold;
+    @apply text-accent-cyan border-2 border-accent-cyan/50 bg-accent-cyan/10;
+    @apply hover:border-accent-cyan hover:bg-accent-cyan/20;
+    @apply transition-all duration-300;
+    min-height: 48px;
+  }
+
+  .btn-secondary:hover {
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-2px);
   }
 
   .btn-ghost {
-    @apply px-16 py-12 rounded-glass text-base font-medium;
-    @apply text-accent-blue hover:bg-white/5;
-    @apply transition-all duration-200;
+    @apply px-20 py-12 rounded-xl text-base font-medium;
+    @apply text-accent-cyan hover:bg-accent-cyan/10;
+    @apply transition-all duration-300;
+    min-height: 44px;
   }
 
-  /* Input variants - Enhanced visibility */
+  .btn-ghost:hover {
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+  }
+
+  /* Input variants - Cyberpunk professional styling with standard sizing */
   .input-field {
-    @apply glass-input px-16 py-14 text-base text-white;
-    @apply placeholder:text-gray-400;
-    @apply bg-white/10 border-2 border-white/20;
-    @apply focus:border-accent-blue focus:bg-white/15;
-    @apply transition-all duration-200;
-    @apply w-full rounded-lg;
-    min-height: 48px; /* Better touch target */
+    @apply glass-input px-16 py-14 text-base text-white font-medium;
+    @apply placeholder:text-white/40 placeholder:font-normal;
+    @apply bg-white/5 border-2 border-white/20;
+    @apply focus:border-accent-cyan focus:bg-accent-cyan/5;
+    @apply transition-all duration-300;
+    @apply w-full rounded-xl;
+    min-height: 48px; /* Standard touch target - iOS HIG compliant */
+    line-height: 1.5;
   }
 
   .input-error {
-    @apply border-status-error focus:border-status-error bg-red-500/10;
+    @apply border-status-error focus:border-status-error bg-status-error/5;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.2);
   }
 
   .input-success {
-    @apply border-status-success bg-green-500/10;
+    @apply border-status-success bg-status-success/5;
+    box-shadow: 0 0 15px rgba(0, 255, 159, 0.2);
   }
 
-  /* Form groups with proper spacing */
+  /* Form groups with professional spacing */
   .form-group {
-    @apply space-y-8 mb-20;
+    @apply space-y-10 mb-24;
   }
 
   .form-label {
-    @apply block text-sm font-semibold mb-10 text-white;
-    letter-spacing: 0.3px;
+    @apply block text-sm font-semibold mb-10 text-white/90;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 12px;
   }
 
   .form-helper {
-    @apply text-xs text-gray-400 mt-6;
+    @apply text-xs text-accent-cyan/60 mt-8 font-normal;
   }
 
   .form-error {
-    @apply text-xs text-status-error mt-6 font-medium;
+    @apply text-xs text-status-error mt-8 font-medium;
+    text-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
   }
 
-  /* Select dropdown styling */
+  /* Select dropdown styling - Cyberpunk professional */
   select.input-field {
-    @apply appearance-none bg-no-repeat;
-    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-position: right 12px center;
-    padding-right: 40px;
+    @apply appearance-none bg-no-repeat cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%2300D9FF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-position: right 16px center;
+    padding-right: 48px;
   }
 
-  /* Textarea styling */
+  select.input-field:hover {
+    @apply border-accent-cyan/40;
+    background-color: rgba(0, 217, 255, 0.08);
+  }
+
+  /* Textarea styling - Professional sizing */
   textarea.input-field {
     @apply resize-y;
     min-height: 120px;
+    max-height: 400px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 
-  /* Status badges */
+  /* Status badges - Cyberpunk professional */
   .badge {
-    @apply inline-flex items-center px-12 py-4 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-14 py-6 rounded-full text-xs font-semibold uppercase tracking-wide;
+    letter-spacing: 0.8px;
   }
 
   .badge-success {
-    @apply badge bg-status-success/20 text-status-success border border-status-success/30;
+    @apply badge bg-status-success/15 text-status-success border-2 border-status-success/40;
+    box-shadow: 0 0 15px rgba(0, 255, 159, 0.2);
   }
 
   .badge-warning {
-    @apply badge bg-status-warning/20 text-status-warning border border-status-warning/30;
+    @apply badge bg-status-warning/15 text-status-warning border-2 border-status-warning/40;
+    box-shadow: 0 0 15px rgba(255, 184, 0, 0.2);
   }
 
   .badge-error {
-    @apply badge bg-status-error/20 text-status-error border border-status-error/30;
+    @apply badge bg-status-error/15 text-status-error border-2 border-status-error/40;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.2);
   }
 
   .badge-info {
-    @apply badge bg-accent-blue/20 text-accent-blue border border-accent-blue/30;
+    @apply badge bg-accent-cyan/15 text-accent-cyan border-2 border-accent-cyan/40;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
   }
 
   /* Skeleton loaders */
@@ -148,32 +207,36 @@
     @apply skeleton rounded-full;
   }
 
-  /* Page layouts - Better spacing */
+  /* Page layouts - Professional spacing with cyberpunk aesthetic */
   .page-container {
-    @apply min-h-screen bg-gradient-to-b from-glass-black to-glass-black-light;
+    @apply min-h-screen;
+    background: radial-gradient(ellipse at top, rgba(0, 217, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(176, 38, 255, 0.05) 0%, transparent 50%),
+                #000000;
     @apply p-20 md:p-28 lg:p-36;
   }
 
   .content-wrapper {
-    @apply max-w-7xl mx-auto space-y-28;
+    @apply max-w-7xl mx-auto space-y-32;
   }
 
-  /* Card enhancements - More padding and better readability */
+  /* Card enhancements - Professional spacing and cyberpunk aesthetic */
   .card-content {
-    @apply p-28 md:p-32;
+    @apply p-24 md:p-32 lg:p-36;
   }
 
   .card-header {
-    @apply mb-24 pb-20 border-b border-white/10;
+    @apply mb-28 pb-24 border-b-2 border-accent-cyan/20;
   }
 
   .card-title {
     @apply text-xl md:text-2xl font-bold text-white mb-8;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.3px;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
   }
 
   .card-description {
-    @apply text-sm text-gray-400 leading-relaxed;
+    @apply text-sm text-white/60 leading-relaxed;
   }
 
   /* Section spacing */
@@ -198,34 +261,37 @@
     @apply grid-responsive grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
   }
 
-  /* Typography scale with better readability */
+  /* Typography scale - Cyberpunk professional with proper hierarchy */
   .heading-1 {
     @apply text-3xl md:text-4xl font-bold text-white mb-12;
     line-height: 1.2;
     letter-spacing: -0.5px;
+    text-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
   }
 
   .heading-2 {
     @apply text-2xl md:text-3xl font-bold text-white mb-10;
     line-height: 1.3;
     letter-spacing: -0.3px;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
   }
 
   .heading-3 {
     @apply text-xl md:text-2xl font-semibold text-white mb-8;
     line-height: 1.4;
+    letter-spacing: 0;
   }
 
   .body-text {
-    @apply text-base text-gray-300 leading-relaxed;
+    @apply text-base text-white/70 leading-relaxed;
   }
 
   .small-text {
-    @apply text-sm text-gray-400;
+    @apply text-sm text-white/60;
   }
 
   .micro-text {
-    @apply text-xs text-gray-500;
+    @apply text-xs text-white/50;
   }
 
   /* Animations */
@@ -252,18 +318,63 @@
   }
 }
 
-/* Utility classes */
+/* Utility classes - Cyberpunk professional */
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-accent-blue to-accent-blue-light bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-accent-cyan via-accent-purple to-accent-cyan bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: shimmer 3s linear infinite;
+  }
+
+  .text-gradient-cyan {
+    @apply bg-gradient-to-r from-accent-cyan to-accent-cyan-light bg-clip-text text-transparent;
+  }
+
+  .text-gradient-purple {
+    @apply bg-gradient-to-r from-accent-purple to-accent-purple-light bg-clip-text text-transparent;
+  }
+
+  .text-gradient-orange {
+    @apply bg-gradient-to-r from-accent-orange to-accent-orange-light bg-clip-text text-transparent;
   }
 
   .bg-gradient-radial {
-    background: radial-gradient(circle at center, rgba(0, 113, 227, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at center, rgba(0, 217, 255, 0.15) 0%, transparent 70%);
+  }
+
+  .bg-gradient-radial-purple {
+    background: radial-gradient(circle at center, rgba(176, 38, 255, 0.12) 0%, transparent 70%);
   }
 
   .backdrop-blur-glass {
-    backdrop-filter: blur(40px) saturate(180%);
+    backdrop-filter: blur(40px) saturate(200%);
+  }
+
+  .neon-glow-cyan {
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.4), 0 0 60px rgba(0, 217, 255, 0.2);
+  }
+
+  .neon-glow-purple {
+    box-shadow: 0 0 30px rgba(176, 38, 255, 0.4), 0 0 60px rgba(176, 38, 255, 0.2);
+  }
+
+  .neon-glow-orange {
+    box-shadow: 0 0 30px rgba(255, 107, 0, 0.4), 0 0 60px rgba(255, 107, 0, 0.2);
+  }
+
+  .text-neon-cyan {
+    color: #00D9FF;
+    text-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+  }
+
+  .text-neon-purple {
+    color: #B026FF;
+    text-shadow: 0 0 15px rgba(176, 38, 255, 0.5);
+  }
+
+  .text-neon-orange {
+    color: #FF6B00;
+    text-shadow: 0 0 15px rgba(255, 107, 0, 0.5);
   }
 }
 
