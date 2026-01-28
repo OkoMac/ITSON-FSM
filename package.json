@@ -12,19 +12,20 @@
     "test:e2e": "cypress open"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.0",
     "@tanstack/react-query": "^5.17.0",
+    "clsx": "^2.1.0",
+    "date-fns": "^3.0.6",
     "dexie": "^3.2.4",
     "dexie-react-hooks": "^1.1.7",
     "face-api.js": "^0.22.2",
+    "lucide-react": "^0.563.0",
     "mapbox-gl": "^3.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0",
     "recharts": "^2.10.3",
-    "date-fns": "^3.0.6",
-    "zustand": "^4.4.7",
-    "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.0"
+    "tailwind-merge": "^2.2.0",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

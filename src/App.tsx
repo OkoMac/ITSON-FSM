@@ -18,6 +18,23 @@ const StoriesPage = lazy(() => import('@/pages/StoriesPage'));
 const AnalyticsPage = lazy(() => import('@/pages/AnalyticsPage'));
 const NotificationsPage = lazy(() => import('@/pages/NotificationsPage'));
 
+// Enterprise feature pages
+const DocumentUploadPage = lazy(() => import('@/pages/DocumentUploadPage'));
+const BulkImportPage = lazy(() => import('@/pages/BulkImportPage'));
+const WorkSchedulesPage = lazy(() => import('@/pages/WorkSchedulesPage'));
+const PPEManagementPage = lazy(() => import('@/pages/PPEManagementPage'));
+const IncidentReportPage = lazy(() => import('@/pages/IncidentReportPage'));
+const BiometricMonitoringPage = lazy(() => import('@/pages/BiometricMonitoringPage'));
+const DeviceManagementPage = lazy(() => import('@/pages/DeviceManagementPage'));
+const MonthlyReportsPage = lazy(() => import('@/pages/MonthlyReportsPage'));
+const ReferenceLetterPage = lazy(() => import('@/pages/ReferenceLetterPage'));
+const TrainingPathwaysPage = lazy(() => import('@/pages/TrainingPathwaysPage'));
+const MentorshipPage = lazy(() => import('@/pages/MentorshipPage'));
+const JournalingPage = lazy(() => import('@/pages/JournalingPage'));
+const LifecycleManagementPage = lazy(() => import('@/pages/LifecycleManagementPage'));
+const OfflineSyncPage = lazy(() => import('@/pages/OfflineSyncPage'));
+const WhatsAppOnboardingPage = lazy(() => import('@/pages/WhatsAppOnboardingPage'));
+
 // Layout components
 import { MainLayout } from '@/components/layout/MainLayout';
 import { OfflineBanner } from '@/components/shared/OfflineBanner';
@@ -110,6 +127,22 @@ const App: React.FC = () => {
               <Route path="notifications" element={<NotificationsPage />} />
               <Route path="profile" element={<ProfilePage />} />
 
+              {/* Participant features */}
+              <Route path="journaling" element={<JournalingPage />} />
+              <Route path="training" element={<TrainingPathwaysPage />} />
+              <Route path="mentorship" element={<MentorshipPage />} />
+
+              {/* Operations features */}
+              <Route path="schedules" element={<WorkSchedulesPage />} />
+              <Route path="ppe" element={<PPEManagementPage />} />
+              <Route path="incidents" element={<IncidentReportPage />} />
+              <Route path="offline-sync" element={<OfflineSyncPage />} />
+              <Route path="whatsapp-onboarding" element={
+                <ProtectedRoute roles={['supervisor', 'property-point', 'project-manager']}>
+                  <WhatsAppOnboardingPage />
+                </ProtectedRoute>
+              } />
+
               {/* Admin routes */}
               <Route
                 path="admin"
@@ -132,6 +165,62 @@ const App: React.FC = () => {
                 element={
                   <ProtectedRoute roles={['supervisor', 'property-point', 'project-manager']}>
                     <AnalyticsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="document-upload"
+                element={
+                  <ProtectedRoute roles={['supervisor', 'property-point', 'project-manager']}>
+                    <DocumentUploadPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="bulk-import"
+                element={
+                  <ProtectedRoute roles={['property-point', 'project-manager']}>
+                    <BulkImportPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="biometric-monitoring"
+                element={
+                  <ProtectedRoute roles={['supervisor', 'property-point', 'project-manager']}>
+                    <BiometricMonitoringPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="device-management"
+                element={
+                  <ProtectedRoute roles={['property-point', 'project-manager']}>
+                    <DeviceManagementPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="monthly-reports"
+                element={
+                  <ProtectedRoute roles={['supervisor', 'property-point', 'project-manager']}>
+                    <MonthlyReportsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="reference-letters"
+                element={
+                  <ProtectedRoute roles={['property-point', 'project-manager']}>
+                    <ReferenceLetterPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="lifecycle-management"
+                element={
+                  <ProtectedRoute roles={['property-point', 'project-manager']}>
+                    <LifecycleManagementPage />
                   </ProtectedRoute>
                 }
               />
