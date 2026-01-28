@@ -44,18 +44,18 @@ export function ReferenceLetterPage() {
   return (
     <div className="max-w-5xl mx-auto space-y-24">
       <div>
-        <h1 className="text-24 font-bold">Reference Letter Generator</h1>
+        <h1 className="heading-1">Reference Letter Generator</h1>
         <p className="text-gray-600 mt-4">Generate professional reference letters for participants</p>
       </div>
 
-      <Card className="p-24">
+      <Card className="card-content">
         <div className="space-y-16">
           <div>
-            <label className="block text-sm font-medium mb-8">Participant</label>
+            <label className="form-label">Participant</label>
             <select
               value={selectedParticipant}
               onChange={(e) => setSelectedParticipant(e.target.value)}
-              className="w-full px-12 py-8 border rounded-md"
+              className="input-field"
             >
               <option value="">Select a participant</option>
               {participants.map((p) => (
@@ -67,12 +67,12 @@ export function ReferenceLetterPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-8">Your Title</label>
+            <label className="form-label">Your Title</label>
             <input
               type="text"
               value={signedByTitle}
               onChange={(e) => setSignedByTitle(e.target.value)}
-              className="w-full px-12 py-8 border rounded-md"
+              className="input-field"
               placeholder="e.g., Project Manager"
             />
           </div>

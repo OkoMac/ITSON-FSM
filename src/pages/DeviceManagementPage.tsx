@@ -84,10 +84,10 @@ export function DeviceManagementPage() {
   const lostDevices = devices.filter(d => d.status === 'lost').length;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-24">
+    <div className="content-wrapper">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-24 font-bold">Device Management (MDM)</h1>
+          <h1 className="heading-1">Device Management (MDM)</h1>
           <p className="text-gray-600 mt-4">Manage biometric devices and mobile hardware</p>
         </div>
         <Button onClick={() => setShowAddForm(!showAddForm)}>
@@ -97,12 +97,12 @@ export function DeviceManagementPage() {
       </div>
 
       {/* Statistics */}
-      <div className="grid grid-cols-4 gap-16">
-        <Card className="p-16">
+      <div className="grid-4">
+        <Card className="card-content">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Total Devices</p>
-              <p className="text-24 font-bold">{devices.length}</p>
+              <p className="heading-1">{devices.length}</p>
             </div>
             <Smartphone className="w-32 h-32 text-gray-400" />
           </div>
@@ -141,16 +141,16 @@ export function DeviceManagementPage() {
 
       {/* Add Device Form */}
       {showAddForm && (
-        <Card className="p-24">
-          <h3 className="font-medium mb-16">Register New Device</h3>
+        <Card className="card-content">
+          <h3 className="card-title">Register New Device</h3>
           <form onSubmit={handleSubmit} className="space-y-16">
-            <div className="grid grid-cols-2 gap-16">
+            <div className="grid-2">
               <div>
-                <label className="block text-sm font-medium mb-8">Device Type</label>
+                <label className="form-label">Device Type</label>
                 <select
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value as 'tablet' | 'smartphone' | 'biometric-scanner' })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 >
                   <option value="tablet">Tablet</option>
@@ -160,45 +160,45 @@ export function DeviceManagementPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-8">Serial Number</label>
+                <label className="form-label">Serial Number</label>
                 <input
                   type="text"
                   value={formData.serialNumber}
                   onChange={(e) => setFormData({ ...formData, serialNumber: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-8">Model</label>
+                <label className="form-label">Model</label>
                 <input
                   type="text"
                   value={formData.model}
                   onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   placeholder="e.g., Samsung Galaxy Tab A7"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-8">Manufacturer</label>
+                <label className="form-label">Manufacturer</label>
                 <input
                   type="text"
                   value={formData.manufacturer}
                   onChange={(e) => setFormData({ ...formData, manufacturer: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-8">Assigned Site</label>
+                <label className="form-label">Assigned Site</label>
                 <select
                   value={formData.siteId}
                   onChange={(e) => setFormData({ ...formData, siteId: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 >
                   <option value="">Select site</option>
@@ -222,8 +222,8 @@ export function DeviceManagementPage() {
       )}
 
       {/* Device Inventory */}
-      <Card className="p-24">
-        <h3 className="font-medium mb-16">Device Inventory</h3>
+      <Card className="card-content">
+        <h3 className="card-title">Device Inventory</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="bg-gray-50">

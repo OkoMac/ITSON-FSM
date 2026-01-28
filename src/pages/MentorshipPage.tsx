@@ -86,10 +86,10 @@ export function MentorshipPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-24">
+    <div className="content-wrapper">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-24 font-bold">Mentorship Program</h1>
+          <h1 className="heading-1">Mentorship Program</h1>
           <p className="text-gray-600 mt-4">Manage mentorship relationships and track progress</p>
         </div>
         <Button onClick={() => setShowCreateForm(!showCreateForm)}>
@@ -99,16 +99,16 @@ export function MentorshipPage() {
       </div>
 
       {showCreateForm && (
-        <Card className="p-24">
-          <h3 className="font-medium mb-16">Create Mentorship Relationship</h3>
+        <Card className="card-content">
+          <h3 className="card-title">Create Mentorship Relationship</h3>
           <form onSubmit={handleSubmit} className="space-y-16">
-            <div className="grid grid-cols-2 gap-16">
+            <div className="grid-2">
               <div>
-                <label className="block text-sm font-medium mb-8">Mentee</label>
+                <label className="form-label">Mentee</label>
                 <select
                   value={formData.menteeId}
                   onChange={(e) => setFormData({ ...formData, menteeId: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 >
                   <option value="">Select mentee</option>
@@ -121,11 +121,11 @@ export function MentorshipPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-8">Mentor</label>
+                <label className="form-label">Mentor</label>
                 <select
                   value={formData.mentorId}
                   onChange={(e) => setFormData({ ...formData, mentorId: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 >
                   <option value="">Select mentor</option>
@@ -139,7 +139,7 @@ export function MentorshipPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-8">Focus Areas</label>
+              <label className="form-label">Focus Areas</label>
               <div className="space-y-8">
                 {formData.focusAreas.map((area, index) => (
                   <input
@@ -147,7 +147,7 @@ export function MentorshipPage() {
                     type="text"
                     value={area}
                     onChange={(e) => handleFocusAreaChange(index, e.target.value)}
-                    className="w-full px-12 py-8 border rounded-md"
+                    className="input-field"
                     placeholder={'Focus area ' + (index + 1)}
                   />
                 ))}
@@ -179,7 +179,7 @@ export function MentorshipPage() {
           const mentor = participants.find(p => p.id === mentorship.mentorId);
 
           return (
-            <Card key={mentorship.id} className="p-24">
+            <Card key={mentorship.id} className="card-content">
               <div className="flex items-start justify-between mb-20">
                 <div className="flex items-start space-x-16">
                   <div className="bg-purple-100 p-12 rounded-lg">
@@ -212,7 +212,7 @@ export function MentorshipPage() {
                     <Target className="w-16 h-16 text-gray-600" />
                     <p className="text-sm font-medium">Goals</p>
                   </div>
-                  <p className="text-24 font-bold">{mentorship.goals.length}</p>
+                  <p className="heading-1">{mentorship.goals.length}</p>
                 </div>
 
                 <div className="bg-gray-50 rounded-lg p-16">
@@ -220,7 +220,7 @@ export function MentorshipPage() {
                     <Calendar className="w-16 h-16 text-gray-600" />
                     <p className="text-sm font-medium">Meetings</p>
                   </div>
-                  <p className="text-24 font-bold">{mentorship.meetings.length}</p>
+                  <p className="heading-1">{mentorship.meetings.length}</p>
                 </div>
               </div>
 

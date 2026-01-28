@@ -91,10 +91,10 @@ export function WhatsAppOnboardingPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto space-y-24">
+    <div className="content-wrapper">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-24 font-bold">WhatsApp Onboarding</h1>
+          <h1 className="heading-1">WhatsApp Onboarding</h1>
           <p className="text-gray-600 mt-4">Monitor and manage WhatsApp-based onboarding sessions</p>
         </div>
         <Button onClick={loadSessions}>
@@ -122,12 +122,12 @@ export function WhatsAppOnboardingPage() {
       )}
 
       {/* Statistics */}
-      <div className="grid grid-cols-4 gap-16">
+      <div className="grid-4">
         <Card className="p-16">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600 mb-4">Total Sessions</p>
-              <p className="text-24 font-bold">{stats.total}</p>
+              <p className="heading-1">{stats.total}</p>
             </div>
             <MessageCircle className="w-24 h-24 text-blue-600" />
           </div>
@@ -166,7 +166,7 @@ export function WhatsAppOnboardingPage() {
 
       {/* Test Mode */}
       {botConfigured && (
-        <Card className="p-24">
+        <Card className="card-content">
           <div className="flex items-center justify-between mb-16">
             <h3 className="font-medium">Test Mode</h3>
             <label className="flex items-center space-x-8">
@@ -221,7 +221,7 @@ export function WhatsAppOnboardingPage() {
       {/* Sessions List */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
         {/* Sessions Table */}
-        <Card className="p-24">
+        <Card className="card-content">
           <h3 className="font-medium mb-16">Active Sessions</h3>
           <div className="space-y-12">
             {sessions.length === 0 ? (
@@ -269,7 +269,7 @@ export function WhatsAppOnboardingPage() {
         </Card>
 
         {/* Session Details */}
-        <Card className="p-24">
+        <Card className="card-content">
           <h3 className="font-medium mb-16">Session Details</h3>
           {selectedSession ? (
             <div className="space-y-16">

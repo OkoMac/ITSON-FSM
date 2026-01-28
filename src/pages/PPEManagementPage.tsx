@@ -87,10 +87,10 @@ export function PPEManagementPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-24">
+    <div className="content-wrapper">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-24 font-bold">PPE Management</h1>
+          <h1 className="heading-1">PPE Management</h1>
           <p className="text-gray-600 mt-4">Manage Personal Protective Equipment inventory</p>
         </div>
         <Button onClick={() => setShowAddForm(!showAddForm)}>
@@ -100,12 +100,12 @@ export function PPEManagementPage() {
       </div>
 
       {/* Statistics */}
-      <div className="grid grid-cols-4 gap-16">
-        <Card className="p-16">
+      <div className="grid-4">
+        <Card className="card-content">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Total Items</p>
-              <p className="text-24 font-bold">{ppeItems.length}</p>
+              <p className="heading-1">{ppeItems.length}</p>
             </div>
             <Package className="w-32 h-32 text-gray-400" />
           </div>
@@ -144,16 +144,16 @@ export function PPEManagementPage() {
 
       {/* Add PPE Form */}
       {showAddForm && (
-        <Card className="p-24">
-          <h3 className="font-medium mb-16">Add New PPE Item</h3>
+        <Card className="card-content">
+          <h3 className="card-title">Add New PPE Item</h3>
           <form onSubmit={handleAddPPE} className="space-y-16">
-            <div className="grid grid-cols-2 gap-16">
+            <div className="grid-2">
               <div>
-                <label className="block text-sm font-medium mb-8">Type</label>
+                <label className="form-label">Type</label>
                 <select
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 >
                   <option value="helmet">Helmet</option>
@@ -167,11 +167,11 @@ export function PPEManagementPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-8">Condition</label>
+                <label className="form-label">Condition</label>
                 <select
                   value={formData.condition}
                   onChange={(e) => setFormData({ ...formData, condition: e.target.value as any })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 >
                   <option value="new">New</option>
@@ -183,33 +183,33 @@ export function PPEManagementPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-8">Brand</label>
+                <label className="form-label">Brand</label>
                 <input
                   type="text"
                   value={formData.brand}
                   onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-8">Serial Number</label>
+                <label className="form-label">Serial Number</label>
                 <input
                   type="text"
                   value={formData.serialNumber}
                   onChange={(e) => setFormData({ ...formData, serialNumber: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   placeholder="Optional"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-8">Site</label>
+                <label className="form-label">Site</label>
                 <select
                   value={formData.siteId}
                   onChange={(e) => setFormData({ ...formData, siteId: e.target.value })}
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   required
                 >
                   <option value="">Select site</option>
@@ -233,8 +233,8 @@ export function PPEManagementPage() {
       )}
 
       {/* PPE Inventory */}
-      <Card className="p-24">
-        <h3 className="font-medium mb-16">PPE Inventory</h3>
+      <Card className="card-content">
+        <h3 className="card-title">PPE Inventory</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="bg-gray-50">
@@ -300,12 +300,12 @@ export function PPEManagementPage() {
       {showIssueForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <Card className="p-24 max-w-md w-full">
-            <h3 className="font-medium mb-16">Issue PPE Item</h3>
+            <h3 className="card-title">Issue PPE Item</h3>
             <div className="space-y-16">
               <div>
-                <label className="block text-sm font-medium mb-8">Select Participant</label>
+                <label className="form-label">Select Participant</label>
                 <select
-                  className="w-full px-12 py-8 border rounded-md"
+                  className="input-field"
                   onChange={(e) => {
                     if (e.target.value) {
                       handleIssue(showIssueForm, e.target.value);
