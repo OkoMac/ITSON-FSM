@@ -115,11 +115,11 @@ export const AIAssistant: React.FC = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-24 right-24 z-50 w-56 h-56 rounded-full bg-gradient-to-br from-accent-blue to-accent-blue-light shadow-xl hover:scale-110 transition-transform flex items-center justify-center group"
+          className="fixed bottom-20 right-16 md:bottom-24 md:right-24 z-50 w-48 h-48 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-accent-blue to-accent-blue-light shadow-xl hover:scale-110 transition-transform flex items-center justify-center group"
           aria-label="Open AI Assistant"
         >
           <svg
-            className="w-28 h-28 text-white"
+            className="w-24 h-24 md:w-28 md:h-28 text-white"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -131,15 +131,15 @@ export const AIAssistant: React.FC = () => {
               d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
             />
           </svg>
-          <span className="absolute top-0 right-0 w-16 h-16 rounded-full bg-success animate-pulse"></span>
+          <span className="absolute top-0 right-0 w-12 h-12 md:w-16 md:h-16 rounded-full bg-success animate-pulse"></span>
         </button>
       )}
 
-      {/* Chat Window */}
+      {/* Chat Window - Full screen on mobile, floating on desktop */}
       {isOpen && (
-        <div className="fixed bottom-24 right-24 z-50 w-[400px] max-w-[calc(100vw-48px)] h-[600px] max-h-[calc(100vh-100px)] glass-card rounded-glass border border-border shadow-2xl flex flex-col">
+        <div className="fixed inset-0 md:inset-auto md:bottom-24 md:right-24 z-50 md:w-[400px] md:max-w-[calc(100vw-48px)] md:h-[600px] md:max-h-[calc(100vh-100px)] md:rounded-glass bg-surface-primary md:glass-card border-0 md:border md:border-border shadow-2xl flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between p-16 border-b border-border">
+          <div className="flex items-center justify-between p-16 border-b border-border bg-surface-primary">
             <div className="flex items-center space-x-12">
               <div className="w-32 h-32 rounded-full bg-gradient-to-br from-accent-blue to-accent-blue-light flex items-center justify-center">
                 <svg
