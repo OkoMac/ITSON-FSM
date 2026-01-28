@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { GlassCard, Badge } from '@/components/ui';
+import heroBuilding from '@/assets/images/hero-building.svg';
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuthStore();
@@ -76,19 +77,33 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="space-y-32 animate-fade-in">
-      {/* Welcome header */}
-      <div>
-        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-8">
-          Welcome back, {user?.name.split(' ')[0]}!
-        </h1>
-        <p className="text-text-secondary">
-          {new Date().toLocaleDateString('en-ZA', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </p>
+      {/* Hero Section */}
+      <div
+        className="relative overflow-hidden rounded-2xl"
+        style={{
+          backgroundImage: `url(${heroBuilding})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          minHeight: '280px',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary-dark/85 to-primary-dark/70" />
+        <div className="relative z-10 p-32 md:p-48">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-12">
+            Welcome back, {user?.name.split(' ')[0]}!
+          </h1>
+          <p className="text-xl text-white/90 mb-8">
+            {new Date().toLocaleDateString('en-ZA', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </p>
+          <p className="text-base text-white/70 max-w-2xl">
+            Monitor your team's performance, track attendance, and manage facilities across all sites
+          </p>
+        </div>
       </div>
 
       {/* Stats grid */}

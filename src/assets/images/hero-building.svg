@@ -1,0 +1,88 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1929;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a2942;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="buildingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a5f;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#0f2744;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sky background -->
+  <rect width="1200" height="600" fill="url(#skyGrad)"/>
+
+  <!-- Modern building structure -->
+  <g opacity="0.95">
+    <!-- Main building tower -->
+    <rect x="400" y="100" width="400" height="500" fill="url(#buildingGrad)" rx="8"/>
+
+    <!-- Windows grid -->
+    <g opacity="0.7">
+      <!-- Floor 1 windows -->
+      <rect x="430" y="140" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+      <rect x="510" y="140" width="50" height="60" fill="#64b5f6" opacity="0.5"/>
+      <rect x="590" y="140" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+      <rect x="670" y="140" width="50" height="60" fill="#64b5f6" opacity="0.4"/>
+      <rect x="750" y="140" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+
+      <!-- Floor 2 windows -->
+      <rect x="430" y="220" width="50" height="60" fill="#64b5f6" opacity="0.4"/>
+      <rect x="510" y="220" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+      <rect x="590" y="220" width="50" height="60" fill="#64b5f6" opacity="0.5"/>
+      <rect x="670" y="220" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+      <rect x="750" y="220" width="50" height="60" fill="#64b5f6" opacity="0.4"/>
+
+      <!-- Floor 3 windows -->
+      <rect x="430" y="300" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+      <rect x="510" y="300" width="50" height="60" fill="#64b5f6" opacity="0.4"/>
+      <rect x="590" y="300" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+      <rect x="670" y="300" width="50" height="60" fill="#64b5f6" opacity="0.5"/>
+      <rect x="750" y="300" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+
+      <!-- Floor 4 windows -->
+      <rect x="430" y="380" width="50" height="60" fill="#64b5f6" opacity="0.4"/>
+      <rect x="510" y="380" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+      <rect x="590" y="380" width="50" height="60" fill="#64b5f6" opacity="0.4"/>
+      <rect x="670" y="380" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+      <rect x="750" y="380" width="50" height="60" fill="#64b5f6" opacity="0.5"/>
+
+      <!-- Floor 5 windows -->
+      <rect x="430" y="460" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+      <rect x="510" y="460" width="50" height="60" fill="#64b5f6" opacity="0.5"/>
+      <rect x="590" y="460" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+      <rect x="670" y="460" width="50" height="60" fill="#64b5f6" opacity="0.4"/>
+      <rect x="750" y="460" width="50" height="60" fill="#64b5f6" opacity="0.3"/>
+    </g>
+
+    <!-- Side wing -->
+    <rect x="250" y="250" width="150" height="350" fill="url(#buildingGrad)" opacity="0.8" rx="4"/>
+
+    <!-- Side wing windows -->
+    <g opacity="0.6">
+      <rect x="270" y="280" width="30" height="40" fill="#64b5f6" opacity="0.3"/>
+      <rect x="320" y="280" width="30" height="40" fill="#64b5f6" opacity="0.4"/>
+      <rect x="370" y="280" width="30" height="40" fill="#64b5f6" opacity="0.3"/>
+
+      <rect x="270" y="340" width="30" height="40" fill="#64b5f6" opacity="0.4"/>
+      <rect x="320" y="340" width="30" height="40" fill="#64b5f6" opacity="0.3"/>
+      <rect x="370" y="340" width="30" height="40" fill="#64b5f6" opacity="0.5"/>
+
+      <rect x="270" y="400" width="30" height="40" fill="#64b5f6" opacity="0.3"/>
+      <rect x="320" y="400" width="30" height="40" fill="#64b5f6" opacity="0.4"/>
+      <rect x="370" y="400" width="30" height="40" fill="#64b5f6" opacity="0.3"/>
+
+      <rect x="270" y="460" width="30" height="40" fill="#64b5f6" opacity="0.4"/>
+      <rect x="320" y="460" width="30" height="40" fill="#64b5f6" opacity="0.3"/>
+      <rect x="370" y="460" width="30" height="40" fill="#64b5f6" opacity="0.4"/>
+
+      <rect x="270" y="520" width="30" height="40" fill="#64b5f6" opacity="0.3"/>
+      <rect x="320" y="520" width="30" height="40" fill="#64b5f6" opacity="0.5"/>
+      <rect x="370" y="520" width="30" height="40" fill="#64b5f6" opacity="0.3"/>
+    </g>
+  </g>
+
+  <!-- Subtle overlay gradient -->
+  <rect width="1200" height="600" fill="url(#skyGrad)" opacity="0.3"/>
+</svg>
