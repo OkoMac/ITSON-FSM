@@ -19,6 +19,7 @@ import {
   getEnrollmentStatus,
   type BiometricType,
 } from '@/services/biometric/biometricEnrollment';
+import heroBuilding from '@/assets/images/hero-building.svg';
 
 type CheckInStep = 'initial' | 'select-method' | 'face-verify' | 'fingerprint-verify' | 'enrollment' | 'complete';
 type AttendanceAction = 'check-in' | 'check-out';
@@ -358,13 +359,25 @@ const CheckInPage: React.FC = () => {
 
     return (
       <div className="space-y-32 animate-fade-in">
-        <div>
-          <h1 className="text-3xl font-bold text-text-primary mb-8">
-            Biometric Attendance
-          </h1>
-          <p className="text-text-secondary">
-            Use face recognition or fingerprint to check in/out
-          </p>
+        {/* Hero Section */}
+        <div
+          className="relative overflow-hidden rounded-2xl"
+          style={{
+            backgroundImage: `url(${heroBuilding})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            minHeight: '200px',
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary-dark/85 to-primary-dark/70" />
+          <div className="relative z-10 p-32">
+            <h1 className="text-4xl font-bold text-white mb-8">
+              Biometric Attendance
+            </h1>
+            <p className="text-lg text-white/80">
+              Use face recognition or fingerprint to check in/out
+            </p>
+          </div>
         </div>
 
         {/* Status card */}

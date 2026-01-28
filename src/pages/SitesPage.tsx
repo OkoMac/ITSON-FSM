@@ -3,6 +3,7 @@ import { GlassCard, Button, Input, Badge } from '@/components/ui';
 import { SiteCard } from '@/components/sites/SiteCard';
 import { AddSiteModal } from '@/components/sites/AddSiteModal';
 import type { Site } from '@/types';
+import heroBuilding from '@/assets/images/hero-building.svg';
 
 const SitesPage: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -248,18 +249,29 @@ const SitesPage: React.FC = () => {
   // List view
   return (
     <div className="space-y-32 animate-fade-in">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-16">
-        <div>
-          <h1 className="text-3xl font-bold text-text-primary mb-8">Site Management</h1>
-          <p className="text-text-secondary">Manage all programme sites and facilities</p>
+      {/* Hero Section */}
+      <div
+        className="relative overflow-hidden rounded-2xl"
+        style={{
+          backgroundImage: `url(${heroBuilding})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          minHeight: '240px',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary-dark/85 to-primary-dark/70" />
+        <div className="relative z-10 p-32 md:p-40 flex flex-col md:flex-row md:items-end justify-between gap-16">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-12">Site Management</h1>
+            <p className="text-lg text-white/80">Manage all programme sites and facilities</p>
+          </div>
+          <Button onClick={() => setIsAddModalOpen(true)} size="lg">
+            <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Add New Site
+          </Button>
         </div>
-        <Button onClick={() => setIsAddModalOpen(true)}>
-          <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          Add New Site
-        </Button>
       </div>
 
       {/* Stats */}

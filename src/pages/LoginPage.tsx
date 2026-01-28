@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/useAuthStore';
 import { GlassCard, Input, Button } from '@/components/ui';
+import logoImage from '@/assets/images/itson-logo.svg';
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -33,13 +34,19 @@ const LoginPage: React.FC = () => {
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-radial pointer-events-none" />
 
-      <div className="relative w-full max-w-md animate-scale-in">
+      <div className="relative w-full max-w-sm animate-scale-in">
         <GlassCard>
           {/* Logo */}
-          <div className="text-center mb-32">
-            <h1 className="text-4xl font-bold text-gradient mb-8">ITSON FSM</h1>
-            <p className="text-text-secondary text-sm">
-              Field Service Management Platform
+          <div className="text-center mb-40">
+            <div className="flex justify-center mb-12">
+              <img
+                src={logoImage}
+                alt="ITSON Logo"
+                className="h-24 w-auto"
+              />
+            </div>
+            <p className="text-text-secondary text-base font-medium tracking-wide">
+              Facilities Management System
             </p>
           </div>
 

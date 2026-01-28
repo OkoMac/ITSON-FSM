@@ -3,6 +3,7 @@ import { GlassCard, Badge } from '@/components/ui';
 import { TaskDetailModal } from '@/components/tasks/TaskDetailModal';
 import { useAuthStore } from '@/store/useAuthStore';
 import type { Task } from '@/types';
+import heroBuilding from '@/assets/images/hero-building.svg';
 
 const TasksPage: React.FC = () => {
   const { user } = useAuthStore();
@@ -139,10 +140,20 @@ const TasksPage: React.FC = () => {
 
   return (
     <div className="space-y-32 animate-fade-in">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-text-primary mb-8">My Tasks</h1>
-          <p className="text-text-secondary">{tasks.length} active tasks</p>
+      {/* Hero Section */}
+      <div
+        className="relative overflow-hidden rounded-2xl"
+        style={{
+          backgroundImage: `url(${heroBuilding})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          minHeight: '200px',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary-dark/85 to-primary-dark/70" />
+        <div className="relative z-10 p-32">
+          <h1 className="text-4xl font-bold text-white mb-8">My Tasks</h1>
+          <p className="text-lg text-white/80">{tasks.length} active tasks assigned to you</p>
         </div>
       </div>
 

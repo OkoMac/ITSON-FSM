@@ -6,6 +6,7 @@ import {
   createTrainingPathway,
   type TrainingPathway,
 } from '@/services/development/participantDevelopment';
+import heroBuilding from '@/assets/images/hero-building.svg';
 
 interface PathwayEnrollment {
   id: string;
@@ -108,15 +109,27 @@ export function TrainingPathwaysPage() {
 
   return (
     <div className="content-wrapper">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="heading-1">Training Pathways</h1>
-          <p className="text-gray-600 mt-4">Manage training programs and participant enrollment</p>
+      {/* Hero Section */}
+      <div
+        className="relative overflow-hidden rounded-2xl mb-32"
+        style={{
+          backgroundImage: `url(${heroBuilding})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          minHeight: '200px',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary-dark/85 to-primary-dark/70" />
+        <div className="relative z-10 p-32 flex items-end justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-white mb-8">Training Pathways</h1>
+            <p className="text-lg text-white/80">Manage training programs and participant enrollment</p>
+          </div>
+          <Button onClick={() => setShowCreateForm(!showCreateForm)} variant="secondary">
+            <Plus className="w-16 h-16 mr-8" />
+            Create Pathway
+          </Button>
         </div>
-        <Button onClick={() => setShowCreateForm(!showCreateForm)}>
-          <Plus className="w-16 h-16 mr-8" />
-          Create Pathway
-        </Button>
       </div>
 
       {showCreateForm && (

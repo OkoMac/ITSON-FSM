@@ -3,6 +3,7 @@ import { GlassCard as Card } from '@/components/ui/GlassCard';
 import { Button } from '@/components/ui/Button';
 import { MessageCircle, CheckCircle, Clock, XCircle, RefreshCw, Send } from 'lucide-react';
 import { whatsappBot, type WhatsAppSession, type WhatsAppMessage } from '@/services/integrations/whatsappBot';
+import heroBuilding from '@/assets/images/hero-building.svg';
 
 export function WhatsAppOnboardingPage() {
   const [sessions, setSessions] = useState<WhatsAppSession[]>([]);
@@ -92,15 +93,27 @@ export function WhatsAppOnboardingPage() {
 
   return (
     <div className="content-wrapper">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="heading-1">WhatsApp Onboarding</h1>
-          <p className="text-gray-600 mt-4">Monitor and manage WhatsApp-based onboarding sessions</p>
+      {/* Hero Section */}
+      <div
+        className="relative overflow-hidden rounded-2xl mb-32"
+        style={{
+          backgroundImage: `url(${heroBuilding})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          minHeight: '200px',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary-dark/85 to-primary-dark/70" />
+        <div className="relative z-10 p-32 flex items-end justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-white mb-8">WhatsApp Onboarding</h1>
+            <p className="text-lg text-white/80">Monitor and manage WhatsApp-based onboarding sessions</p>
+          </div>
+          <Button onClick={loadSessions} variant="secondary">
+            <RefreshCw className="w-16 h-16 mr-8" />
+            Refresh
+          </Button>
         </div>
-        <Button onClick={loadSessions}>
-          <RefreshCw className="w-16 h-16 mr-8" />
-          Refresh
-        </Button>
       </div>
 
       {/* Configuration Status */}
