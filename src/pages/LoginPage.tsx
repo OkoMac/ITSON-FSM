@@ -30,22 +30,32 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-16 bg-gradient-to-b from-glass-black via-glass-black-light to-glass-black">
-      {/* Background gradient effect */}
-      <div className="absolute inset-0 bg-gradient-radial pointer-events-none" />
+    <div className="min-h-screen flex items-center justify-center p-16 bg-glass-black relative overflow-hidden">
+      {/* Cyberpunk background effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent-cyan/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent-purple/8 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-radial" />
+      </div>
 
-      <div className="relative w-full max-w-sm animate-scale-in">
-        <GlassCard>
+      <div className="relative w-full max-w-md animate-scale-in">
+        <GlassCard className="border-neon-cyan">
           {/* Logo */}
-          <div className="text-center mb-40">
-            <div className="flex justify-center mb-12">
-              <img
-                src={logoImage}
-                alt="ITSON Logo"
-                className="h-24 w-auto"
-              />
+          <div className="text-center mb-48">
+            <div className="flex justify-center mb-16">
+              <div className="relative">
+                <img
+                  src={logoImage}
+                  alt="ITSON Logo"
+                  className="h-28 w-auto drop-shadow-lg"
+                />
+                <div className="absolute inset-0 blur-xl bg-accent-cyan/30 -z-10" />
+              </div>
             </div>
-            <p className="text-text-secondary text-base font-medium tracking-wide">
+            <h1 className="text-2xl font-bold text-gradient-cyan mb-8">
+              itson
+            </h1>
+            <p className="text-text-secondary text-sm font-medium tracking-widest uppercase">
               Facilities Management System
             </p>
           </div>
@@ -89,26 +99,37 @@ const LoginPage: React.FC = () => {
             />
 
             {(error || validationError) && (
-              <div className="p-12 rounded-glass bg-status-error/10 border border-status-error/30">
-                <p className="text-sm text-status-error">{error || validationError}</p>
+              <div className="p-16 rounded-xl bg-status-error/10 border-2 border-status-error/40 backdrop-blur-lg">
+                <div className="flex items-center gap-12">
+                  <svg className="w-5 h-5 text-status-error flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p className="text-sm text-status-error font-medium">{error || validationError}</p>
+                </div>
               </div>
             )}
 
-            <Button type="submit" fullWidth loading={isLoading}>
-              Sign In
+            <Button type="submit" fullWidth loading={isLoading} className="btn-primary">
+              <span className="text-base font-bold">Sign In</span>
             </Button>
 
             {/* Demo credentials */}
-            <div className="mt-16 p-16 rounded-glass bg-white/5">
-              <p className="text-xs text-text-secondary mb-8">Demo Credentials:</p>
-              <p className="text-xs text-text-tertiary">Email: demo@itsonfsm.com</p>
-              <p className="text-xs text-text-tertiary">Password: any password</p>
+            <div className="mt-20 p-20 rounded-xl bg-accent-cyan/5 border border-accent-cyan/20">
+              <p className="text-xs text-accent-cyan font-semibold mb-12 uppercase tracking-wider">Demo Credentials</p>
+              <div className="space-y-6">
+                <p className="text-xs text-white/70">
+                  <span className="text-white/50">Email:</span> demo@itsonfsm.com
+                </p>
+                <p className="text-xs text-white/70">
+                  <span className="text-white/50">Password:</span> any password
+                </p>
+              </div>
             </div>
           </form>
 
           {/* Footer */}
-          <div className="mt-32 pt-24 border-t border-white/10 text-center">
-            <p className="text-xs text-text-tertiary">
+          <div className="mt-36 pt-28 border-t-2 border-accent-cyan/20 text-center">
+            <p className="text-xs text-white/50 uppercase tracking-widest">
               IDC Social Employment Fund Programme
             </p>
           </div>
