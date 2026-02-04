@@ -17,6 +17,7 @@ import taskRoutes from './routes/task.routes';
 import attendanceRoutes from './routes/attendance.routes';
 import participantRoutes from './routes/participant.routes';
 import uploadRoutes from './routes/upload.routes';
+import whatsappRoutes from './routes/whatsapp.routes';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -74,6 +75,7 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/participants', participantRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/whatsapp', whatsappRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
