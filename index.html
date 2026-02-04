@@ -2,15 +2,67 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="ITSON FSM - Field Service Management Platform" />
-    <meta name="theme-color" content="#0a0a0a" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="/icons/icon-192.png" />
+
+    <!-- Mobile Optimization -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="ITSON FSM" />
+
+    <!-- SEO and Description -->
+    <meta name="description" content="ITSON FSM - Professional Field Service Management Platform for workforce tracking, task management, and biometric attendance" />
+    <meta name="keywords" content="field service management, workforce tracking, task management, biometric attendance, PWA" />
+    <meta name="author" content="ITSON FSM" />
+
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)" />
+
+    <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+    <!-- Splash Screens for iOS -->
+    <meta name="apple-mobile-web-app-title" content="ITSON FSM" />
+    <link rel="apple-touch-startup-image" href="/icons/icon-512.png" />
+
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#0a0a0a" />
+    <meta name="msapplication-TileImage" content="/icons/icon-144.png" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ITSON FSM Platform" />
+    <meta property="og:description" content="Professional Field Service Management Platform" />
+    <meta property="og:image" content="/icons/icon-512.png" />
+    <meta property="og:url" content="https://itsonfsm.com" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ITSON FSM Platform" />
+    <meta name="twitter:description" content="Professional Field Service Management Platform" />
+    <meta name="twitter:image" content="/icons/icon-512.png" />
+
+    <!-- Performance Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
     <title>ITSON FSM Platform</title>
   </head>
   <body>
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: sans-serif;">
+        <h1>JavaScript Required</h1>
+        <p>Please enable JavaScript to use the ITSON FSM Platform.</p>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
