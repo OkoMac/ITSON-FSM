@@ -30,21 +30,22 @@ export const useAuthStore = create<AuthState>()(
 
         try {
           // Call real backend API
-          const response = await api.login(email, password);
+          const response = await api.login(email, password) as any;
 
           // Store JWT token
-          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('token', response.data?.token || '');
 
           // Map backend user response to frontend User type
+          const userData = response.data?.user || {};
           const user: User = {
-            id: response.data.user.id,
-            email: response.data.user.email,
-            name: response.data.user.name,
-            role: response.data.user.role as UserRole,
+            id: userData.id || '',
+            email: userData.email || email,
+            name: userData.name || '',
+            role: (userData.role || 'worker') as UserRole,
             avatar: undefined,
-            phoneNumber: response.data.user.phone,
-            createdAt: response.data.user.created_at,
-            updatedAt: response.data.user.updated_at,
+            phoneNumber: userData.phone || '',
+            createdAt: userData.created_at || new Date().toISOString(),
+            updatedAt: userData.updated_at || new Date().toISOString(),
           };
 
           set({

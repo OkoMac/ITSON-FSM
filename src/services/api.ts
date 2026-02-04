@@ -156,17 +156,20 @@ class ApiService {
     });
   }
 
-  async approveTask(id: string, qualityRating: number, supervisorFeedback: string) {
+  async approveTask(id: string, data?: { qualityRating?: number; feedback?: string }) {
     return this.request(`/tasks/${id}/approve`, {
       method: 'PATCH',
-      body: JSON.stringify({ qualityRating, supervisorFeedback }),
+      body: JSON.stringify({
+        qualityRating: data?.qualityRating,
+        supervisorFeedback: data?.feedback
+      }),
     });
   }
 
-  async rejectTask(id: string, supervisorFeedback: string) {
+  async rejectTask(id: string, data: { feedback: string }) {
     return this.request(`/tasks/${id}/reject`, {
       method: 'PATCH',
-      body: JSON.stringify({ supervisorFeedback }),
+      body: JSON.stringify({ supervisorFeedback: data.feedback }),
     });
   }
 

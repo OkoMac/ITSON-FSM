@@ -21,10 +21,10 @@ export const useSites = (filters?: { status?: string }): UseSitesResult => {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await api.getSites(filters);
+      const response = await api.getSites(filters) as any;
 
       // Map backend response to frontend Site type
-      const mappedSites: Site[] = response.data.sites.map((site: any) => ({
+      const mappedSites: Site[] = (response.data?.sites || []).map((site: any) => ({
         id: site.id,
         name: site.name,
         address: site.address,
@@ -73,9 +73,9 @@ export const useSites = (filters?: { status?: string }): UseSitesResult => {
           emergency_contacts: siteData.emergencyContacts || [],
           max_capacity: siteData.maxCapacity || 50,
         },
-      });
+      }) as any;
 
-      const newSite = response.data.site;
+      const newSite = response.data?.site;
       await fetchSites(); // Refresh the list
       return newSite;
     } catch (err: any) {
@@ -100,9 +100,9 @@ export const useSites = (filters?: { status?: string }): UseSitesResult => {
           emergency_contacts: siteData.emergencyContacts,
           max_capacity: siteData.maxCapacity,
         },
-      });
+      }) as any;
 
-      const updatedSite = response.data.site;
+      const updatedSite = response.data?.site;
       await fetchSites(); // Refresh the list
       return updatedSite;
     } catch (err: any) {

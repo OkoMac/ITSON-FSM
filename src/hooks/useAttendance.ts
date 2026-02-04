@@ -54,10 +54,10 @@ export const useAttendance = (filters?: {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await api.getAttendance(filters);
+      const response = await api.getAttendance(filters) as any;
 
       // Map backend response to frontend type
-      const mappedRecords: AttendanceRecord[] = response.data.records.map((record: any) => ({
+      const mappedRecords: AttendanceRecord[] = (response.data?.records || []).map((record: any) => ({
         id: record.id,
         participantId: record.participant_id,
         participantName: record.participant?.full_name,
@@ -94,9 +94,9 @@ export const useAttendance = (filters?: {
     biometricConfidence?: number;
   }): Promise<AttendanceRecord> => {
     try {
-      const response = await api.checkIn(data);
+      const response = await api.checkIn(data) as any;
       await fetchRecords(); // Refresh the list
-      return response.data.attendance;
+      return response.data?.attendance;
     } catch (err: any) {
       throw new Error(err.message || 'Failed to check in');
     }
@@ -107,9 +107,9 @@ export const useAttendance = (filters?: {
     checkOutMethod: 'face' | 'fingerprint';
   }): Promise<AttendanceRecord> => {
     try {
-      const response = await api.checkOut(data);
+      const response = await api.checkOut(data) as any;
       await fetchRecords(); // Refresh the list
-      return response.data.attendance;
+      return response.data?.attendance;
     } catch (err: any) {
       throw new Error(err.message || 'Failed to check out');
     }
@@ -120,10 +120,10 @@ export const useAttendance = (filters?: {
     record?: AttendanceRecord;
   }> => {
     try {
-      const response = await api.getTodayStatus();
+      const response = await api.getTodayStatus() as any;
       return {
-        isCheckedIn: response.data.is_checked_in,
-        record: response.data.record,
+        isCheckedIn: response.data?.is_checked_in || false,
+        record: response.data?.record,
       };
     } catch (err: any) {
       throw new Error(err.message || 'Failed to get today status');

@@ -27,10 +27,10 @@ export const useTasks = (filters?: {
     try {
       setIsLoading(true);
       setError(null);
-      const response = await api.getTasks(filters);
+      const response = await api.getTasks(filters) as any;
 
       // Map backend response to frontend Task type
-      const mappedTasks: Task[] = response.data.tasks.map((task: any) => ({
+      const mappedTasks: Task[] = (response.data?.tasks || []).map((task: any) => ({
         id: task.id,
         title: task.title,
         description: task.description,
@@ -73,9 +73,9 @@ export const useTasks = (filters?: {
         assigned_to_id: taskData.assignedToId!,
         due_date: taskData.dueDate,
         requires_photo_evidence: taskData.requiresPhotoEvidence,
-      });
+      }) as any;
 
-      const newTask = response.data.task;
+      const newTask = response.data?.task;
       await fetchTasks(); // Refresh the list
       return newTask;
     } catch (err: any) {
@@ -85,16 +85,22 @@ export const useTasks = (filters?: {
 
   const updateTask = async (id: string, taskData: Partial<Task>): Promise<Task> => {
     try {
-      const response = await api.updateTask(id, {
+      const updateData: any = {
         title: taskData.title,
         description: taskData.description,
         priority: taskData.priority,
         status: taskData.status,
-        photo_evidence: taskData.photoEvidence,
         quality_rating: taskData.qualityRating,
-      });
+      };
 
-      const updatedTask = response.data.task;
+      // Add photo evidence if it exists
+      if ('photoEvidence' in taskData) {
+        updateData.photo_evidence = taskData.photoEvidence;
+      }
+
+      const response = await api.updateTask(id, updateData) as any;
+
+      const updatedTask = response.data?.task;
       await fetchTasks(); // Refresh the list
       return updatedTask;
     } catch (err: any) {
