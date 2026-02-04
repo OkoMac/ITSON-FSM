@@ -16,6 +16,7 @@ import siteRoutes from './routes/site.routes';
 import taskRoutes from './routes/task.routes';
 import attendanceRoutes from './routes/attendance.routes';
 import participantRoutes from './routes/participant.routes';
+import uploadRoutes from './routes/upload.routes';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -72,6 +73,7 @@ app.use('/api/sites', siteRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/participants', participantRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // 404 handler
 app.use(notFoundHandler);

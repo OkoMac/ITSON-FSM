@@ -1,11 +1,40 @@
 import { Router } from 'express';
-import { protect } from '../middleware/auth';
+import {
+  getAllAttendance,
+  getAttendanceRecord,
+  checkIn,
+  checkOut,
+  getMyAttendance,
+  getTodayStatus,
+  updateAttendanceStatus,
+  getAttendanceStats,
+} from '../controllers/attendance.controller';
+import { protect, restrictTo } from '../middleware/auth';
 
 const router = Router();
+
+// All routes are protected
 router.use(protect);
 
-router.get('/', (req, res) => res.json({ message: 'Get attendance records' }));
-router.post('/check-in', (req, res) => res.json({ message: 'Check in' }));
-router.post('/check-out', (req, res) => res.json({ message: 'Check out' }));
+// Check-in/out
+router.post('/check-in', checkIn);
+router.post('/check-out', checkOut);
+
+// My attendance
+router.get('/my-attendance', getMyAttendance);
+router.get('/today-status', getTodayStatus);
+
+// Stats
+router.get('/stats', getAttendanceStats);
+
+// Admin routes
+router
+  .route('/')
+  .get(restrictTo('supervisor', 'project-manager', 'property-point', 'system-admin'), getAllAttendance);
+
+router
+  .route('/:id')
+  .get(restrictTo('supervisor', 'project-manager', 'property-point', 'system-admin'), getAttendanceRecord)
+  .patch(restrictTo('supervisor', 'project-manager', 'property-point', 'system-admin'), updateAttendanceStatus);
 
 export default router;

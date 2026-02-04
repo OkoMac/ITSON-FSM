@@ -1,10 +1,44 @@
 import { Router } from 'express';
-import { protect } from '../middleware/auth';
+import {
+  getAllParticipants,
+  getParticipant,
+  createParticipant,
+  updateParticipant,
+  deleteParticipant,
+  getMyProfile,
+  enrollBiometric,
+  uploadDocument,
+  getParticipantStats,
+} from '../controllers/participant.controller';
+import { protect, restrictTo } from '../middleware/auth';
 
 const router = Router();
+
+// All routes are protected
 router.use(protect);
 
-router.get('/', (req, res) => res.json({ message: 'Get all participants' }));
-router.get('/:id', (req, res) => res.json({ message: 'Get participant by ID' }));
+// My profile
+router.get('/my-profile', getMyProfile);
+
+// Stats
+router.get('/stats', restrictTo('supervisor', 'project-manager', 'property-point', 'system-admin'), getParticipantStats);
+
+// Biometric enrollment
+router.post('/:id/enroll-biometric', enrollBiometric);
+
+// Document upload
+router.post('/:id/upload-document', uploadDocument);
+
+// CRUD operations
+router
+  .route('/')
+  .get(restrictTo('supervisor', 'project-manager', 'property-point', 'system-admin'), getAllParticipants)
+  .post(restrictTo('supervisor', 'project-manager', 'property-point', 'system-admin'), createParticipant);
+
+router
+  .route('/:id')
+  .get(getParticipant)
+  .patch(updateParticipant)
+  .delete(restrictTo('project-manager', 'system-admin'), deleteParticipant);
 
 export default router;
