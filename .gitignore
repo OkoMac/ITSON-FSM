@@ -40,3 +40,4 @@ coverage/
 sw.js
 workbox-*.js
 *-deploy.tar.gz
+*.pid
