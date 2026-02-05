@@ -40,6 +40,7 @@ import { MainLayout } from '@/components/layout/MainLayout';
 import { OfflineBanner } from '@/components/shared/OfflineBanner';
 import { PWAInstallPrompt } from '@/components/shared/PWAInstallPrompt';
 import { AIAssistant } from '@/components/ai';
+import MockModeBanner from '@/components/MockModeBanner';
 
 // Loading fallback
 const PageLoader: React.FC = () => (
@@ -88,6 +89,9 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <div className="app">
+        {/* Mock mode banner */}
+        <MockModeBanner />
+
         {/* Offline banner */}
         {!isOnline && <OfflineBanner />}
 
