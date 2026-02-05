@@ -2,6 +2,18 @@
 
 Complete guide for deploying the ITSON FSM Platform to Netlify with mobile PWA optimization.
 
+## 🎭 Demo Mode (Default)
+
+**The app is configured to run in DEMO MODE by default!**
+
+- ✅ Works without backend deployment
+- ✅ Uses mock authentication and data
+- ✅ Perfect for demos and testing
+- ✅ All features are explorable
+- ✅ Demo login: `admin@itsonfsm.com` / `password123`
+
+To switch to real backend, see [Environment Variables](#environment-variables) section.
+
 ---
 
 ## 📋 Table of Contents
@@ -10,10 +22,11 @@ Complete guide for deploying the ITSON FSM Platform to Netlify with mobile PWA o
 2. [Quick Deploy](#quick-deploy)
 3. [Manual Deploy](#manual-deploy)
 4. [Environment Variables](#environment-variables)
-5. [Custom Domain](#custom-domain)
-6. [SSL Certificate](#ssl-certificate)
-7. [Post-Deployment](#post-deployment)
-8. [Troubleshooting](#troubleshooting)
+5. [Demo Mode vs Production](#demo-mode-vs-production)
+6. [Custom Domain](#custom-domain)
+7. [SSL Certificate](#ssl-certificate)
+8. [Post-Deployment](#post-deployment)
+9. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -109,13 +122,42 @@ Click **Show advanced** and add these environment variables:
 
 ## 🔐 Environment Variables
 
-### Required Variables
+### Demo Mode (Default Configuration)
+
+By default, the app runs in **Demo Mode** with mock data:
 
 ```bash
-# Backend API URL (REQUIRED)
+# Current default in netlify.toml
+VITE_USE_MOCK_API=true
+```
+
+**Demo Mode Features:**
+- ✅ No backend required
+- ✅ Mock authentication (all demo logins work)
+- ✅ Mock data for sites, tasks, attendance
+- ✅ All UI features are testable
+- ✅ Perfect for client demos
+
+**Demo Login Credentials:**
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@itsonfsm.com | password123 |
+| Manager | manager@itsonfsm.com | password123 |
+| Supervisor | supervisor@itsonfsm.com | password123 |
+| Worker | worker1@itsonfsm.com | password123 |
+
+### Production Mode (With Backend)
+
+Once your backend is deployed, update environment variables:
+
+```bash
+# Disable mock mode
+VITE_USE_MOCK_API=false
+
+# Set your backend URL
 VITE_API_URL=https://api.itsonfsm.com/api
 
-# AI Provider (OPTIONAL - defaults to mock if not set)
+# Optional: AI Provider
 VITE_AI_PROVIDER=claude
 VITE_ANTHROPIC_API_KEY=sk-ant-api03-...
 ```
@@ -126,7 +168,33 @@ VITE_ANTHROPIC_API_KEY=sk-ant-api03-...
 2. Click **Add a variable**
 3. Enter key and value
 4. Click **Save**
-5. Redeploy the site
+5. Redeploy the site (or wait for auto-deploy)
+
+---
+
+## 🎭 Demo Mode vs Production
+
+| Feature | Demo Mode | Production Mode |
+|---------|-----------|-----------------|
+| Backend Required | ❌ No | ✅ Yes |
+| Authentication | Mock (any demo login) | Real JWT tokens |
+| Data Persistence | ❌ Session only | ✅ PostgreSQL |
+| User Management | Mock users only | Real user CRUD |
+| File Uploads | ❌ Simulated | ✅ Real storage |
+| WhatsApp Integration | ❌ Mock | ✅ Real API |
+| AI Assistant | Mock responses | Real Claude/OpenAI |
+| Best For | Demos, testing, previews | Production use |
+
+**Switching from Demo to Production:**
+
+1. Deploy your backend (see `QUICK_DEPLOY.md`)
+2. Update Netlify environment variables:
+   ```bash
+   VITE_USE_MOCK_API=false
+   VITE_API_URL=https://your-backend-url/api
+   ```
+3. Redeploy (or wait for auto-deploy on next push)
+4. Test with real user accounts
 
 ---
 

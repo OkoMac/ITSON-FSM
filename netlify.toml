@@ -8,8 +8,14 @@
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
 
-  # API endpoint for production (change to your backend URL)
-  VITE_API_URL = "https://api.itsonfsm.com/api"
+  # Demo mode - uses mock API when backend unavailable
+  # Remove or set to "false" once backend is deployed
+  VITE_USE_MOCK_API = "true"
+
+  # API endpoint for production (set once backend is deployed)
+  # VITE_API_URL = "https://api.itsonfsm.com/api"
+
+  # AI provider (optional - defaults to mock if no API key)
   VITE_AI_PROVIDER = "claude"
 
 # Redirect all routes to index.html for SPA routing
@@ -56,12 +62,18 @@
 # Deploy contexts
 [context.production]
   command = "npm run build"
+  [context.production.environment]
+    VITE_USE_MOCK_API = "true"
 
 [context.deploy-preview]
   command = "npm run build"
+  [context.deploy-preview.environment]
+    VITE_USE_MOCK_API = "true"
 
 [context.branch-deploy]
   command = "npm run build"
+  [context.branch-deploy.environment]
+    VITE_USE_MOCK_API = "true"
 
 # Plugin configuration for Netlify PWA
 [[plugins]]
