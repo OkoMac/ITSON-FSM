@@ -21,6 +21,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       iconPosition = 'left',
       className,
       id,
+      placeholder,
       ...props
     },
     ref
@@ -67,6 +68,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               success && 'input-success',
               className
             )}
+            placeholder={isFloating ? placeholder : ''}
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={handleChange}
