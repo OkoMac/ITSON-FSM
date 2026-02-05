@@ -4,7 +4,6 @@
  */
 
 import { useEffect, useState } from 'react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 
 const MOCK_MODE = import.meta.env.VITE_USE_MOCK_API === 'true';
 
@@ -65,7 +64,9 @@ export default function MockModeBanner() {
             className="flex-shrink-0 rounded-lg p-1.5 hover:bg-white/20 transition-colors"
             aria-label="Dismiss banner"
           >
-            <XMarkIcon className="h-5 w-5 text-white" />
+            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
         </div>
       </div>

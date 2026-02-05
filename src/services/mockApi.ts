@@ -114,7 +114,7 @@ export class MockApiService {
     };
   }
 
-  async register(userData: any) {
+  async register(_userData: any) {
     await delay();
     throw new Error('Registration is disabled in demo mode. Please use demo credentials.');
   }
@@ -153,7 +153,7 @@ export class MockApiService {
 
   // ==================== SITES ENDPOINTS ====================
 
-  async getSites(params?: any) {
+  async getSites(_params?: any) {
     await delay();
     return {
       status: 'success',
@@ -200,7 +200,7 @@ export class MockApiService {
 
   // ==================== TASKS ENDPOINTS ====================
 
-  async getTasks(params?: any) {
+  async getTasks(_params?: any) {
     await delay();
     return {
       status: 'success',
@@ -288,7 +288,7 @@ export class MockApiService {
     };
   }
 
-  async getAttendance(params?: any) {
+  async getAttendance(_params?: any) {
     await delay();
     return {
       status: 'success',
@@ -310,7 +310,7 @@ export class MockApiService {
 
   // ==================== FALLBACK FOR OTHER ENDPOINTS ====================
 
-  async handleGenericRequest(endpoint: string, options?: any) {
+  async handleGenericRequest(endpoint: string, _options?: any) {
     await delay();
     console.warn(`Mock API: No mock implementation for ${endpoint}`);
     return {
