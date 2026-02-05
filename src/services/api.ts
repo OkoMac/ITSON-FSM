@@ -9,9 +9,14 @@ import { mockApi } from './mockApi';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 const USE_MOCK_MODE = import.meta.env.VITE_USE_MOCK_API === 'true';
 
-// Track if backend is available
+// Track if backend is available (true = available, false = unavailable, null = not checked)
 let backendAvailable: boolean | null = null;
 let backendCheckInProgress = false;
+
+// Helper to check if we should use mock mode
+const shouldUseMock = (): boolean => {
+  return USE_MOCK_MODE || backendAvailable === false;
+};
 
 interface ApiResponse<T = any> {
   status: string;
@@ -129,7 +134,7 @@ class ApiService {
     }
 
     // Use mock API if backend is unavailable
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       console.info('🎭 Using mock API for login (backend unavailable)');
       return mockApi.login(email, password);
     }
@@ -141,7 +146,7 @@ class ApiService {
       }, false);
     } catch (error) {
       // Fall back to mock API on network error
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         console.info('🎭 Falling back to mock API after network error');
         return mockApi.login(email, password);
       }
@@ -162,14 +167,14 @@ class ApiService {
   }
 
   async getMe() {
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       return mockApi.getMe();
     }
 
     try {
       return await this.request('/auth/me');
     } catch (error) {
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         return mockApi.getMe();
       }
       throw error;
@@ -186,7 +191,7 @@ class ApiService {
   // ==================== SITES ENDPOINTS ====================
 
   async getSites(params?: { status?: string; search?: string }) {
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       return mockApi.getSites(params);
     }
 
@@ -194,7 +199,7 @@ class ApiService {
       const queryParams = new URLSearchParams(params as any).toString();
       return await this.request(`/sites${queryParams ? `?${queryParams}` : ''}`);
     } catch (error) {
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         return mockApi.getSites(params);
       }
       throw error;
@@ -202,14 +207,14 @@ class ApiService {
   }
 
   async getSite(id: string) {
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       return mockApi.getSite(id);
     }
 
     try {
       return await this.request(`/sites/${id}`);
     } catch (error) {
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         return mockApi.getSite(id);
       }
       throw error;
@@ -245,7 +250,7 @@ class ApiService {
     assignedToId?: string;
     search?: string;
   }) {
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       return mockApi.getTasks(params);
     }
 
@@ -253,7 +258,7 @@ class ApiService {
       const queryParams = new URLSearchParams(params as any).toString();
       return await this.request(`/tasks${queryParams ? `?${queryParams}` : ''}`);
     } catch (error) {
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         return mockApi.getTasks(params);
       }
       throw error;
@@ -261,14 +266,14 @@ class ApiService {
   }
 
   async getTask(id: string) {
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       return mockApi.getTask(id);
     }
 
     try {
       return await this.request(`/tasks/${id}`);
     } catch (error) {
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         return mockApi.getTask(id);
       }
       throw error;
@@ -325,7 +330,7 @@ class ApiService {
     checkInPhoto?: string;
     biometricConfidence?: number;
   }) {
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       return mockApi.checkIn(data);
     }
 
@@ -335,7 +340,7 @@ class ApiService {
         body: JSON.stringify(data),
       });
     } catch (error) {
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         return mockApi.checkIn(data);
       }
       throw error;
@@ -347,7 +352,7 @@ class ApiService {
     checkOutMethod: 'face' | 'fingerprint';
     checkOutPhoto?: string;
   }) {
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       return mockApi.checkOut('1');
     }
 
@@ -357,7 +362,7 @@ class ApiService {
         body: JSON.stringify(data),
       });
     } catch (error) {
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         return mockApi.checkOut('1');
       }
       throw error;
@@ -365,7 +370,7 @@ class ApiService {
   }
 
   async getMyAttendance(params?: { startDate?: string; endDate?: string }) {
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       return mockApi.getAttendance(params);
     }
 
@@ -373,7 +378,7 @@ class ApiService {
       const queryParams = new URLSearchParams(params as any).toString();
       return await this.request(`/attendance/my-attendance${queryParams ? `?${queryParams}` : ''}`);
     } catch (error) {
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         return mockApi.getAttendance(params);
       }
       throw error;
@@ -381,14 +386,14 @@ class ApiService {
   }
 
   async getTodayStatus() {
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       return { status: 'success', data: { hasCheckedIn: false } };
     }
 
     try {
       return await this.request('/attendance/today-status');
     } catch (error) {
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         return { status: 'success', data: { hasCheckedIn: false } };
       }
       throw error;
@@ -403,7 +408,7 @@ class ApiService {
     endDate?: string;
     status?: string;
   }) {
-    if (backendAvailable === false) {
+    if (shouldUseMock()) {
       return mockApi.getAttendance(params);
     }
 
@@ -411,7 +416,7 @@ class ApiService {
       const queryParams = new URLSearchParams(params as any).toString();
       return await this.request(`/attendance${queryParams ? `?${queryParams}` : ''}`);
     } catch (error) {
-      if (backendAvailable === false) {
+      if (shouldUseMock()) {
         return mockApi.getAttendance(params);
       }
       throw error;
