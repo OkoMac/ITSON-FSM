@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { User, UserRole } from '@/types';
+import api from '@/services/api';
 
 interface AuthState {
   user: User | null;
@@ -24,40 +25,48 @@ export const useAuthStore = create<AuthState>()(
       isLoading: false,
       error: null,
 
-      login: async (email: string, _password: string) => {
+      login: async (email: string, password: string) => {
         set({ isLoading: true, error: null });
 
         try {
-          // Simulate API call - replace with actual API integration
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          // Call real backend API
+          const response = await api.login(email, password) as any;
 
-          // Mock user data - replace with actual API response
-          const mockUser: User = {
-            id: '1',
-            email,
-            name: 'John Doe',
-            role: 'worker',
+          // Store JWT token
+          localStorage.setItem('token', response.data?.token || '');
+
+          // Map backend user response to frontend User type
+          const userData = response.data?.user || {};
+          const user: User = {
+            id: userData.id || '',
+            email: userData.email || email,
+            name: userData.name || '',
+            role: (userData.role || 'worker') as UserRole,
             avatar: undefined,
-            phoneNumber: '+27 12 345 6789',
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
+            phoneNumber: userData.phone || '',
+            createdAt: userData.created_at || new Date().toISOString(),
+            updatedAt: userData.updated_at || new Date().toISOString(),
           };
 
           set({
-            user: mockUser,
+            user,
             isAuthenticated: true,
             isLoading: false,
             error: null,
           });
-        } catch (error) {
+        } catch (error: any) {
           set({
-            error: error instanceof Error ? error.message : 'Login failed',
+            error: error.response?.data?.message || error.message || 'Login failed',
             isLoading: false,
           });
+          throw error;
         }
       },
 
       logout: () => {
+        // Clear JWT token
+        localStorage.removeItem('token');
+
         set({
           user: null,
           isAuthenticated: false,

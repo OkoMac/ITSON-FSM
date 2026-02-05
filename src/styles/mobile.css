@@ -1,0 +1,553 @@
+/**
+ * Mobile Optimization Styles
+ * Ensures optimal mobile experience across all devices
+ */
+
+/* ===================================
+   Mobile-First Base Styles
+   =================================== */
+
+/* Safe area insets for notched devices */
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+}
+
+/* Prevent zoom on input focus (iOS) */
+input,
+select,
+textarea {
+  font-size: 16px !important;
+}
+
+/* Smooth scrolling for mobile */
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Optimize tap targets - minimum 48x48px */
+button,
+a,
+input[type="checkbox"],
+input[type="radio"] {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+/* Remove tap highlight on mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Optimize text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ===================================
+   Touch Interactions
+   =================================== */
+
+/* Active states for touch feedback */
+.touch-feedback:active {
+  transform: scale(0.98);
+  opacity: 0.8;
+}
+
+/* Swipe gestures support */
+.swipeable {
+  touch-action: pan-y pinch-zoom;
+}
+
+/* Prevent pull-to-refresh overscroll */
+.no-overscroll {
+  overscroll-behavior-y: contain;
+}
+
+/* ===================================
+   Mobile Navigation
+   =================================== */
+
+/* Bottom nav safe area */
+.bottom-nav {
+  padding-bottom: calc(16px + var(--safe-area-inset-bottom));
+}
+
+/* Sticky header safe area */
+.top-header {
+  padding-top: var(--safe-area-inset-top);
+}
+
+/* Full-screen modals on mobile */
+@media (max-width: 768px) {
+  .modal-mobile-full {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+}
+
+/* ===================================
+   Mobile Forms
+   =================================== */
+
+/* Larger touch targets for form elements */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select {
+  min-height: 48px;
+  padding: 12px 16px;
+  font-size: 16px;
+}
+
+/* Mobile-friendly date/time pickers */
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"] {
+  min-height: 48px;
+  padding: 12px;
+}
+
+/* Better checkbox/radio sizing */
+input[type="checkbox"],
+input[type="radio"] {
+  width: 24px;
+  height: 24px;
+  margin: 8px;
+}
+
+/* File upload styling */
+input[type="file"] {
+  padding: 12px;
+  cursor: pointer;
+}
+
+/* ===================================
+   Mobile Typography
+   =================================== */
+
+/* Responsive font sizes */
+@media (max-width: 640px) {
+  h1 { font-size: 1.875rem; } /* 30px */
+  h2 { font-size: 1.5rem; }   /* 24px */
+  h3 { font-size: 1.25rem; }  /* 20px */
+  h4 { font-size: 1.125rem; } /* 18px */
+  h5 { font-size: 1rem; }     /* 16px */
+  h6 { font-size: 0.875rem; } /* 14px */
+
+  /* Body text */
+  body, p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Small text */
+  small, .text-sm {
+    font-size: 12px;
+  }
+}
+
+/* Truncate long text on mobile */
+.mobile-truncate {
+  @apply truncate max-w-[200px];
+}
+
+@media (min-width: 640px) {
+  .mobile-truncate {
+    @apply max-w-none;
+  }
+}
+
+/* ===================================
+   Mobile Layout
+   =================================== */
+
+/* Stack on mobile, grid on desktop */
+.mobile-stack {
+  @apply flex flex-col space-y-4;
+}
+
+@media (min-width: 768px) {
+  .mobile-stack {
+    @apply grid grid-cols-2 gap-4 space-y-0;
+  }
+}
+
+/* Mobile padding adjustments */
+.mobile-container {
+  @apply px-4 py-4;
+}
+
+@media (min-width: 768px) {
+  .mobile-container {
+    @apply px-8 py-6;
+  }
+}
+
+/* Mobile card spacing */
+.mobile-card {
+  @apply mb-4 rounded-lg;
+}
+
+@media (min-width: 768px) {
+  .mobile-card {
+    @apply mb-6 rounded-xl;
+  }
+}
+
+/* ===================================
+   Mobile Images & Media
+   =================================== */
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Lazy loading optimization */
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* Mobile video controls */
+video {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===================================
+   Mobile Performance
+   =================================== */
+
+/* Hardware acceleration */
+.gpu-accelerate {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize animations for mobile */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===================================
+   Mobile Gestures
+   =================================== */
+
+/* Pull-to-refresh indicator */
+.ptr-indicator {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  transition: transform 0.3s ease;
+  z-index: 9999;
+}
+
+.ptr-indicator.active {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Swipe delete gesture */
+.swipe-delete {
+  position: relative;
+  overflow: hidden;
+}
+
+.swipe-delete-bg {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  background: linear-gradient(to left, #ef4444, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 16px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.swipe-delete.swiping .swipe-delete-bg {
+  opacity: 1;
+}
+
+/* ===================================
+   Mobile-Specific Utilities
+   =================================== */
+
+/* Hide on mobile */
+.hide-mobile {
+  @apply hidden md:block;
+}
+
+/* Show only on mobile */
+.show-mobile {
+  @apply block md:hidden;
+}
+
+/* Mobile-only fixed positioning */
+.mobile-fixed {
+  @apply fixed md:static;
+}
+
+/* Mobile full width */
+.mobile-full {
+  @apply w-full md:w-auto;
+}
+
+/* Mobile center text */
+.mobile-center {
+  @apply text-center md:text-left;
+}
+
+/* ===================================
+   PWA-Specific Styles
+   =================================== */
+
+/* Hide when installed as PWA */
+@media (display-mode: standalone) {
+  .hide-pwa {
+    display: none !important;
+  }
+
+  /* Adjust spacing for standalone mode */
+  body {
+    padding-top: var(--safe-area-inset-top);
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+}
+
+/* Show only in PWA */
+.show-pwa {
+  display: none;
+}
+
+@media (display-mode: standalone) {
+  .show-pwa {
+    display: block;
+  }
+}
+
+/* PWA install prompt */
+.pwa-install-prompt {
+  position: fixed;
+  bottom: calc(80px + var(--safe-area-inset-bottom));
+  left: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, #00d9ff 0%, #0066ff 100%);
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===================================
+   Accessibility for Mobile
+   =================================== */
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid #00d9ff;
+  outline-offset: 2px;
+}
+
+/* Skip to main content */
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999;
+  padding: 12px 16px;
+  background: #00d9ff;
+  color: #000;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.skip-to-main:focus {
+  left: 16px;
+  top: 16px;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ===================================
+   Mobile Browser Fixes
+   =================================== */
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* Fix 100vh on iOS */
+  .mobile-full-height {
+    height: -webkit-fill-available;
+  }
+
+  /* Fix fixed positioning on iOS */
+  .ios-fixed {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+/* Android Chrome specific fixes */
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
+  /* Fix viewport height on Android */
+  .android-full-height {
+    height: calc(100vh - 56px); /* Minus address bar */
+  }
+}
+
+/* Samsung Internet specific fixes */
+@supports (-webkit-appearance: none) and (stroke-color: transparent) {
+  /* Custom scrollbar for Samsung Internet */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+}
+
+/* ===================================
+   Dark Mode Mobile Optimizations
+   =================================== */
+
+@media (prefers-color-scheme: dark) {
+  /* Reduce brightness for OLED screens */
+  body {
+    background-color: #000000;
+  }
+
+  /* Adjust contrast for readability */
+  .text-primary {
+    color: #f0f0f0;
+  }
+
+  /* Reduce blue light for night mode */
+  .night-mode {
+    filter: brightness(0.9) contrast(1.1);
+  }
+}
+
+/* ===================================
+   Print Styles (for mobile printing)
+   =================================== */
+
+@media print {
+  /* Hide navigation */
+  nav,
+  .bottom-nav,
+  .floating-button {
+    display: none !important;
+  }
+
+  /* Optimize for paper */
+  body {
+    background: white;
+    color: black;
+  }
+
+  /* Page breaks */
+  .page-break {
+    page-break-after: always;
+  }
+}
+
+/* ===================================
+   Loading States
+   =================================== */
+
+/* Mobile skeleton loader */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Mobile loading spinner */
+.spinner-mobile {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 217, 255, 0.2);
+  border-top-color: #00d9ff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
