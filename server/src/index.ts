@@ -18,6 +18,8 @@ import attendanceRoutes from './routes/attendance.routes';
 import participantRoutes from './routes/participant.routes';
 import uploadRoutes from './routes/upload.routes';
 import whatsappRoutes from './routes/whatsapp.routes';
+import onboardingRoutes from './routes/onboarding.routes';
+import teamRoutes from './routes/team.routes';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -76,6 +78,8 @@ app.use('/api/attendance', attendanceRoutes);
 app.use('/api/participants', participantRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/whatsapp', whatsappRoutes);
+app.use('/api/onboarding', onboardingRoutes);
+app.use('/api/teams', teamRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
