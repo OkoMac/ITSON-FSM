@@ -114,7 +114,7 @@ export const BottomNav: React.FC = () => {
 
   return (
     <nav className="mobile-bottom-nav">
-      <div className="flex items-center justify-around px-8 py-8">
+      <div className="flex items-center justify-around px-4 py-2 gap-1">
         {filteredNavItems.map((item) => (
           <NavLink
             key={item.path}
@@ -123,7 +123,7 @@ export const BottomNav: React.FC = () => {
             className={({ isActive }) =>
               cn(
                 'flex flex-col items-center justify-center touch-target transition-all duration-200',
-                'min-w-[64px] px-8 py-4 rounded-glass-sm',
+                'flex-1 max-w-[80px] px-2 py-2 rounded-lg',
                 isActive
                   ? 'text-accent-blue bg-accent-blue/10'
                   : 'text-text-secondary hover:text-text-primary'
@@ -134,14 +134,16 @@ export const BottomNav: React.FC = () => {
               <>
                 <div
                   className={cn(
-                    'transition-all duration-200',
+                    'transition-all duration-200 mb-1',
                     isActive && 'scale-110',
-                    item.path === '/check-in' && 'p-2 bg-accent-blue/20 rounded-full'
+                    item.path === '/check-in' && 'p-1.5 bg-accent-blue/20 rounded-full'
                   )}
                 >
                   {item.icon}
                 </div>
-                <span className="text-xs mt-1 font-medium">{item.label}</span>
+                <span className="text-[10px] leading-tight font-medium whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+                  {item.label}
+                </span>
               </>
             )}
           </NavLink>
