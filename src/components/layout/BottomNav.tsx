@@ -120,6 +120,7 @@ export const BottomNav: React.FC = () => {
             key={item.path}
             to={item.path}
             end={item.path === '/'}
+            aria-label={item.label}
             className={({ isActive }) =>
               cn(
                 'group relative flex items-center justify-center touch-target transition-all duration-200',
