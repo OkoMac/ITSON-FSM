@@ -104,7 +104,7 @@ const navItems: NavItem[] = [
   },
 ];
 
-export const BottomNav: React.FC = () => {
+export const BottomNav: React.FC = React.memo(() => {
   const { user } = useAuthStore();
 
   const filteredNavItems = navItems.filter((item) => {
@@ -153,4 +153,4 @@ export const BottomNav: React.FC = () => {
       </div>
     </nav>
   );
-};
+});

@@ -54,6 +54,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 
+    <!-- Preload Critical Resources -->
+    <link rel="modulepreload" href="/src/main.tsx" />
+    <link rel="preload" href="/src/styles/globals.css" as="style" />
+    <link rel="preload" href="/src/styles/mobile.css" as="style" />
+
+    <!-- Prefetch for common routes -->
+    <link rel="prefetch" href="/src/pages/DashboardPage.tsx" as="script" />
+    <link rel="prefetch" href="/src/pages/LoginPage.tsx" as="script" />
+
     <title>ITSON FSM Platform</title>
   </head>
   <body>
