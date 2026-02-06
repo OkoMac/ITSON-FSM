@@ -12,7 +12,7 @@ const CheckInPage = lazy(() => import('@/pages/CheckInPage'));
 const TasksPage = lazy(() => import('@/pages/TasksPage'));
 const SitesPage = lazy(() => import('@/pages/SitesPage'));
 const ProfilePage = lazy(() => import('@/pages/ProfilePage'));
-const AdminPage = lazy(() => import('@/pages/AdminPage'));
+const AdminPanelPage = lazy(() => import('@/pages/AdminPanelPage'));
 const ReportsPage = lazy(() => import('@/pages/ReportsPage'));
 const StoriesPage = lazy(() => import('@/pages/StoriesPage'));
 const AnalyticsPage = lazy(() => import('@/pages/AnalyticsPage'));
@@ -151,8 +151,8 @@ const App: React.FC = () => {
               <Route
                 path="admin"
                 element={
-                  <ProtectedRoute roles={['property-point', 'project-manager']}>
-                    <AdminPage />
+                  <ProtectedRoute roles={['admin', 'manager', 'property-point', 'project-manager']}>
+                    <AdminPanelPage />
                   </ProtectedRoute>
                 }
               />
