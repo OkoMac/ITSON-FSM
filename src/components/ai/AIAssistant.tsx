@@ -30,7 +30,7 @@ export const AIAssistant: React.FC = () => {
       const welcomeMessage: AIMessage = {
         id: crypto.randomUUID(),
         role: 'assistant',
-        content: `Hello ${user?.name.split(' ')[0]}! 👋 I'm your ITSON FSM assistant. How can I help you today?`,
+        content: `Hello ${user?.name.split(' ')[0]}! I'm your ITSON FSM assistant. How can I help you today?`,
         timestamp: new Date().toISOString(),
         suggestions: getSuggestedQuestions({
           user: user!,
@@ -115,7 +115,7 @@ export const AIAssistant: React.FC = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-20 right-16 md:bottom-24 md:right-24 z-50 w-48 h-48 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-accent-blue to-accent-blue-light shadow-xl hover:scale-110 transition-transform flex items-center justify-center group"
+          className="fixed bottom-96 right-16 md:bottom-24 md:right-24 z-40 w-48 h-48 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-accent-blue to-accent-blue-light shadow-xl hover:scale-110 transition-transform flex items-center justify-center group"
           aria-label="Open AI Assistant"
         >
           <svg

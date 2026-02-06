@@ -57,24 +57,24 @@ export function JournalingPage() {
     loadEntries();
   };
 
-  const getMoodIcon = (mood?: string) => {
+  const getMoodColor = (mood?: string) => {
     switch (mood) {
-      case 'great': return '😄';
-      case 'good': return '🙂';
-      case 'neutral': return '😐';
-      case 'challenging': return '😕';
-      case 'difficult': return '😞';
-      default: return '😐';
+      case 'great': return 'text-status-success';
+      case 'good': return 'text-accent-blue';
+      case 'neutral': return 'text-text-secondary';
+      case 'challenging': return 'text-status-info';
+      case 'difficult': return 'text-status-error';
+      default: return 'text-text-secondary';
     }
   };
 
   const getCategoryColor = (category?: string) => {
     switch (category) {
-      case 'achievement': return 'bg-green-100 text-green-800';
-      case 'challenge': return 'bg-orange-100 text-orange-800';
-      case 'learning': return 'bg-blue-100 text-blue-800';
-      case 'goal': return 'bg-purple-100 text-purple-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'achievement': return 'bg-status-success/20 text-status-success border-status-success/30';
+      case 'challenge': return 'bg-accent-blue/20 text-accent-blue border-accent-blue/30';
+      case 'learning': return 'bg-status-info/20 text-status-info border-status-info/30';
+      case 'goal': return 'bg-accent-purple/20 text-accent-purple border-accent-purple/30';
+      default: return 'bg-white/10 text-text-secondary border-white/20';
     }
   };
 
@@ -103,11 +103,11 @@ export function JournalingPage() {
                   onChange={(e) => setFormData({ ...formData, mood: e.target.value as any })}
                   className="input-field"
                 >
-                  <option value="great">😄 Great</option>
-                  <option value="good">🙂 Good</option>
-                  <option value="neutral">😐 Neutral</option>
-                  <option value="challenging">😕 Challenging</option>
-                  <option value="difficult">😞 Difficult</option>
+                  <option value="great">Great</option>
+                  <option value="good">Good</option>
+                  <option value="neutral">Neutral</option>
+                  <option value="challenging">Challenging</option>
+                  <option value="difficult">Difficult</option>
                 </select>
               </div>
 
@@ -154,14 +154,16 @@ export function JournalingPage() {
           <Card key={entry.id} className="card-content">
             <div className="flex items-start justify-between mb-12">
               <div className="flex items-center space-x-12">
-                <span className="text-24">{getMoodIcon(entry.mood)}</span>
                 <div>
                   <div className="flex items-center space-x-8">
-                    <span className={'px-8 py-4 rounded-full text-xs font-medium ' + getCategoryColor(entry.category)}>
+                    <span className={'px-8 py-4 rounded-full text-xs font-medium border ' + getMoodColor(entry.mood) + ' bg-white/5'}>
+                      {entry.mood}
+                    </span>
+                    <span className={'px-8 py-4 rounded-full text-xs font-medium border ' + getCategoryColor(entry.category)}>
                       {entry.category}
                     </span>
                   </div>
-                  <span className="text-xs text-gray-500 mt-4">
+                  <span className="text-xs text-text-tertiary mt-4 block">
                     {new Date(entry.createdAt).toLocaleString()}
                   </span>
                 </div>

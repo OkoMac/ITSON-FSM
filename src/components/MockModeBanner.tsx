@@ -30,13 +30,13 @@ export default function MockModeBanner() {
   }
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-yellow-500/90 to-orange-500/90 backdrop-blur-sm">
-      <div className="container mx-auto px-4 py-3">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-accent-blue/90 to-accent-blue-light/90 backdrop-blur-sm border-b border-accent-blue/30">
+      <div className="container mx-auto px-4 py-2">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="flex-shrink-0">
               <svg
-                className="h-6 w-6 text-white"
+                className="h-5 w-5 text-white"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
@@ -50,21 +50,17 @@ export default function MockModeBanner() {
               </svg>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium text-white">
-                <span className="font-bold">Demo Mode:</span> This app is using mock data.
-                Login with any demo credentials to explore features.
-              </p>
-              <p className="text-xs text-white/90 mt-0.5">
-                Demo Login: admin@itsonfsm.com / password123
+              <p className="text-xs font-medium text-white">
+                <span className="font-bold">Demo Mode</span> • admin@itsonfsm.com / password123
               </p>
             </div>
           </div>
           <button
             onClick={handleDismiss}
-            className="flex-shrink-0 rounded-lg p-1.5 hover:bg-white/20 transition-colors"
+            className="flex-shrink-0 rounded-lg p-1 hover:bg-white/20 transition-colors"
             aria-label="Dismiss banner"
           >
-            <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>

@@ -513,7 +513,7 @@ const AdminPage: React.FC = () => {
                     </td>
                     <td className="py-16 px-16">
                       <p className="text-sm text-text-secondary">
-                        {record.checkInMethod === 'face' ? '👤 Face' : '👆 Fingerprint'}
+                        {record.checkInMethod === 'face' ? 'Face Recognition' : 'Fingerprint'}
                       </p>
                     </td>
                     <td className="py-16 px-16">
