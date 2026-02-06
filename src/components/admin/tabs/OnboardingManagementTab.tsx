@@ -135,10 +135,16 @@ export function OnboardingManagementTab() {
         </div>
         <div className="flex gap-12">
           <Button onClick={() => setShowBulkModal(true)} variant="secondary">
-            📋 Bulk Add
+            <svg className="w-4 h-4 mr-8 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Bulk Add
           </Button>
           <Button onClick={() => setShowAddModal(true)} variant="primary">
-            ➕ Add Contact
+            <svg className="w-4 h-4 mr-8 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            Add Contact
           </Button>
         </div>
       </div>
@@ -173,7 +179,10 @@ export function OnboardingManagementTab() {
 
       {allowedContacts.filter(c => c.status === 'pending').length > 0 && (
         <Button onClick={handleSendAllInvites} variant="primary" size="sm">
-          📧 Send All Pending Invites ({allowedContacts.filter(c => c.status === 'pending').length})
+          <svg className="w-4 h-4 mr-8 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Send All Pending Invites ({allowedContacts.filter(c => c.status === 'pending').length})
         </Button>
       )}
 

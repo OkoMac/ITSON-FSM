@@ -473,7 +473,7 @@ const CheckInPage: React.FC = () => {
                       )}
                     </div>
                     <p className="text-xs text-text-tertiary">
-                      {record.checkInMethod === 'face' ? '👤 Face' : '👆 Fingerprint'}
+                      {record.checkInMethod === 'face' ? 'Face Recognition' : 'Fingerprint'}
                       {record.biometricConfidence &&
                         ` • ${(record.biometricConfidence * 100).toFixed(0)}% confidence`}
                     </p>
@@ -715,7 +715,7 @@ const CheckInPage: React.FC = () => {
                   <div className="flex justify-between text-sm">
                     <span className="text-text-tertiary">Method:</span>
                     <span className="text-text-primary">
-                      {selectedMethod === 'face' ? '👤 Face Recognition' : '👆 Fingerprint'}
+                      {selectedMethod === 'face' ? 'Face Recognition' : 'Fingerprint'}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">

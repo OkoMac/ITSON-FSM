@@ -42,6 +42,9 @@ import { PWAInstallPrompt } from '@/components/shared/PWAInstallPrompt';
 import { AIAssistant } from '@/components/ai';
 import MockModeBanner from '@/components/MockModeBanner';
 
+// Accessibility components
+import { SkipLink, LiveRegionProvider } from '@/components/accessibility';
+
 // Loading fallback
 const PageLoader: React.FC = () => (
   <div className="page-container">
@@ -88,18 +91,22 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <div className="app">
-        {/* Mock mode banner */}
-        <MockModeBanner />
+      <LiveRegionProvider>
+        <div className="app">
+          {/* Skip to main content link for keyboard users */}
+          <SkipLink />
 
-        {/* Offline banner */}
-        {!isOnline && <OfflineBanner />}
+          {/* Mock mode banner */}
+          <MockModeBanner />
 
-        {/* PWA install prompt */}
-        <PWAInstallPrompt />
+          {/* Offline banner */}
+          {!isOnline && <OfflineBanner />}
 
-        {/* AI Assistant */}
-        {isAuthenticated && <AIAssistant />}
+          {/* PWA install prompt */}
+          <PWAInstallPrompt />
+
+          {/* AI Assistant */}
+          {isAuthenticated && <AIAssistant />}
 
         <Suspense fallback={<PageLoader />}>
           <Routes>
@@ -234,7 +241,8 @@ const App: React.FC = () => {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
-      </div>
+        </div>
+      </LiveRegionProvider>
     </BrowserRouter>
   );
 };

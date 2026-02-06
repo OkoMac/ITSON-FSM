@@ -104,7 +104,7 @@ const navItems: NavItem[] = [
   },
 ];
 
-export const BottomNav: React.FC = () => {
+export const BottomNav: React.FC = React.memo(() => {
   const { user } = useAuthStore();
 
   const filteredNavItems = navItems.filter((item) => {
@@ -120,10 +120,11 @@ export const BottomNav: React.FC = () => {
             key={item.path}
             to={item.path}
             end={item.path === '/'}
+            aria-label={item.label}
             className={({ isActive }) =>
               cn(
-                'flex flex-col items-center justify-center touch-target transition-all duration-200',
-                'flex-1 max-w-[80px] px-2 py-2 rounded-lg',
+                'group relative flex items-center justify-center touch-target transition-all duration-200',
+                'flex-1 max-w-[80px] px-2 py-3 rounded-lg',
                 isActive
                   ? 'text-accent-blue bg-accent-blue/10'
                   : 'text-text-secondary hover:text-text-primary'
@@ -134,14 +135,15 @@ export const BottomNav: React.FC = () => {
               <>
                 <div
                   className={cn(
-                    'transition-all duration-200 mb-1',
+                    'transition-all duration-200',
                     isActive && 'scale-110',
                     item.path === '/check-in' && 'p-1.5 bg-accent-blue/20 rounded-full'
                   )}
                 >
                   {item.icon}
                 </div>
-                <span className="text-[10px] leading-tight font-medium whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+                {/* Label shown only on hover */}
+                <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-8 py-4 bg-surface-primary border border-border rounded-lg text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
                   {item.label}
                 </span>
               </>
@@ -151,4 +153,4 @@ export const BottomNav: React.FC = () => {
       </div>
     </nav>
   );
-};
+});
