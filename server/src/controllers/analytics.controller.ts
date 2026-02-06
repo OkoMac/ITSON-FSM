@@ -1,12 +1,46 @@
 import { Response, NextFunction } from 'express';
 import { AuthRequest } from '../middleware/auth';
-import { ApiError } from '../middleware/errorHandler';
 import db from '../database/config';
 
 /**
  * Analytics Controller
  * Handles analytics data for dashboards and insights
  */
+
+interface Participant {
+  id: string;
+  status: string;
+  gender: string;
+  biometric_enrolled: boolean;
+  popia_consent: boolean;
+  code_of_conduct_signed: boolean;
+  site_id?: string;
+  created_at: string;
+  [key: string]: any;
+}
+
+interface AttendanceRecord {
+  id: string;
+  participant_id: string;
+  site_id?: string;
+  check_in_time: string;
+  check_out_time?: string;
+  hours_worked: number;
+  status: string;
+  biometric_verified: boolean;
+  [key: string]: any;
+}
+
+interface Task {
+  id: string;
+  status: string;
+  priority: string;
+  created_at: string;
+  completed_at?: string;
+  site_id?: string;
+  assigned_to?: string;
+  [key: string]: any;
+}
 
 /**
  * Get dashboard analytics
@@ -18,7 +52,7 @@ export const getDashboardAnalytics = async (
   next: NextFunction
 ) => {
   try {
-    const { period = '30days', siteId } = req.query;
+    const { period = '30days', siteId } = req.query as { period?: string; siteId?: string };
 
     // Calculate date range based on period
     const endDate = new Date();
@@ -42,8 +76,8 @@ export const getDashboardAnalytics = async (
     let participantQuery = db('participants').whereNull('deleted_at');
     if (siteId) participantQuery = participantQuery.where({ site_id: siteId });
 
-    const participants = await participantQuery;
-    const activeParticipants = participants.filter(p => p.status === 'active');
+    const participants: Participant[] = await participantQuery;
+    const activeParticipants = participants.filter((p: Participant) => p.status === 'active');
 
     // Attendance statistics
     let attendanceQuery = db('attendance')
@@ -52,7 +86,7 @@ export const getDashboardAnalytics = async (
       .where('check_in_time', '<=', endDate);
     if (siteId) attendanceQuery = attendanceQuery.where({ site_id: siteId });
 
-    const attendance = await attendanceQuery;
+    const attendance: AttendanceRecord[] = await attendanceQuery;
 
     // Task statistics
     let taskQuery = db('tasks')
@@ -60,7 +94,7 @@ export const getDashboardAnalytics = async (
       .where('created_at', '>=', startDate);
     if (siteId) taskQuery = taskQuery.where({ site_id: siteId });
 
-    const tasks = await taskQuery;
+    const tasks: Task[] = await taskQuery;
 
     // Today's attendance
     const today = new Date();
@@ -81,72 +115,72 @@ export const getDashboardAnalytics = async (
       },
       participants: {
         byStatus: {
-          active: participants.filter(p => p.status === 'active').length,
-          verified: participants.filter(p => p.status === 'verified').length,
-          pending: participants.filter(p => p.status === 'pending').length,
-          inactive: participants.filter(p => p.status === 'inactive').length,
+          active: participants.filter((p: Participant) => p.status === 'active').length,
+          verified: participants.filter((p: Participant) => p.status === 'verified').length,
+          pending: participants.filter((p: Participant) => p.status === 'pending').length,
+          inactive: participants.filter((p: Participant) => p.status === 'inactive').length,
         },
         byGender: {
-          male: participants.filter(p => p.gender === 'male').length,
-          female: participants.filter(p => p.gender === 'female').length,
-          other: participants.filter(p => p.gender === 'other').length,
+          male: participants.filter((p: Participant) => p.gender === 'male').length,
+          female: participants.filter((p: Participant) => p.gender === 'female').length,
+          other: participants.filter((p: Participant) => p.gender === 'other').length,
         },
         biometricEnrollment: {
-          enrolled: participants.filter(p => p.biometric_enrolled).length,
-          pending: participants.filter(p => !p.biometric_enrolled).length,
+          enrolled: participants.filter((p: Participant) => p.biometric_enrolled).length,
+          pending: participants.filter((p: Participant) => !p.biometric_enrolled).length,
           enrollmentRate: participants.length > 0
-            ? (participants.filter(p => p.biometric_enrolled).length / participants.length) * 100
+            ? (participants.filter((p: Participant) => p.biometric_enrolled).length / participants.length) * 100
             : 0,
         },
       },
       attendance: {
         total: attendance.length,
-        totalHoursWorked: attendance.reduce((sum, a) => sum + (a.hours_worked || 0), 0),
+        totalHoursWorked: attendance.reduce((sum: number, a: AttendanceRecord) => sum + (a.hours_worked || 0), 0),
         averageHoursPerDay: attendance.length > 0
-          ? attendance.reduce((sum, a) => sum + (a.hours_worked || 0), 0) / attendance.length
+          ? attendance.reduce((sum: number, a: AttendanceRecord) => sum + (a.hours_worked || 0), 0) / attendance.length
           : 0,
         byStatus: {
-          present: attendance.filter(a => a.status === 'present').length,
-          absent: attendance.filter(a => a.status === 'absent').length,
-          late: attendance.filter(a => a.status === 'late').length,
-          excused: attendance.filter(a => a.status === 'excused').length,
+          present: attendance.filter((a: AttendanceRecord) => a.status === 'present').length,
+          absent: attendance.filter((a: AttendanceRecord) => a.status === 'absent').length,
+          late: attendance.filter((a: AttendanceRecord) => a.status === 'late').length,
+          excused: attendance.filter((a: AttendanceRecord) => a.status === 'excused').length,
         },
         biometricVerificationRate: attendance.length > 0
-          ? (attendance.filter(a => a.biometric_verified).length / attendance.length) * 100
+          ? (attendance.filter((a: AttendanceRecord) => a.biometric_verified).length / attendance.length) * 100
           : 0,
       },
       tasks: {
         total: tasks.length,
         byStatus: {
-          pending: tasks.filter(t => t.status === 'pending').length,
-          in_progress: tasks.filter(t => t.status === 'in_progress').length,
-          completed: tasks.filter(t => t.status === 'completed').length,
-          cancelled: tasks.filter(t => t.status === 'cancelled').length,
+          pending: tasks.filter((t: Task) => t.status === 'pending').length,
+          in_progress: tasks.filter((t: Task) => t.status === 'in_progress').length,
+          completed: tasks.filter((t: Task) => t.status === 'completed').length,
+          cancelled: tasks.filter((t: Task) => t.status === 'cancelled').length,
         },
         byPriority: {
-          low: tasks.filter(t => t.priority === 'low').length,
-          medium: tasks.filter(t => t.priority === 'medium').length,
-          high: tasks.filter(t => t.priority === 'high').length,
-          urgent: tasks.filter(t => t.priority === 'urgent').length,
+          low: tasks.filter((t: Task) => t.priority === 'low').length,
+          medium: tasks.filter((t: Task) => t.priority === 'medium').length,
+          high: tasks.filter((t: Task) => t.priority === 'high').length,
+          urgent: tasks.filter((t: Task) => t.priority === 'urgent').length,
         },
         completionRate: tasks.length > 0
-          ? (tasks.filter(t => t.status === 'completed').length / tasks.length) * 100
+          ? (tasks.filter((t: Task) => t.status === 'completed').length / tasks.length) * 100
           : 0,
         averageCompletionTime: await calculateAverageCompletionTime(tasks),
       },
       compliance: {
         popiaConsent: {
           total: participants.length,
-          consented: participants.filter(p => p.popia_consent).length,
+          consented: participants.filter((p: Participant) => p.popia_consent).length,
           rate: participants.length > 0
-            ? (participants.filter(p => p.popia_consent).length / participants.length) * 100
+            ? (participants.filter((p: Participant) => p.popia_consent).length / participants.length) * 100
             : 0,
         },
         codeOfConduct: {
           total: participants.length,
-          signed: participants.filter(p => p.code_of_conduct_signed).length,
+          signed: participants.filter((p: Participant) => p.code_of_conduct_signed).length,
           rate: participants.length > 0
-            ? (participants.filter(p => p.code_of_conduct_signed).length / participants.length) * 100
+            ? (participants.filter((p: Participant) => p.code_of_conduct_signed).length / participants.length) * 100
             : 0,
         },
       },
@@ -175,7 +209,11 @@ export const getAttendanceTrends = async (
   next: NextFunction
 ) => {
   try {
-    const { period = '30days', siteId, groupBy = 'day' } = req.query;
+    const { period = '30days', siteId, groupBy = 'day' } = req.query as { 
+      period?: string; 
+      siteId?: string; 
+      groupBy?: string 
+    };
 
     const endDate = new Date();
     const startDate = new Date();
@@ -200,10 +238,10 @@ export const getAttendanceTrends = async (
       query = query.where({ site_id: siteId });
     }
 
-    const records = await query;
+    const records: AttendanceRecord[] = await query;
 
     // Group by day/week/month
-    const trends = groupAttendanceData(records, groupBy as string);
+    const trends = groupAttendanceData(records, groupBy);
 
     res.status(200).json({
       status: 'success',
@@ -224,7 +262,7 @@ export const getTaskTrends = async (
   next: NextFunction
 ) => {
   try {
-    const { period = '30days', siteId } = req.query;
+    const { period = '30days', siteId } = req.query as { period?: string; siteId?: string };
 
     const endDate = new Date();
     const startDate = new Date();
@@ -248,7 +286,7 @@ export const getTaskTrends = async (
       query = query.where({ site_id: siteId });
     }
 
-    const tasks = await query;
+    const tasks: Task[] = await query;
 
     const trends = groupTaskData(tasks);
 
@@ -271,7 +309,7 @@ export const getParticipantGrowth = async (
   next: NextFunction
 ) => {
   try {
-    const { period = '12months' } = req.query;
+    const { period = '12months' } = req.query as { period?: string };
 
     const endDate = new Date();
     const startDate = new Date();
@@ -284,7 +322,7 @@ export const getParticipantGrowth = async (
       startDate.setMonth(startDate.getMonth() - 3);
     }
 
-    const participants = await db('participants')
+    const participants: Participant[] = await db('participants')
       .whereNull('deleted_at')
       .where('created_at', '>=', startDate)
       .orderBy('created_at', 'asc');
@@ -313,7 +351,7 @@ export const getSitePerformance = async (
     const sites = await db('sites').whereNull('deleted_at');
 
     const sitePerformance = await Promise.all(
-      sites.map(async (site) => {
+      sites.map(async (site: any) => {
         const participants = await db('participants')
           .where({ site_id: site.id })
           .whereNull('deleted_at')
@@ -379,20 +417,24 @@ export const getTopPerformers = async (
   next: NextFunction
 ) => {
   try {
-    const { limit = 10, metric = 'hours', period = '30days' } = req.query;
+    const { limit = 10, metric = 'hours', period = '30days' } = req.query as { 
+      limit?: string | number; 
+      metric?: string; 
+      period?: string 
+    };
 
     const endDate = new Date();
     const startDate = new Date();
-    startDate.setDate(startDate.getDate() - Number(period.replace('days', '')));
+    startDate.setDate(startDate.getDate() - Number(String(period).replace('days', '')));
 
     // Get participants with their stats
-    const participants = await db('participants')
+    const participants: Participant[] = await db('participants')
       .select('participants.*')
       .whereNull('participants.deleted_at')
       .where('participants.status', 'active');
 
     const participantsWithStats = await Promise.all(
-      participants.map(async (p) => {
+      participants.map(async (p: Participant) => {
         const attendanceStats = await db('attendance')
           .where({ participant_id: p.id })
           .where('check_in_time', '>=', startDate)
@@ -451,23 +493,23 @@ export const getTopPerformers = async (
 };
 
 // Helper functions
-function calculateAverageCompletionTime(tasks: any[]): number {
-  const completedTasks = tasks.filter(t => t.status === 'completed' && t.completed_at);
+function calculateAverageCompletionTime(tasks: Task[]): number {
+  const completedTasks = tasks.filter((t: Task) => t.status === 'completed' && t.completed_at);
   if (completedTasks.length === 0) return 0;
 
-  const totalTime = completedTasks.reduce((sum, task) => {
+  const totalTime = completedTasks.reduce((sum: number, task: Task) => {
     const created = new Date(task.created_at).getTime();
-    const completed = new Date(task.completed_at).getTime();
+    const completed = new Date(task.completed_at!).getTime();
     return sum + (completed - created);
   }, 0);
 
   return totalTime / completedTasks.length / (1000 * 60 * 60 * 24); // Convert to days
 }
 
-function groupAttendanceData(records: any[], groupBy: string): any[] {
+function groupAttendanceData(records: AttendanceRecord[], groupBy: string): any[] {
   const grouped: { [key: string]: any } = {};
 
-  records.forEach(record => {
+  records.forEach((record: AttendanceRecord) => {
     const date = new Date(record.check_in_time);
     let key: string;
 
@@ -498,10 +540,10 @@ function groupAttendanceData(records: any[], groupBy: string): any[] {
   return Object.values(grouped).sort((a, b) => a.period.localeCompare(b.period));
 }
 
-function groupTaskData(tasks: any[]): any[] {
+function groupTaskData(tasks: Task[]): any[] {
   const grouped: { [key: string]: any } = {};
 
-  tasks.forEach(task => {
+  tasks.forEach((task: Task) => {
     const date = new Date(task.created_at);
     const key = date.toISOString().split('T')[0];
 
@@ -524,10 +566,10 @@ function groupTaskData(tasks: any[]): any[] {
   return Object.values(grouped).sort((a, b) => a.date.localeCompare(b.date));
 }
 
-function groupParticipantGrowth(participants: any[]): any[] {
+function groupParticipantGrowth(participants: Participant[]): any[] {
   const grouped: { [key: string]: any } = {};
 
-  participants.forEach(participant => {
+  participants.forEach((participant: Participant) => {
     const date = new Date(participant.created_at);
     const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
 
@@ -545,7 +587,7 @@ function groupParticipantGrowth(participants: any[]): any[] {
   // Calculate cumulative total
   let total = 0;
   const result = Object.values(grouped).sort((a, b) => a.month.localeCompare(b.month));
-  result.forEach(item => {
+  result.forEach((item: any) => {
     total += item.new;
     item.total = total;
   });
