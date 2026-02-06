@@ -20,6 +20,9 @@ import uploadRoutes from './routes/upload.routes';
 import whatsappRoutes from './routes/whatsapp.routes';
 import onboardingRoutes from './routes/onboarding.routes';
 import teamRoutes from './routes/team.routes';
+import syncRoutes from './routes/sync.routes';
+import reportsRoutes from './routes/reports.routes';
+import analyticsRoutes from './routes/analytics.routes';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -80,6 +83,9 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/whatsapp', whatsappRoutes);
 app.use('/api/onboarding', onboardingRoutes);
 app.use('/api/teams', teamRoutes);
+app.use('/api/sync', syncRoutes);
+app.use('/api/reports', reportsRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 // 404 handler
 app.use(notFoundHandler);
